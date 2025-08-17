@@ -1,0 +1,63 @@
+name: Validate and Deploy Bird Configs
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  validate:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install bird2 (latest from CZ.NIC repo)
+        run: |
+          sudo apt update && sudo apt -y install apt-transport-https ca-certificates wget lsb-release
+          sudo wget -O /usr/share/keyrings/cznic-labs-pkg.gpg https://pkg.labs.nic.cz/gpg
+          echo "deb [signed-by=/usr/share/keyrings/cznic-labs-pkg.gpg] https://pkg.labs.nic.cz/bird2 $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/cznic-labs-bird2.list
+          sudo apt update && sudo apt install -y bird2
+
+      - name: Validate configs
+        run: |
+          FAILED=0
+          for dir in hkg-cn nkg-cn tyo-jp hfe-cn lax-us; do
+            echo "Checking configs in $dir..."
+            if (cd $dir && bird -p -c bird.conf > /dev/null 2>err.log); then
+              echo -e "  -> \033[32mPASS\033[0m"
+            else
+              echo -e "  -> \033[31mFAILED\033[0m"
+              cat $dir/err.log
+              FAILED=1
+            fi
+          done
+          if [ $FAILED -eq 1 ]; then
+            echo -e "\033[33mSome configs failed validation ❌\033[0m"
+            exit 1
+          else
+            echo -e "\033[32mAll configs passed ✅\033[0m"
+          fi
+
+  deploy:
+    needs: validate
+    runs-on: ubuntu-latest
+    if: success()
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Sync dev to main with new commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git checkout dev
+          git fetch origin main
+          git checkout -B main origin/main
+
+          git checkout dev -- .
+
+          git commit -am "Sync from dev @ $(git rev-parse --short dev)" || echo "No changes to commit"
+
+          git push origin main
