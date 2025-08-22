@@ -22,7 +22,7 @@ jobs:
       - name: Validate configs
         run: |
           FAILED=0
-          for dir in hkg-cn nkg-cn tyo-jp hfe-cn lax-us ams-nl; do
+          for dir in hkg-cn nkg-cn tyo-jp hfe-cn lax-us ams-nl fra-de; do
             echo "Checking configs in $dir..."
             if (cd $dir && bird -p -c bird.conf > /dev/null 2>err.log); then
               echo -e "  -> \033[32mPASS\033[0m"
