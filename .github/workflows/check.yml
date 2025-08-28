@@ -55,7 +55,7 @@ jobs:
           git checkout dev
           git fetch origin main
           git checkout -B main origin/main
-
+          rm -r *
           git checkout dev -- .
 
           git commit -am "Sync from dev @ $(git rev-parse --short dev)" || echo "No changes to commit"
