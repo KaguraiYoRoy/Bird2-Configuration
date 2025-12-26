@@ -1,0 +1,19 @@
+auto dn42
+iface dn42 inet static
+    pre-up ip link add $IFACE type dummy || true
+    pre-up grep -q "1042 dn42" /etc/iproute2/rt_tables || echo "1042 dn42" >> /etc/iproute2/rt_tables
+    address 172.20.234.227/32
+    address fd18:3e15:61d0::3/128
+    post-up ip rule add to 10.0.0.0/8 lookup 1042 pref 100
+    post-up ip rule add to 172.20.0.0/14 lookup 1042 pref 100
+    post-up ip rule add to 172.31.0.0/16 lookup 1042 pref 100
+    post-up ip rule add to 10.127.0.0/16 lookup 1042 pref 100
+    post-up ip rule add to 10.0.0.0/8 lookup 1042 pref 100
+    post-up ip -6 rule add to fd00::/8 lookup 1042 pref 100
+    pre-down ip rule del to 10.0.0.0/8 lookup 1042 pref 100 || true
+    pre-down ip rule del to 172.20.0.0/14 lookup 1042 pref 100 || true
+    pre-down ip rule del to 172.31.0.0/16 lookup 1042 pref 100 || true
+    pre-down ip rule del to 10.127.0.0/16 lookup 1042 pref 100 || true
+    pre-down ip rule del to 10.0.0.0/8 lookup 1042 pref 100 || true
+    pre-down ip -6 rule del to fd00::/8 lookup 1042 pref 100 || true
+    post-down ip link del $IFACE

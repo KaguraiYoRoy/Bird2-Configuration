@@ -1,0 +1,9 @@
+auto gre207529
+iface gre207529 inet6 static
+    address fd00:6::1
+    netmask 64
+    pre-up ip tunnel add gre207529 mode gre local 216.238.54.18 remote 216.238.54.16 ttl 255
+    up ip link set gre207529 up
+    down ip link set gre207529 down
+    post-down ip tunnel del gre207529
+

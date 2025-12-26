@@ -1,0 +1,7 @@
+auto gre16926
+iface gre16926 inet6 manual
+    address fe80::205:369/64
+    pre-up ip tunnel add $IFACE mode gre local 23.149.120.51 remote 156.248.8.2 ttl 255
+    up ip link set $IFACE up
+    down ip link set $IFACE down
+    post-down ip tunnel del $IFACE

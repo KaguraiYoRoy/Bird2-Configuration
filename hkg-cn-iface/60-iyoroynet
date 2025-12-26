@@ -1,0 +1,6 @@
+auto iyoroynet
+iface iyoroynet
+    link-type dummy
+    address 2a14:7583:f224::1/128
+    address 2a14:7581:0ffb::1/128
+
