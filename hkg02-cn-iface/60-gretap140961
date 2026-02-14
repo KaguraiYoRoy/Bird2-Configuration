@@ -1,0 +1,8 @@
+auto gretap140961
+iface gretap140961 inet manual
+    pre-up modprobe ip_gre
+    pre-up ip link add $IFACE type gretap local 23.149.120.51 remote 103.213.4.65 ttl 255
+    address 2406:840:1f:1000::20:5369:1/64
+    up ip link set $IFACE up
+    down ip link del $IFACE
+

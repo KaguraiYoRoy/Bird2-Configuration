@@ -1,0 +1,5 @@
+iface eth0 inet static
+    address 10.149.120.51/24
+
+iface eth0 inet6 static
+    address fc00:32e0::3200:1/64
