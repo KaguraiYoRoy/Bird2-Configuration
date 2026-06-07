@@ -1,0 +1,3 @@
+auto eth0.81
+iface eth0.81 inet static
+    address 2602:f92a:1315::1d/64

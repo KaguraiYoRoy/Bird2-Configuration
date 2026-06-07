@@ -18,3 +18,8 @@ iface eth0 inet static
 iface eth0 inet6 static
     address 2a13:a5c3:32e0:3200::a/56
     gateway 2a13:a5c3:32e0::1
+
+    up ip -6 rule add from 2a13:a5c3:32e0::a/128 table 1142 priority 90
+    up ip -6 route add ::/0 via 2a13:a5c3:32e0::1 table 1142
+    down ip -6 route del ::/0 via 2a13:a5c3:32e0::1 table 1142
+    down ip -6 rule del from 2a13:a5c3:32e0::a/128 table 1142 priority 90
