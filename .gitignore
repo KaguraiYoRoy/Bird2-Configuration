@@ -1,2 +1,8 @@
 log/
 secrets.conf
+.rendered/
+.rendered-wireguard/
+*-wg/
+ansible/secrets/
+__pycache__/
+*.py[cod]
