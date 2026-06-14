@@ -1,0 +1,35 @@
+render_root: '{{ inventory_dir }}/../.rendered'
+dn42_global:
+  own_as: 4242422024
+  own_net: 172.20.234.224/28
+  own_net_v6: fd18:3e15:61d0::/48
+  own_netset: '[ 172.20.234.224/28+ ]'
+  own_netset_v6: '[ fd18:3e15:61d0::/48+ ]'
+iana_global:
+  own_as: 205369
+  anycast_net_v6: 2a14:7581:0ffb::/48
+  allow_netset_v6: '[]'
+intra_global:
+  confederation_start: 4220240000
+  confederation_end: 4220249999
+  prefix_v4: '[ 100.64.0.0/16+ ]'
+  prefix_v6: '[ fd18:3e15:61d0:cafe::/64+ ]'
+
+bird_deploy:
+  remote_dir: /etc/bird
+  staging_parent: /var/tmp/bird2-configuration
+  backup_parent: /var/backups/bird2-configuration
+  check_command: bird -p -c bird.conf
+  reload_command: birdc configure
+  secrets_file: '{{ inventory_dir }}/secrets/bird.yml'
+  preserve_patterns:
+    - secrets.conf
+
+wireguard_deploy:
+  enabled: false
+  local_root: '{{ inventory_dir }}/../wireguard'
+  render_root: '{{ inventory_dir }}/../.rendered-wireguard'
+  remote_dir: /etc/wireguard
+  staging_parent: /var/tmp/bird2-configuration-wireguard
+  backup_parent: /var/backups/bird2-configuration-wireguard
+  secrets_file: '{{ inventory_dir }}/secrets/wireguard.yml'

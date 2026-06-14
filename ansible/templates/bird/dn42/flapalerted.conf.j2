@@ -1,0 +1,31 @@
+protocol bgp dn42_flapalerted {
+    router id DN42_OWNIP;
+    local {{ dn42.flapalerted.local }} as DN42_OWNAS;
+    neighbor {{ dn42.flapalerted.neighbor.address }} as DN42_OWNAS port {{ dn42.flapalerted.neighbor.port }};
+
+    ipv4 {
+        table master4;
+        add paths on;
+        export where bgp_large_community ~ [(DN42_OWNAS,1,1)];
+        import none;
+        extended next hop on;
+    };
+
+    ipv6 {
+        table master6;
+        add paths on;
+        export where bgp_large_community ~ [(DN42_OWNAS,1,1)];
+        import none;
+    };
+}
+
+roa4 table dn42_roa_flap_v4;
+roa6 table dn42_roa_flap_v6;
+
+protocol rpki dn42_rpki_flapalerted {
+    roa4 { table dn42_roa_flap_v4; };
+    roa6 { table dn42_roa_flap_v6; };
+    remote {{ dn42.flapalerted.rpki_remote.address }} port {{ dn42.flapalerted.rpki_remote.port }};
+    max version 1;
+    retry keep 10;
+};

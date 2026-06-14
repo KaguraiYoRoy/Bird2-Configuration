@@ -1,0 +1,15 @@
+bird_nodes:
+  vars:
+    ansible_user: root
+    ansible_ssh_private_key_file: ~/keys/default/id_ed25519
+  hosts:
+    fra01-de:
+      ansible_host: ipv4.fra01-de.ecs.iyoroy-infra.top
+    fra02-de:
+      ansible_host: ipv6.fra02-de.ecs.iyoroy-infra.top
+    hkg02-cn:
+      ansible_host: ipv4.hkg02-cn.ecs.iyoroy-infra.top
+    lax-us:
+      ansible_host: ipv4.lax-us.ecs.iyoroy-infra.top
+    tyo-jp:
+      ansible_host: ipv4.tyo-jp.ecs.iyoroy-infra.top

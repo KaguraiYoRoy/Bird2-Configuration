@@ -1,0 +1,64 @@
+- name: Render WireGuard configs locally
+  hosts: bird_nodes
+  gather_facts: false
+  become: false
+  check_mode: false
+  vars_files:
+    - "{{ wireguard_deploy.secrets_file }}"
+  vars:
+    wg_output_dir: "{{ wireguard_deploy.render_root }}/{{ inventory_hostname }}"
+  tasks:
+    - name: Skip hosts with WireGuard deploy disabled
+      ansible.builtin.meta: end_host
+      when: not (deploy.wireguard.enabled | default(wireguard_deploy.enabled | default(false)))
+
+    - name: Require WireGuard interface definitions
+      ansible.builtin.assert:
+        quiet: true
+        that:
+          - wireguard is defined
+          - wireguard.interfaces is defined
+          - wireguard.interfaces | length > 0
+        fail_msg: "Define wireguard.interfaces for {{ inventory_hostname }} before rendering WireGuard configs."
+
+    - name: Reset rendered WireGuard node directory
+      delegate_to: localhost
+      ansible.builtin.file:
+        path: "{{ wg_output_dir }}"
+        state: absent
+
+    - name: Create rendered WireGuard node directory
+      delegate_to: localhost
+      ansible.builtin.file:
+        path: "{{ wg_output_dir }}"
+        state: directory
+        mode: "0700"
+
+    - name: Collect required WireGuard secret references
+      ansible.builtin.set_fact:
+        required_wireguard_private_key_refs: "{{ wireguard.interfaces | map(attribute='private_key_ref', default=wireguard.default_private_key_ref) | list | unique }}"
+        required_wireguard_preshared_key_refs: "{{ wireguard.interfaces | selectattr('peer.preshared_key_ref', 'defined') | map(attribute='peer.preshared_key_ref') | list | unique }}"
+      no_log: true
+
+    - name: Require WireGuard secrets for interfaces
+      ansible.builtin.assert:
+        quiet: true
+        that:
+          - required_wireguard_private_key_refs | difference(wireguard_secrets.private_keys.keys() | list) | length == 0
+          - required_wireguard_preshared_key_refs | difference(wireguard_secrets.preshared_keys.keys() | default([]) | list) | length == 0
+        fail_msg: >-
+          Missing WireGuard secret refs for {{ inventory_hostname }}:
+          private_keys={{ required_wireguard_private_key_refs | difference(wireguard_secrets.private_keys.keys() | list) }},
+          preshared_keys={{ required_wireguard_preshared_key_refs | difference(wireguard_secrets.preshared_keys.keys() | default([]) | list) }}
+
+    - name: Render WireGuard interface configs
+      delegate_to: localhost
+      ansible.builtin.template:
+        src: ../templates/wireguard/wg-quick.conf.j2
+        dest: "{{ wg_output_dir }}/{{ wg_interface.name }}.conf"
+        mode: "0600"
+      diff: false
+      loop: "{{ wireguard.interfaces }}"
+      loop_control:
+        loop_var: wg_interface
+        label: "{{ wg_interface.name }}"

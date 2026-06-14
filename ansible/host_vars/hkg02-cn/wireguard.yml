@@ -1,0 +1,914 @@
+wireguard:
+  default_private_key_ref: hkg02-cn/default
+  interfaces:
+  - name: dn42_4201273722
+    address:
+    - fe80::2024/64
+    listen_port: 33722
+    table: 'off'
+    peer:
+      public_key: S8BzQtSgHy+YFnnBjE0bmBYDIvCve5Tv43Y2dcVVBm4=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: sg1.dn42.begalaxy.top:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242420014
+    address:
+    - fe80::2024/64
+    listen_port: 20014
+    table: 'off'
+    peer:
+      public_key: y5D4KE+anbxbZ8p+JvzqDRv+PY/FPAu+TD26/9bmYC0=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: hk.dn42.fxnet.top:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242420055
+    address:
+    - fe80::2024/64
+    listen_port: 20055
+    table: 'off'
+    peer:
+      public_key: ifY8fh4xZuIVF10FJ5PYnJBkN/NuMpLscK5serYUfBw=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: 45.196.219.99:22024
+      persistent_keepalive: 15
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242420070
+    address:
+    - fe80::2024/64
+    listen_port: 20070
+    table: 'off'
+    peer:
+      public_key: 3Qhit0K7maW6oMVt57KUkWDiDfZ/OWOYwzu/fYrk6iE=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: 31.42.125.144:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242420088
+    address:
+    - fe80::2024/64
+    listen_port: 20088
+    table: 'off'
+    peer:
+      public_key: kDkJLZbrW6PWXeTJEVRWKwPpv+wsnsNthW0nDDGtMhg=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: 46.20.109.97:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+    private_key_ref: hkg02-cn/dn42_4242420088
+  - name: dn42_4242420202
+    address:
+    - fe80::2024/64
+    listen_port: 20202
+    table: 'off'
+    peer:
+      public_key: 5YcwL93bhJqzhTxi9b1Z1ZRt2UfGVoP5jMA+UXma6HM=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: dn02.hk.hk.sdubs.vip:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+    private_key_ref: hkg02-cn/dn42_4242420202
+  - name: dn42_4242420233
+    address:
+    - fe80::2024/64
+    listen_port: 20233
+    table: 'off'
+    peer:
+      public_key: bWUSnkOds7fUAw/hh30QaORMjPi4+/PRWY8+AgqC6UU=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: hk2.0l.ink:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242420298
+    address:
+    - fe80::2024/64
+    listen_port: 20298
+    table: 'off'
+    peer:
+      public_key: v0tF03d5jK/t6hjRnOv5ddTkTxzja9HSc8SWbCQ+WzI=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: node2.ox5.cc:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+    private_key_ref: hkg02-cn/dn42_4242420298
+  - name: dn42_4242420337
+    address:
+    - fe80::2024/64
+    listen_port: 20337
+    table: 'off'
+    peer:
+      public_key: WdvyDf+lEAar5MbcFYUVhvQXzWg2ZXi9Jt1860Q41y4=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: hkg02.dn42.wwrr.ru:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242420387
+    address:
+    - fe80::2024/64
+    listen_port: 20387
+    table: 'off'
+    peer:
+      public_key: krJb3l8hypXbDs8h6zNw5QQy5zdwVsRKRm1g30KnYBU=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: 156.226.173.78:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242420398
+    address:
+    - fe80::2024/64
+    listen_port: 20398
+    table: 'off'
+    peer:
+      public_key: XD66eoHp06VmDUNFUguJeOY8gFLiLZ7Lkyz/WsMQSWU=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: hkl.dn42.boletus.icu:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242420555
+    address:
+    - fe80::2024/64
+    listen_port: 20555
+    table: 'off'
+    peer:
+      public_key: xin3e9mT1MVzPUVGG7pVIZ/FIkwOIGQNN2cVpCTLNS8=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: 45.87.102.60:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242420712
+    address:
+    - fe80::2024/64
+    listen_port: 20712
+    table: 'off'
+    peer:
+      public_key: EdTexGeX46urgHTnPJYCRyRI5kV4h/jTPpN2JQKYXXo=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: dn42.hkg6.luotianyi.us:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242421023
+    address:
+    - fe80::2024/64
+    listen_port: 21023
+    table: 'off'
+    peer:
+      public_key: dPTukyAM6scP2dlCYiP55BDb0lmuBhX7Rm4G8p/9awA=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: hkg-01.node.svc.moe:22024
+      persistent_keepalive: 10
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242421080
+    address:
+    - fe80::2024/64
+    listen_port: 21080
+    table: 'off'
+    peer:
+      public_key: eedTHubyl5caiHH50GkknQa8SQtAF8q7aqmL26w5qSs=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: hkg.peer.highdef.network:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+    private_key_ref: hkg02-cn/dn42_4242421080
+  - name: dn42_4242421117
+    address:
+    - fe80::2024/64
+    listen_port: 21117
+    table: 'off'
+    peer:
+      public_key: gqwdC9p6jdSy80oRxdatr9QdSrNMLCvRMadaCeOBqDY=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: hk01.dn42.yuyuko.com:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242421166
+    address:
+    - fe80::2024/64
+    listen_port: 21166
+    table: 'off'
+    peer:
+      public_key: f9ZDh2U0UXxtEroHUYNWzaE6TZM3hhY3eLXQQpgkvBY=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: hk.dn42.milu.moe:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+    private_key_ref: hkg02-cn/dn42_4242421166
+  - name: dn42_4242421240
+    address:
+    - fe80::2024/64
+    listen_port: 21240
+    table: 'off'
+    peer:
+      public_key: FzWgCU4/y4pyGibDF5UYS13LvDCQ3569uNZJRUEIXiI=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: 160.191.224.89:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242421260
+    address:
+    - fe80::2024/64
+    listen_port: 21260
+    table: 'off'
+    peer:
+      public_key: 9zsuhOiSC8rKsdUNtX678wh3rTo4McJ9ueDqm1Ha8wI=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: 405218.xyz:60113
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242421336
+    address:
+    - fe80::2024/64
+    listen_port: 21336
+    table: 'off'
+    peer:
+      public_key: HZwPJ/2RK9UDePLUSFLeB6LWdKMcmPVoGz/9qPHFcwY=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: hk2.dn42.xeiu.top:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242421366
+    address:
+    - fe80::2024/64
+    listen_port: 21366
+    table: 'off'
+    peer:
+      public_key: EoPA+dH5xxHwUYCVpe/3afL0qQp5SQB7b2OHD8nrB30=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: hk0.dxng.net:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242421686
+    address:
+    - fe80::2024/64
+    listen_port: 21686
+    table: 'off'
+    peer:
+      public_key: D4MBIR+HsCPeEGuPg1YziRe1RgaG7jaiTw4wmV8XZUY=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: hk-1.dn42.guet.eu.org:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242421771
+    address:
+    - fe80::2024/64
+    listen_port: 21771
+    table: 'off'
+    peer:
+      public_key: vKIhFMvKHDVEcRls1IH7si2MSia73H3lsXAWrrC+5zU=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: 205.198.65.116:40004
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242421816
+    address:
+    - fe80::2024/64
+    listen_port: 21816
+    table: 'off'
+    peer:
+      public_key: Tv1+HniELrS4Br2i7oQgwqBJFXQKculsW8r+UOqQXH0=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: 103.213.4.37:22024
+      persistent_keepalive: 30
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+    private_key_ref: hkg02-cn/dn42_4242421816
+  - name: dn42_4242421817
+    address:
+    - fe80::2024/64
+    listen_port: 21817
+    table: 'off'
+    peer:
+      public_key: olXrGZKg3kKPdihHNfZ3zwwt+LPFQv9GMxLyA92fQl0=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: 4.hk.kskb.eu.org:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+    private_key_ref: hkg02-cn/dn42_4242421817
+  - name: dn42_4242421888
+    address:
+    - fe80::2024/64
+    listen_port: 21888
+    table: 'off'
+    peer:
+      public_key: RyP2/n///CanKOD1EFtiPawHfUZb14+Fg0v4pbpsrnY=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: 154.3.37.101:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242421999
+    address:
+    - fe80::2024/64
+    listen_port: 21999
+    table: 'off'
+    peer:
+      public_key: DFXS1z5X3SWfGioSTicV9dPpEgD0HiuFvpfFPQD79QY=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: hk2.v6.dn42.luotianyi.sbs:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242422034
+    address:
+    - fe80::2024/64
+    listen_port: 22034
+    table: 'off'
+    peer:
+      public_key: JMk8ABRFTEjyNFXMgT0ti3RwtH6ciaFn3lmXVmsShj0=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: a1.932.moe:22024
+      persistent_keepalive: 5
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242422164
+    address:
+    - fe80::2024/64
+    listen_port: 22164
+    table: 'off'
+    peer:
+      public_key: B0QyNLwiqaCY9/ar8556/a2+x37lplzVOHbvd8Qyg04=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: hk.dn42.izm.im:32024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242422189
+    address:
+    - fe80::2024/64
+    listen_port: 22189
+    table: 'off'
+    peer:
+      public_key: OlUDuWkUI9pKNsNo7Vjf/GKKVSBslh9kmqjbeYA4+34=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: hk-hkg.dn42.iedon.net:60395
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+    private_key_ref: hkg02-cn/dn42_4242422189
+  - name: dn42_4242422225
+    address:
+    - fe80::2024/64
+    listen_port: 22225
+    table: 'off'
+    peer:
+      public_key: rWTIK93+XJaP4sRvrk1gqXxAZgkz6y/axLC4mjuay1I=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: dn42-sg.maraun.de:22024
+    post_up:
+    - ip addr add 172.20.234.225 peer 172.20.12.197 dev %i
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242422279
+    address:
+    - fe80::2024/64
+    listen_port: 22279
+    table: 'off'
+    peer:
+      public_key: PUjqyQ3ATLp8Cxp3YFVQ44QLoZEpoPgdXsbMfXhDMRk=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: hk-hkg1.bb.mhr.hk:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242422466
+    address:
+    - fe80::2024/64
+    listen_port: 22466
+    table: 'off'
+    peer:
+      public_key: 25F5Kt0fg7bTien58apDN2dLUyCN2DSe7W+Nvw7eCT4=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: v4.mazarino-s-end.xhustudio.eu.org:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+    mtu: 1332
+  - name: dn42_4242422467
+    address:
+    - fe80::2024/64
+    listen_port: 22467
+    table: 'off'
+    peer:
+      public_key: N6QLB7m3ZDmsTNoXIGm+LlrTqou4mfH9zTgRy83XMwU=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: 45.149.92.55:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242422503
+    address:
+    - fe80::2024/64
+    listen_port: 22503
+    table: 'off'
+    peer:
+      public_key: GyS7yHeu3kQykROMr6ZMix8FRUlLE/mxQWmn1zzdAUE=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: 156.248.8.4:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242422547
+    address:
+    - fe80::2024/64
+    listen_port: 22547
+    table: 'off'
+    peer:
+      public_key: xelzwt1j0aoKjsQnnq8jMjZNLbLucBPwPTvHgFH/czs=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: v4.v-ps-hkg.lantian.pub:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+    private_key_ref: hkg02-cn/dn42_4242422547
+  - name: dn42_4242423088
+    address:
+    - fe80::2024/64
+    listen_port: 23088
+    table: 'off'
+    peer:
+      public_key: rBTH+JyZB0X/DkwHByrCjCojxBKr/kEOm1dTAFGHR1w=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: hk1-hk.dn42.6700.cc:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+    private_key_ref: hkg02-cn/dn42_4242423088
+  - name: dn42_4242423101
+    address:
+    - fe80::2024/64
+    listen_port: 23101
+    table: 'off'
+    peer:
+      public_key: P/OvJv/XcCkOaA7/+UEx2Q2SsxmO/BvbsTTwZcUuXTo=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: 47.84.117.221:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242423128
+    address:
+    - fe80::2024/64
+    listen_port: 23128
+    table: 'off'
+    peer:
+      public_key: rJzBhEpXkPoEgb1SL13srNQPQOypb0GRCDudYAASAHc=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: dn42.hk.peer.gtio.de:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242423310
+    address:
+    - fe80::2024/64
+    listen_port: 23310
+    table: 'off'
+    peer:
+      public_key: aC9pjzMWZhbA/sLPljUFGU1K28MSopHbKNj5yyv4uzg=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: v4.hkg01.edge.r1.tmpfs.dev:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242423311
+    address:
+    - fe80::2024/64
+    listen_port: 23311
+    table: 'off'
+    peer:
+      public_key: qleh0csj45iN7ZM75kf3fDh0erMBJGABdvzM9BD0Byw=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: node01-bgp.hk.peakcomet.dpdns.org:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242423374
+    address:
+    - fe80::2024/64
+    listen_port: 23374
+    table: 'off'
+    peer:
+      public_key: zcxhWeI3SrJtqlHuqdeNaCeWSwJIYOTjAraXm655+VY=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: hk01.dn42.baka.pub:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242423376
+    address:
+    - fe80::2024/64
+    listen_port: 23376
+    table: 'off'
+    peer:
+      public_key: tqDhZy2XJBzpctfVrwlTOccTrZFQSsaJn+5T2s0mU0s=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: 47.243.246.14:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242423377
+    address:
+    - fe80::2024/64
+    - fe80::2053:69a/64
+    listen_port: 23377
+    table: 'off'
+    peer:
+      public_key: XaX6/G7EQbcjsrtlxNmDc/s/VSdTxtkBxZKB2JpWIHo=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - ::/0
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+    private_key_ref: hkg02-cn/dn42_4242423377
+  - name: dn42_4242423658
+    address:
+    - fe80::2024/64
+    listen_port: 23658
+    table: 'off'
+    peer:
+      public_key: L/ohOmR8NDe/sgaAI0md8RvT1lrPDZiLMny9QwLheAA=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: 82.152.165.157:22024
+    post_up:
+    - ip addr add fd18:3e15:61d0::1/128 peer fd4e:d0:d38d:68c1::1/128 dev %i
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242423686
+    address:
+    - fe80::2024/64
+    listen_port: 23686
+    table: 'off'
+    peer:
+      public_key: EhU7kTcbAzWPtII68A3lfzPaYjgcjuHEkMNtQrneDlY=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: vps-hk-hytorn.091014.xyz:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242423914
+    address:
+    - fe80::2024/64
+    listen_port: 23914
+    table: 'off'
+    peer:
+      public_key: sLbzTRr2gfLFb24NPzDOpy8j09Y6zI+a7NkeVMdVSR8=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoints:
+      - 103.73.67.154:22024
+      - hk1.g-load.eu:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242423947
+    address:
+    - fe80::2024/64
+    listen_port: 23947
+    table: 'off'
+    peer:
+      public_key: Lz/SPcnKfbp4Z6LW7gysFxhyJXfyoett18r3kvlZcBY=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: hk1.sherpherd.net:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242423997
+    address:
+    - fe80::2024/64
+    listen_port: 23997
+    table: 'off'
+    peer:
+      public_key: BwDwBx+r7zTrUZHdUeKsQFkEVEgx4iH13+0LQnCtpEE=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: hk1.dn42.bitrate.studio:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242423999
+    address:
+    - fe80::2024/64
+    listen_port: 23999
+    table: 'off'
+    peer:
+      public_key: mGGBczSVKW+7UKRquI2GkbKrfxiATv9r4uF5WTP+vWI=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: txg.node.cowgl.tech:32024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: intra_fra01
+    address:
+    - fe80::2024:225/64
+    listen_port: 10228
+    table: 'off'
+    peer:
+      public_key: 4zEFOrqHdIDPcjvu6NwbE1AAYBH1bA+SAowysX5fRT4=
+      allowed_ips:
+      - 0.0.0.0/0
+      - ::/0
+      endpoint: ipv6.fra01-de.ecs.iyoroy-infra.top:10225
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: intra_lax
+    address:
+    - fe80::2024:225/64
+    listen_port: 10229
+    table: 'off'
+    peer:
+      public_key: As0rZo5b9Bwt4loPGl6iSdtOqkd2p6ExK/Xyoy9OmTU=
+      allowed_ips:
+      - 0.0.0.0/0
+      - ::/0
+      endpoint: ipv4.lax-us.ecs.iyoroy-infra.top:10227
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: intra_tyo
+    address:
+    - fe80::2024:225/64
+    listen_port: 10227
+    table: 'off'
+    peer:
+      public_key: Sh62ZCxnEcXyLq49mLP1jF4C2vWKhKMxjtZHxVUAQg4=
+      allowed_ips:
+      - 0.0.0.0/0
+      - ::/0
+      endpoint: ipv4.tyo-jp.ecs.iyoroy-infra.top:10225
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'

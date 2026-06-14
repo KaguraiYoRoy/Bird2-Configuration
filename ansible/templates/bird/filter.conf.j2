@@ -1,0 +1,8 @@
+function remove_confederation_as() {
+    bgp_path.delete([INTRA_CONFEDERATION_START..INTRA_CONFEDERATION_END]);
+}
+
+function remove_private_community(){
+    bgp_large_community.delete([(DN42_OWNAS, *, *)]);
+    bgp_large_community.delete([(IANA_OWNAS, *, *)]);
+}

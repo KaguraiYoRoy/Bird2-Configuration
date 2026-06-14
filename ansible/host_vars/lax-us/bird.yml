@@ -1,0 +1,83 @@
+bird:
+  log_syslog_all: false
+  device_scan_time: 10
+  device_semicolon: false
+  include_sections:
+  - - path: filter.conf
+  - - path: dn42/filter.conf
+    - path: dn42/flapalerted.conf
+    - path: dn42/static.conf
+    - path: dn42/rpki.conf
+    - path: dn42/ebgp.conf
+  - - path: intra/filter.conf
+    - path: intra/ibgp.conf
+    - path: intra/static.conf
+  - - path: kernel.conf
+modules:
+  iana:
+    enabled: false
+    includes: []
+  dn42:
+    enabled: true
+    includes:
+    - filter.conf
+    - flapalerted.conf
+    - static.conf
+    - rpki.conf
+    - ebgp.conf
+  intra:
+    enabled: true
+    includes:
+    - filter.conf
+    - ibgp.conf
+    - static.conf
+intra:
+  own_as: 4220240003
+  router_id: DN42_OWNIP
+  static:
+    v4_routes:
+    - prefix: 172.20.234.229/32
+      communities:
+      - - 4242422024
+        - 1
+        - 1
+      - - 4242422024
+        - 2
+        - 0
+      - - 4242422024
+        - 2
+        - 100
+      - - 4242422024
+        - 65535
+        - 65281
+    v6_routes:
+    - prefix: fd18:3e15:61d0::5/128
+      communities:
+      - - 4242422024
+        - 1
+        - 1
+      - - 4242422024
+        - 2
+        - 0
+      - - 4242422024
+        - 2
+        - 100
+      - - 4242422024
+        - 65535
+        - 65281
+  ibgp_sessions:
+  - file: fra01.conf
+    protocol: intra_ibgp_fra01
+    neighbor:
+      address: fe80::2024:228
+      interface: intra_fra01
+  - file: hkg02.conf
+    protocol: intra_ibgp_hkg02
+    neighbor:
+      address: fe80::2024:225
+      interface: intra_hkg02
+  - file: tyo.conf
+    protocol: intra_ibgp_tyo
+    neighbor:
+      address: fe80::2024:227
+      interface: intra_tyo

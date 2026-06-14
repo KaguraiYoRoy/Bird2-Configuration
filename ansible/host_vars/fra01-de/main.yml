@@ -1,0 +1,8 @@
+node:
+  name: fra01-de
+deploy:
+  service_manager: systemd
+  bird:
+    enabled: true
+  wireguard:
+    enabled: true

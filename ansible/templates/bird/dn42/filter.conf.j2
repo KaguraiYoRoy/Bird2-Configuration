@@ -1,0 +1,42 @@
+function is_self_dn42_net() {
+    return net ~ DN42_OWNNETSET;
+}
+
+function is_self_dn42_net_v6() {
+    return net ~ DN42_OWNNETSETv6;
+}
+
+function is_valid_dn42_network() {
+    return net ~ [
+        172.20.0.0/14{21,29},
+        172.20.0.0/24{28,32},
+        172.21.0.0/24{28,32},
+        172.22.0.0/24{28,32},
+        172.23.0.0/24{28,32},
+        172.31.0.0/16+,      
+        10.100.0.0/14+,      
+        10.127.0.0/16{16,32},
+        10.0.0.0/8{15,24}    
+    ];
+}
+
+function is_valid_dn42_network_v6() {
+  return net ~ [
+    fd00::/8{44,64}
+  ];
+}
+
+function dn42_ebgp_calculate_priority() {
+    int priority = 100;
+    
+    if bgp_community ~ [(64511, DN42_REGION)] then 
+        priority = priority + 10;
+    
+    if bgp_community ~ [(64511, DN42_COUNTRY)] then 
+        priority = priority + 5;
+    
+    if bgp_path.len = 1 then 
+        priority = priority + 20;
+    
+    return priority;
+}

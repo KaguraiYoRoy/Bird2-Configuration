@@ -1,0 +1,138 @@
+- name: Render BIRD configs locally
+  hosts: bird_nodes
+  gather_facts: false
+  become: false
+  check_mode: false
+  vars:
+    node_output_dir: "{{ render_root }}/{{ inventory_hostname }}"
+  tasks:
+    - name: Check optional BIRD secrets file
+      delegate_to: localhost
+      ansible.builtin.stat:
+        path: "{{ bird_deploy.secrets_file }}"
+      register: bird_secrets_file
+
+    - name: Load optional BIRD secrets
+      delegate_to: localhost
+      ansible.builtin.include_vars:
+        file: "{{ bird_deploy.secrets_file }}"
+      when: bird_secrets_file.stat.exists
+      no_log: true
+
+    - name: Set default BIRD secrets
+      ansible.builtin.set_fact:
+        bird_secrets: "{{ {'bgp_passwords': {}} | combine(bird_secrets | default({}), recursive=True) }}"
+      no_log: true
+
+    - name: Reset rendered node directory
+      delegate_to: localhost
+      ansible.builtin.file:
+        path: "{{ node_output_dir }}"
+        state: absent
+
+    - name: Create rendered root directory
+      delegate_to: localhost
+      ansible.builtin.file:
+        path: "{{ node_output_dir }}"
+        state: directory
+        mode: "0755"
+
+    - name: Create base module directories
+      delegate_to: localhost
+      ansible.builtin.file:
+        path: "{{ node_output_dir }}/{{ item }}"
+        state: directory
+        mode: "0755"
+      loop:
+        - dn42
+        - intra
+        - intra/ibgp
+
+    - name: Create IANA module directory
+      delegate_to: localhost
+      ansible.builtin.file:
+        path: "{{ node_output_dir }}/iana"
+        state: directory
+        mode: "0755"
+      when: iana.enabled | default(false)
+
+    - name: Require IANA upstream BGP password secrets
+      ansible.builtin.assert:
+        quiet: true
+        that:
+          - upstream.password_ref is not defined or bird_secrets.bgp_passwords[upstream.password_ref] is defined
+        fail_msg: "Missing BIRD BGP password secret for {{ inventory_hostname }} {{ upstream.protocol }}."
+      loop: "{{ iana.upstreams | default([]) }}"
+      loop_control:
+        loop_var: upstream
+        label: "{{ upstream.protocol }}"
+      when: iana.enabled | default(false)
+      no_log: true
+
+    - name: Create DN42 peers directory
+      delegate_to: localhost
+      ansible.builtin.file:
+        path: "{{ node_output_dir }}/dn42/peers"
+        state: directory
+        mode: "0755"
+      when: "'ebgp.conf' in (modules.dn42.includes | default([]))"
+
+    - name: Render root BIRD files
+      delegate_to: localhost
+      ansible.builtin.template:
+        src: "../templates/bird/{{ item }}.j2"
+        dest: "{{ node_output_dir }}/{{ item }}"
+        mode: "0644"
+      loop:
+        - bird.conf
+        - envvars
+        - filter.conf
+        - kernel.conf
+
+    - name: Render DN42 module files
+      delegate_to: localhost
+      ansible.builtin.template:
+        src: "../templates/bird/dn42/{{ item }}.j2"
+        dest: "{{ node_output_dir }}/dn42/{{ item }}"
+        mode: "0644"
+      loop: "{{ (modules.dn42.includes | default([]) + modules.dn42.inactive_files | default([])) | unique }}"
+
+    - name: Render DN42 peer sessions
+      delegate_to: localhost
+      ansible.builtin.template:
+        src: ../templates/bird/dn42/peer.conf.j2
+        dest: "{{ node_output_dir }}/dn42/peers/dn42_{{ peer.asn }}.conf"
+        mode: "0644"
+      loop: "{{ dn42.peers | default([]) }}"
+      loop_control:
+        loop_var: peer
+        label: "dn42_{{ peer.asn }}"
+
+    - name: Render intra module files
+      delegate_to: localhost
+      ansible.builtin.template:
+        src: "../templates/bird/intra/{{ item }}.j2"
+        dest: "{{ node_output_dir }}/intra/{{ item }}"
+        mode: "0644"
+      loop: "{{ modules.intra.includes | default([]) }}"
+
+    - name: Render intra iBGP sessions
+      delegate_to: localhost
+      ansible.builtin.template:
+        src: ../templates/bird/intra/ibgp-session.conf.j2
+        dest: "{{ node_output_dir }}/intra/ibgp/{{ session.file }}"
+        mode: "0644"
+      loop: "{{ intra.ibgp_sessions | default([]) }}"
+      loop_control:
+        loop_var: session
+
+    - name: Render IANA module files
+      delegate_to: localhost
+      ansible.builtin.template:
+        src: "../templates/bird/iana/{{ item }}.j2"
+        dest: "{{ node_output_dir }}/iana/{{ item }}"
+        mode: "0644"
+      diff: false
+      no_log: true
+      loop: "{{ modules.iana.includes | default([]) }}"
+      when: iana.enabled | default(false)

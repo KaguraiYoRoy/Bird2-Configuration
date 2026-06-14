@@ -1,0 +1,42 @@
+{% set private_key_ref = wg_interface.private_key_ref | default(wireguard.default_private_key_ref) %}
+[Interface]
+PrivateKey = {{ wireguard_secrets.private_keys[private_key_ref] }}
+{% for address in wg_interface.address %}
+Address = {{ address }}
+{% endfor %}
+ListenPort = {{ wg_interface.listen_port }}
+Table = {{ wg_interface.table }}
+{% if wg_interface.fwmark is defined %}
+FwMark = {{ wg_interface.fwmark }}
+{% endif %}
+{% if wg_interface.mtu is defined %}
+MTU = {{ wg_interface.mtu }}
+{% endif %}
+{% for hook in wg_interface.pre_up | default([]) %}
+PreUp = {{ hook }}
+{% endfor %}
+{% for hook in wg_interface.post_up | default([]) %}
+PostUp = {{ hook }}
+{% endfor %}
+{% for hook in wg_interface.pre_down | default([]) %}
+PreDown = {{ hook }}
+{% endfor %}
+{% for hook in wg_interface.post_down | default([]) %}
+PostDown = {{ hook }}
+{% endfor %}
+
+[Peer]
+PublicKey = {{ wg_interface.peer.public_key }}
+{% if wg_interface.peer.preshared_key_ref is defined %}
+PresharedKey = {{ wireguard_secrets.preshared_keys[wg_interface.peer.preshared_key_ref] }}
+{% endif %}
+{% for endpoint in wg_interface.peer.endpoints | default([]) %}
+Endpoint = {{ endpoint }}
+{% endfor %}
+{% if wg_interface.peer.endpoint is defined %}
+Endpoint = {{ wg_interface.peer.endpoint }}
+{% endif %}
+AllowedIPs = {{ wg_interface.peer.allowed_ips | join(', ') }}
+{% if wg_interface.peer.persistent_keepalive is defined %}
+PersistentKeepalive = {{ wg_interface.peer.persistent_keepalive }}
+{% endif %}

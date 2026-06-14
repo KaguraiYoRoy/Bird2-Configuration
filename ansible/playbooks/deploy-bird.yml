@@ -1,0 +1,146 @@
+- name: Deploy rendered BIRD configs remotely
+  hosts: bird_nodes
+  gather_facts: false
+  serial: 1
+  become: "{{ deploy.become | default(false) }}"
+  vars:
+    node_output_dir: "{{ render_root }}/{{ inventory_hostname }}"
+    bird_deploy_id: "{{ lookup('pipe', 'date -u +%Y%m%dT%H%M%SZ') }}"
+    bird_staging_dir: "{{ bird_deploy.staging_parent }}/{{ inventory_hostname }}"
+    bird_backup_dir: "{{ bird_deploy.backup_parent }}/{{ inventory_hostname }}-{{ bird_deploy_id }}"
+  tasks:
+    - name: Skip hosts with BIRD deploy disabled
+      ansible.builtin.meta: end_host
+      when: not (deploy.bird.enabled | default(true))
+
+    - name: Refuse placeholder production hosts
+      ansible.builtin.assert:
+        that:
+          - ansible_host is defined
+          - ansible_host != 'CHANGEME'
+        fail_msg: "Set ansible_host for {{ inventory_hostname }} in ansible/inventory.production.yml before deploying."
+
+    - name: Check rendered BIRD config exists locally
+      delegate_to: localhost
+      become: false
+      ansible.builtin.stat:
+        path: "{{ node_output_dir }}/bird.conf"
+      register: rendered_bird_conf
+
+    - name: Require local rendered config
+      ansible.builtin.assert:
+        that:
+          - rendered_bird_conf.stat.exists
+        fail_msg: "Render {{ inventory_hostname }} first with ansible/playbooks/render.yml."
+
+    - name: Ensure remote deployment directories exist
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+        mode: "0755"
+      loop:
+        - "{{ bird_deploy.staging_parent }}"
+        - "{{ bird_deploy.backup_parent }}"
+
+    - name: Reset remote staging directory
+      ansible.builtin.file:
+        path: "{{ bird_staging_dir }}"
+        state: absent
+
+    - name: Create remote staging directory
+      ansible.builtin.file:
+        path: "{{ bird_staging_dir }}"
+        state: directory
+        mode: "0755"
+
+    - name: Rsync rendered BIRD config to remote staging
+      delegate_to: localhost
+      become: false
+      ansible.builtin.command:
+        argv:
+          - rsync
+          - -a
+          - --delete
+          - --chmod=D755,F644
+          - --chown=root:root
+          - -e
+          - "ssh -i {{ ansible_ssh_private_key_file | expanduser }}{% if ansible_port is defined %} -p {{ ansible_port }}{% endif %} -o StrictHostKeyChecking=accept-new"
+          - "{{ node_output_dir }}/"
+          - "{{ ansible_user | default('root') }}@{{ ansible_host }}:{{ bird_staging_dir }}/"
+      changed_when: true
+      check_mode: false
+      no_log: true
+
+    - name: Stop before remote parse and promote in check mode
+      ansible.builtin.debug:
+        msg: "Check mode stops before remote parse, promote, and reload for {{ inventory_hostname }}."
+      when: ansible_check_mode | bool
+
+    - name: End host in check mode
+      ansible.builtin.meta: end_host
+      when: ansible_check_mode | bool
+
+    - name: Parse-check staged BIRD config remotely
+      ansible.builtin.command: "{{ bird_deploy.check_command }}"
+      args:
+        chdir: "{{ bird_staging_dir }}"
+      changed_when: false
+
+    - name: Inspect live BIRD config directory
+      ansible.builtin.stat:
+        path: "{{ bird_deploy.remote_dir }}"
+      register: live_bird_dir
+
+    - name: Promote staged BIRD config
+      block:
+        - name: Create backup directory for existing BIRD config
+          ansible.builtin.file:
+            path: "{{ bird_backup_dir }}"
+            state: directory
+            mode: "0755"
+          when: live_bird_dir.stat.exists
+
+        - name: Backup existing BIRD config
+          ansible.builtin.command:
+            argv:
+              - rsync
+              - -a
+              - "{{ bird_deploy.remote_dir }}/"
+              - "{{ bird_backup_dir }}/"
+          when: live_bird_dir.stat.exists
+
+        - name: Ensure live BIRD config directory exists
+          ansible.builtin.file:
+            path: "{{ bird_deploy.remote_dir }}"
+            state: directory
+            mode: "0755"
+
+        - name: Promote staging to live BIRD config
+          ansible.builtin.shell: >-
+            rsync -a --delete
+            {% for pattern in bird_deploy.preserve_patterns | default([]) %} --exclude={{ pattern | quote }}{% endfor %}
+            {{ (bird_staging_dir + '/') | quote }} {{ (bird_deploy.remote_dir + '/') | quote }}
+
+        - name: Parse-check live BIRD config remotely
+          ansible.builtin.command: "{{ bird_deploy.check_command }}"
+          args:
+            chdir: "{{ bird_deploy.remote_dir }}"
+          changed_when: false
+
+        - name: Reload BIRD configuration
+          ansible.builtin.command: "{{ bird_deploy.reload_command }}"
+
+      rescue:
+        - name: Restore previous BIRD config from backup
+          ansible.builtin.command:
+            argv:
+              - rsync
+              - -a
+              - --delete
+              - "{{ bird_backup_dir }}/"
+              - "{{ bird_deploy.remote_dir }}/"
+          when: live_bird_dir.stat.exists | default(false)
+
+        - name: Report failed BIRD deployment
+          ansible.builtin.fail:
+            msg: "BIRD deploy failed on {{ inventory_hostname }}; restored backup from {{ bird_backup_dir }} when available."

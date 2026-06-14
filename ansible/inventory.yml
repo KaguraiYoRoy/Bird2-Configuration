@@ -1,0 +1,10 @@
+bird_nodes:
+  vars:
+    ansible_connection: local
+    ansible_python_interpreter: /usr/bin/python3
+  hosts:
+    fra01-de:
+    fra02-de:
+    hkg02-cn:
+    lax-us:
+    tyo-jp:

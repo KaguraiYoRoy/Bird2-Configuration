@@ -1,0 +1,166 @@
+dn42:
+  own_ip: 172.20.234.229
+  own_ipv6: fd18:3e15:61d0::5
+  region: 44
+  country: 1840
+  flapalerted:
+    local: 172.20.234.229
+    neighbor:
+      address: 172.20.234.227
+      port: 1790
+    rpki_remote:
+      address: 172.20.234.227
+      port: 8083
+  peers:
+  - description: '@lyc8503 http://blog.lyc8503.net/'
+    neighbor:
+      address: fe80::167
+    ipv4:
+      extended_next_hop: true
+    asn: 4242420167
+  - description: https://dn42.routedbits.io/
+    neighbor:
+      address: fe80::207
+    ipv4:
+      extended_next_hop: true
+    asn: 4242420207
+  - description: 22024 creamlike1024@outlook.com https://blog.moe233.net/dn42/
+    neighbor:
+      address: fe80::253
+    ipv4:
+      extended_next_hop: true
+    asn: 4242420253
+  - description: '@Nuro_Atamashino'
+    neighbor:
+      address: fe80::298
+    ipv4:
+      extended_next_hop: true
+    asn: 4242420298
+  - description: '@zxxwdd'
+    neighbor:
+      address: fe80::337
+    ipv4:
+      extended_next_hop: true
+    asn: 4242420337
+  - description: '@X01512'
+    neighbor:
+      address: fe80::358
+    ipv4:
+      extended_next_hop: true
+    asn: 4242420358
+  - description: '@opkgbot'
+    neighbor:
+      address: fe80::398
+    ipv4:
+      extended_next_hop: true
+    asn: 4242420398
+  - description: https://anemone.moe/posts/dn42-quickstart/ fermata@h2o.moe
+    neighbor:
+      address: fe80::721:1
+    ipv4:
+      extended_next_hop: true
+    asn: 4242420721
+  - description: '@Iridoideae'
+    neighbor:
+      address: fe80::1023:2
+    ipv4:
+      extended_next_hop: true
+    asn: 4242421023
+  - description: '@antenna000 https://blog.yuyuko.com/post/7'
+    neighbor:
+      address: fe80::1117
+    ipv4:
+      extended_next_hop: true
+    asn: 4242421117
+  - description: factor2431@outlook.com @factor2431
+    neighbor:
+      address: fe80::1534
+    ipv4:
+      extended_next_hop: true
+    asn: 4242421534
+  - description: '@messageleaf https://exploro.one/dn42'
+    neighbor:
+      address: fe80::1771
+    ipv4:
+      extended_next_hop: true
+    asn: 4242421771
+  - description: https://dn42.kskb.eu.org/
+    neighbor:
+      address: fe80::1817
+    ipv4:
+      extended_next_hop: true
+    asn: 4242421817
+  - description: '@daylilies https://daylily.network/dn42'
+    neighbor:
+      address: fe80::1919
+    ipv4:
+      extended_next_hop: true
+    asn: 4242421919
+  - description: https://iedon.net
+    neighbor:
+      address: fe80::2189:ef
+    ipv4:
+      extended_next_hop: true
+    asn: 4242422189
+  - description: '@moohric https://www.mhr.hk/posts/dn42-peering/'
+    neighbor:
+      address: fe80::2279
+    ipv4:
+      extended_next_hop: true
+    asn: 4242422279
+  - description: '@SessX6cf https://dn42.xhustudio.eu.org/peering.html'
+    neighbor:
+      address: fe80::2466
+    ipv4:
+      extended_next_hop: true
+    asn: 4242422466
+  - description: '@unstartdev https://unstartdev.eu.org/dn42'
+    neighbor:
+      address: fe80::2467
+    ipv4:
+      extended_next_hop: true
+    asn: 4242422467
+  - description: 23154 https://usw42.whojk.com/autopeer/action_page.php
+    neighbor:
+      address: fe80::2717
+    ipv4:
+      extended_next_hop: true
+    asn: 4242422717
+  - description: https://peer.dn42.6700.cc
+    neighbor:
+      address: fe80::3088:193
+    ipv4:
+      extended_next_hop: true
+    asn: 4242423088
+  - description: '@WOW55999 https://dn42.gtio.de/'
+    neighbor:
+      address: fe80::1:3128
+    ipv4:
+      extended_next_hop: true
+    asn: 4242423128
+  - description: '@Auride'
+    neighbor:
+      address: fe80::2024:3310
+    ipv4:
+      extended_next_hop: true
+    asn: 4242423310
+  - description: x@badaimweeb.me
+    neighbor:
+      address: fe80::3797
+    ipv4:
+      extended_next_hop: true
+    asn: 4242423797
+  - description: https://dn42.g-load.eu
+    neighbor:
+      address: fe80::ade0
+    ipv4:
+      extended_next_hop: true
+    asn: 4242423914
+  - description: '@charliemoomoo https://hackmd.io/@cow/dn42-peering#Nodes'
+    neighbor:
+      address: fe80::2:3999
+    ipv4:
+      extended_next_hop: true
+    asn: 4242423999
+  ix:
+    sessions: []

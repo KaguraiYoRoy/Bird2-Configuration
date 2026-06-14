@@ -1,0 +1,25 @@
+dn42:
+  own_ip: 100.64.0.1
+  own_ipv6: fd18:3e15:61d0::4
+  region: 41
+  country: 1276
+  flapalerted:
+    local: 100.64.0.1
+    neighbor:
+      address: 172.20.234.227
+      port: 1790
+    rpki_remote:
+      address: 172.20.234.227
+      # StayRTR listener port
+      port: 8083
+  peers: []
+  ix:
+    sessions:
+    - protocol: dn42_ix_4242422465
+      description: '@SessX6cf https://yukisino.sess.moe/getting-started.html'
+      neighbor:
+        address: fe80::1266:6aff:fe24:9807
+        interface: eth0
+        asn: 4242422465
+      ipv4:
+        extended_next_hop: true

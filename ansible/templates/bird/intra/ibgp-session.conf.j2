@@ -1,0 +1,6 @@
+protocol bgp '{{ session.protocol }}' from intra_ibgpeers{
+    neighbor {{ session.neighbor.address }} % '{{ session.neighbor.interface }}';
+    ipv4{
+        extended next hop;
+    };
+};

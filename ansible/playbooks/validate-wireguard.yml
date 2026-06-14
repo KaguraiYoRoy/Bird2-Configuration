@@ -1,0 +1,81 @@
+- name: Validate rendered WireGuard configs
+  hosts: bird_nodes
+  gather_facts: false
+  become: false
+  check_mode: false
+  vars_files:
+    - "{{ wireguard_deploy.secrets_file }}"
+  vars:
+    wg_output_dir: "{{ wireguard_deploy.render_root }}/{{ inventory_hostname }}"
+  tasks:
+    - name: Skip hosts with WireGuard deploy disabled
+      ansible.builtin.meta: end_host
+      when: not (deploy.wireguard.enabled | default(wireguard_deploy.enabled | default(false)))
+
+    - name: Validate WireGuard interface data
+      ansible.builtin.assert:
+        quiet: true
+        that:
+          - wg_interface.name is defined
+          - wg_interface.address is defined
+          - wg_interface.address | length > 0
+          - wg_interface.listen_port is defined
+          - wg_interface.table is defined
+          - wg_interface.peer is defined
+          - wg_interface.peer.public_key is defined
+          - wg_interface.peer.allowed_ips is defined
+          - wg_interface.peer.allowed_ips | length > 0
+          - wireguard_secrets.private_keys[(wg_interface.private_key_ref | default(wireguard.default_private_key_ref))] is defined
+          - wg_interface.peer.preshared_key_ref is not defined or wireguard_secrets.preshared_keys[wg_interface.peer.preshared_key_ref] is defined
+        fail_msg: "Invalid WireGuard interface data for {{ inventory_hostname }} {{ wg_interface.name | default('unknown') }}."
+      loop: "{{ wireguard.interfaces | default([]) }}"
+      loop_control:
+        loop_var: wg_interface
+        label: "{{ wg_interface.name | default('unknown') }}"
+
+    - name: Check rendered WireGuard config exists locally
+      delegate_to: localhost
+      ansible.builtin.stat:
+        path: "{{ wg_output_dir }}/{{ wg_interface.name }}.conf"
+      register: rendered_wg_configs
+      loop: "{{ wireguard.interfaces }}"
+      loop_control:
+        loop_var: wg_interface
+        label: "{{ wg_interface.name }}"
+
+    - name: Require rendered WireGuard configs
+      ansible.builtin.assert:
+        quiet: true
+        that:
+          - rendered_wg_config.stat.exists
+        fail_msg: "Render {{ inventory_hostname }} WireGuard configs first with ansible/playbooks/render-wireguard.yml."
+      loop: "{{ rendered_wg_configs.results }}"
+      loop_control:
+        loop_var: rendered_wg_config
+        label: "{{ rendered_wg_config.wg_interface.name }}"
+
+    - name: Check whether wg-quick is installed
+      delegate_to: localhost
+      ansible.builtin.command: bash -lc 'command -v wg-quick'
+      register: wg_quick_binary
+      changed_when: false
+      failed_when: false
+
+    - name: Skip wg-quick strip when wg-quick is missing
+      delegate_to: localhost
+      ansible.builtin.debug:
+        msg: "wg-quick is not installed locally; skipping {{ inventory_hostname }} strip validation"
+      when: wg_quick_binary.rc != 0
+
+    - name: Run wg-quick strip validation
+      delegate_to: localhost
+      ansible.builtin.command: "wg-quick strip ./{{ wg_interface.name }}.conf"
+      args:
+        chdir: "{{ wg_output_dir }}"
+      changed_when: false
+      no_log: true
+      loop: "{{ wireguard.interfaces }}"
+      loop_control:
+        loop_var: wg_interface
+        label: "{{ wg_interface.name }}"
+      when: wg_quick_binary.rc == 0

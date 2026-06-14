@@ -1,0 +1,25 @@
+protocol static iana_static_advertise{
+{% for route in iana.static.advertise_routes %}    route {{ route }} reject;
+{% endfor %}
+    ipv6 {
+        import filter{
+            bgp_large_community.add((IANA_OWNAS,1,1));
+            bgp_large_community.add((IANA_OWNAS,2,100));
+            accept;
+        };
+        export none;
+    };
+}
+{% for route in iana.static.extra_routes | default([]) %}
+protocol static {{ route.protocol }}{
+    route {{ route.prefix }} via "{{ route.via_interface }}";
+    
+    ipv6 {
+        import filter{
+{% for community in route.communities %}            bgp_large_community.add({{ community }});
+{% endfor %}            accept;
+        };
+        export none;
+    };
+}
+{% endfor %}

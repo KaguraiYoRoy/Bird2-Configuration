@@ -1,0 +1,3 @@
+- import_playbook: render.yml
+- import_playbook: validate.yml
+- import_playbook: deploy-bird.yml

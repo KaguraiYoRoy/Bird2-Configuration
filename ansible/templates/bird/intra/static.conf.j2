@@ -1,0 +1,21 @@
+protocol static intra_static_v4{
+{% for route in intra.static.v4_routes %}    route {{ route.prefix }} reject{
+{% for community in route.communities %}        bgp_large_community.add(({{ community | join(',') }}));
+{% endfor %}    };
+{% endfor %}
+    ipv4 {
+        import all;
+        export none;
+    };
+}
+
+protocol static intra_static_v6{
+{% for route in intra.static.v6_routes %}    route {{ route.prefix }} reject{
+{% for community in route.communities %}        bgp_large_community.add(({{ community | join(',') }}));
+{% endfor %}    };
+{% endfor %}
+    ipv6 {
+        import all;
+        export none;
+    };
+}

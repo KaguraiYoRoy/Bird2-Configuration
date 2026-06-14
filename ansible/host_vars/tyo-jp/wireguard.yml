@@ -1,0 +1,625 @@
+wireguard:
+  default_private_key_ref: tyo-jp/default
+  interfaces:
+  - name: dn42_4242420014
+    address:
+    - fe80::2024/64
+    listen_port: 20014
+    table: 'off'
+    peer:
+      public_key: RwS9qiSqkptO9QTje9stsxRD1CA/CR5HaDdNdPBydyU=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: jp.dn42.fxnet.top:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242420021
+    address:
+    - fe80::2024/64
+    listen_port: 20021
+    table: 'off'
+    peer:
+      public_key: KW+H2qK9aDiqoLwvmtLjJ6Sbndbcn4vnJpjT/xz89BE=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: 178.239.125.6:22024
+    post_up:
+    - ip addr add fd18:3e15:61d0::3 peer fd00:5d5b:797c::1 dev %i
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242420070
+    address:
+    - fe80::2024/64
+    listen_port: 20070
+    table: 'off'
+    peer:
+      public_key: PA5hDpcgaKsYKUyI3lLMcYojivg5LRfBuyOSsKTq1mY=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: jp.dn42.lie-kong.top:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242420207
+    address:
+    - fe80::2024/64
+    listen_port: 20207
+    table: 'off'
+    peer:
+      public_key: Urnj0In2/ba5zBJ0+TvGN6/A3JFXZwWfJ3EVkc5A4Cs=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: 172.104.99.40:52024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242420337
+    address:
+    - fe80::2024/64
+    listen_port: 20337
+    table: 'off'
+    peer:
+      public_key: xZBEeAO1btrRvU7cpXTBqaw8CZsmxrfB0005OgljtmU=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: 8.211.131.51:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242420398
+    address:
+    - fe80::2024/64
+    listen_port: 20398
+    table: 'off'
+    peer:
+      public_key: QQecM/0eCbRu5TNdyRxGpJTCo6aGolMb0kZAqLH5Oho=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: nrt.dn42.boletus.icu:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242420998
+    address:
+    - fe80::2024/64
+    listen_port: 20998
+    table: 'off'
+    peer:
+      public_key: 3vP9sqKquQvCeAeuOegJxTtMUQ7rqtMbb5l7ZdRTpz4=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: jp2.dn42.moenet.work:32024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242421023
+    address:
+    - fe80::2024/64
+    listen_port: 21023
+    table: 'off'
+    peer:
+      public_key: pv0bwaUm/ppI7Yaoi7w0qrXX5EW7Qo2njTSNG19AHgM=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: 48.218.0.204:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242421040
+    address:
+    - fe80::2024/64
+    listen_port: 21040
+    table: 'off'
+    peer:
+      public_key: SwLhWz2c14bgSYBouIRUvs7m4NGWWmRLD4xW1bLWkHg=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: shama-tokyo-jp02.dn42-endpoints.chihuo2104.dev:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242421080
+    address:
+    - fe80::2024/64
+    listen_port: 21080
+    table: 'off'
+    peer:
+      public_key: iJXjwJGGrUTQy/P3OXmZ5lM4cjrDAd9K+vonZVUZjxY=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: 85.113.70.18:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242421117
+    address:
+    - fe80::2024/64
+    listen_port: 21117
+    table: 'off'
+    peer:
+      public_key: vZXB25Od9elWU4RKWp42MWNJrNtxJFgdmBkyYH/8Sj8=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: jp01.dn42.yuyuko.com:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242421131
+    address:
+    - fe80::2024/64
+    listen_port: 21131
+    table: 'off'
+    peer:
+      public_key: 7ZLEhruv0R7V9DUEv+BHLr5fszpp/B55aKFtVoIACno=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: ipv4.tokyo.japan.dn42.yuzu.im:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242421336
+    address:
+    - fe80::2024/64
+    listen_port: 21336
+    table: 'off'
+    peer:
+      public_key: eacDn4IjHBMavV9IeilwPmrVDoVyKBkNhgK6qUBskiM=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: jp1-v6.dn42.xeiu.top:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242421411
+    address:
+    - fe80::2024/64
+    listen_port: 21411
+    table: 'off'
+    peer:
+      public_key: N7iQzqWLPb6lpRlf7grQG6rEzQOvDZWkmsRDkRnniH0=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: jp01.dn42.baka.pub:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242421588
+    address:
+    - fe80::100/64
+    listen_port: 21588
+    table: 'off'
+    peer:
+      public_key: unTYSat5YjkY+BY31Q9xLSfFhTUBvn3CiDCSZxbINVM=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: 202.182.101.118:58839
+    post_up:
+    - ip addr add 172.20.234.227 peer 172.20.16.145 dev %i
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242421771
+    address:
+    - fe80::2024/64
+    listen_port: 21771
+    table: 'off'
+    peer:
+      public_key: 8dPYwTXeDyqtkONkmfVSmNli6I/k8Vc8hEWgC+ZWchw=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: 47.79.94.122:32603
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242421817
+    address:
+    - fe80::2024/64
+    listen_port: 21817
+    table: 'off'
+    peer:
+      public_key: LDtwAj4hsCOmZEnAcb2uzOH5FP1q43ploOoG/8tDeC4=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: jp.kskb.eu.org:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242421857
+    address:
+    - fe80::2024/64
+    listen_port: 21857
+    table: 'off'
+    peer:
+      public_key: 4mrkVld0RCE5Tkn0v0xkiyMiT+cDQSRfL6AoMb3rzQg=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: jp1.dn42.luocynet.com:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242421888
+    address:
+    - fe80::2024/64
+    listen_port: 21888
+    table: 'off'
+    peer:
+      public_key: HND/VBClYdfCqAKGFmapwqOxg/KluPcv2u30rjD8+gk=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: 193.32.149.99:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242421999
+    address:
+    - fe80::2024/64
+    listen_port: 21999
+    table: 'off'
+    peer:
+      public_key: vzCKl611U0MVeaIcNyb8gJgWk1p6HY6oHr1oE846Py8=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: tyo1.dn42.luotianyi.sbs:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242422189
+    address:
+    - fe80::2024/64
+    listen_port: 22189
+    table: 'off'
+    peer:
+      public_key: u2ImAJn9ewce9YHN6HaqrR3Sr4Xsy5UaaJOLJ7gkSzs=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: 150.230.193.167:36201
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+    private_key_ref: tyo-jp/dn42_4242422189
+  - name: dn42_4242422279
+    address:
+    - fe80::2024/64
+    listen_port: 22279
+    table: 'off'
+    peer:
+      public_key: Bt0gmHMrBBCgV8/k7n8ykA31YStGc55xmyLgMyB04E0=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: jp-nrt1.bb.mhr.hk:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242422717
+    address:
+    - fe80::2024/64
+    listen_port: 22717
+    table: 'off'
+    peer:
+      public_key: Fw+pNtP7sPbrUMI2YTFcf5Fr1vtuuJoAmSTDd/ak5TU=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: 140.238.36.33:23746
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242422921
+    address:
+    - fe80::2024/64
+    listen_port: 22921
+    table: 'off'
+    peer:
+      public_key: nLyNhDOzsFUQ5LK5lrpHBlkKYkUzpzOm/p2iThlX3Dg=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: 156.231.116.81:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242423035
+    address:
+    - fe80::2024/64
+    listen_port: 23035
+    table: 'off'
+    peer:
+      public_key: oTPdRylNhX2O80e6rLejT9Fwzo7KWKZ7a3PUF4G9oEM=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: 193.111.30.186:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242423088
+    address:
+    - fe80::2024/64
+    listen_port: 23088
+    table: 'off'
+    peer:
+      public_key: b3gUz8an2+wSCvXAwuxGR7AnxKDUqqQMd1+LASo93R0=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: 45.76.219.186:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+    private_key_ref: tyo-jp/dn42_4242423088
+  - name: dn42_4242423101
+    address:
+    - fe80::2024/64
+    listen_port: 23101
+    table: 'off'
+    peer:
+      public_key: 3jkhBO/nKqWH1M377OhTZbwAXnnquy+Ggj4UbGtP+R8=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: 156.246.90.162:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242423264
+    address:
+    - fe80::2024/64
+    listen_port: 23264
+    table: 'off'
+    peer:
+      public_key: 3BbR49ma6Vk2xtYJ16TUhy0R/9V05N70BfHuZgUVfGE=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: 140.238.228.228:51822
+    post_up:
+    - ip addr add fd18:3e15:61d0::3/128 peer fd64:8964:8964::2/128 dev %i
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242423332
+    address:
+    - fe80::2024/64
+    listen_port: 23332
+    table: 'off'
+    peer:
+      public_key: O75R09ATSL6ND0430jDIaBVKfGeAWoS0c6yXxeJyLUs=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: jp.dn42.h23.moe:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242423374
+    address:
+    - fe80::2024/64
+    listen_port: 23374
+    table: 'off'
+    peer:
+      public_key: N7iQzqWLPb6lpRlf7grQG6rEzQOvDZWkmsRDkRnniH0=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: jp01.dn42.baka.pub:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242423702
+    address:
+    - fe80::2024/64
+    listen_port: 23702
+    table: 'off'
+    peer:
+      public_key: G5v93xQO15JtNMKJehB2HFMB/ACX0ec6u6EUFbKblBY=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: iij.s.launchpadx.top:52024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242423947
+    address:
+    - fe80::2024/64
+    listen_port: 23947
+    table: 'off'
+    peer:
+      public_key: qwrsDI3bkHDOXUldYGJPSM3hTI7KqDpYbNMzKzB1Uko=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: 205.198.78.80:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242423997
+    address:
+    - fe80::2024/64
+    listen_port: 23997
+    table: 'off'
+    peer:
+      public_key: wsjN0FgfZBFzSZQ66biOkYRtyQWWMFvX3ICOwj70D0U=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: jp1.dn42.bitrate.studio:22024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: dn42_4242423999
+    address:
+    - fe80::2024/64
+    listen_port: 23999
+    table: 'off'
+    peer:
+      public_key: mMGGxtEqsagrx1Raw57C2H3Stl6ch/cUuF7y08eVgBE=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: tyo.node.cowgl.tech:32024
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: intra_fra01
+    address:
+    - fe80::2024:227/64
+    listen_port: 10228
+    table: 'off'
+    peer:
+      public_key: 4zEFOrqHdIDPcjvu6NwbE1AAYBH1bA+SAowysX5fRT4=
+      allowed_ips:
+      - 0.0.0.0/0
+      - ::/0
+      endpoint: ipv6.fra01-de.ecs.iyoroy-infra.top:10227
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+  - name: intra_hkg02
+    address:
+    - fe80::2024:227/64
+    listen_port: 10225
+    table: 'off'
+    peer:
+      public_key: bg+KnzVupBrOQntHFFVzvBx+3sqYVoyJRantT6m5fm8=
+      allowed_ips:
+      - 0.0.0.0/0
+      - ::/0
+      endpoint: ipv4.hkg02-cn.ecs.iyoroy-infra.top:10227
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+  - name: intra_lax
+    address:
+    - fe80::2024:227/64
+    listen_port: 10229
+    table: 'off'
+    peer:
+      public_key: As0rZo5b9Bwt4loPGl6iSdtOqkd2p6ExK/Xyoy9OmTU=
+      allowed_ips:
+      - 0.0.0.0/0
+      - ::/0
+      endpoint: ipv4.lax-us.ecs.iyoroy-infra.top:10227
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0

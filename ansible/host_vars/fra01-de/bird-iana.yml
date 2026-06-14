@@ -1,0 +1,10 @@
+iana:
+  enabled: false
+  upstreams: []
+  peers: []
+  ibgp:
+    enabled: false
+    sessions: []
+  static:
+    advertise_routes: []
+    extra_routes: []

@@ -1,0 +1,117 @@
+- name: Deploy rendered WireGuard configs remotely
+  hosts: bird_nodes
+  gather_facts: false
+  serial: 1
+  become: "{{ deploy.become | default(false) }}"
+  vars:
+    wg_output_dir: "{{ wireguard_deploy.render_root }}/{{ inventory_hostname }}"
+    wireguard_staging_dir: "{{ wireguard_deploy.staging_parent }}/{{ inventory_hostname }}"
+    wireguard_helper_path: "{{ wireguard_deploy.staging_parent }}/wireguard_deploy.py"
+  tasks:
+    - name: Skip hosts with WireGuard deploy disabled
+      ansible.builtin.meta: end_host
+      when: not (deploy.wireguard.enabled | default(wireguard_deploy.enabled | default(false)))
+
+    - name: Refuse placeholder production hosts
+      ansible.builtin.assert:
+        that:
+          - ansible_host is defined
+          - ansible_host != 'CHANGEME'
+        fail_msg: "Set ansible_host for {{ inventory_hostname }} in ansible/inventory.production.yml before deploying WireGuard."
+
+    - name: Require WireGuard interface definitions
+      ansible.builtin.assert:
+        that:
+          - wireguard is defined
+          - wireguard.interfaces is defined
+          - wireguard.interfaces | length > 0
+        fail_msg: "Define wireguard.interfaces for {{ inventory_hostname }} before deploying WireGuard."
+
+    - name: Set WireGuard deployment backup path
+      ansible.builtin.set_fact:
+        wireguard_backup_dir: "{{ wireguard_deploy.backup_parent }}/{{ inventory_hostname }}-{{ lookup('pipe', 'date -u +%Y%m%dT%H%M%SZ') }}"
+
+    - name: Check rendered WireGuard config directory exists locally
+      delegate_to: localhost
+      become: false
+      ansible.builtin.stat:
+        path: "{{ wg_output_dir }}"
+      register: rendered_wireguard_dir
+
+    - name: Require local rendered WireGuard config directory
+      ansible.builtin.assert:
+        that:
+          - rendered_wireguard_dir.stat.exists
+          - rendered_wireguard_dir.stat.isdir
+        fail_msg: "Render {{ inventory_hostname }} WireGuard configs first with ansible/playbooks/render-wireguard.yml."
+
+    - name: Ensure remote WireGuard deployment directories exist
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+        mode: "0700"
+      loop:
+        - "{{ wireguard_deploy.staging_parent }}"
+        - "{{ wireguard_deploy.backup_parent }}"
+      check_mode: false
+
+    - name: Reset remote WireGuard staging directory
+      ansible.builtin.file:
+        path: "{{ wireguard_staging_dir }}"
+        state: absent
+      check_mode: false
+
+    - name: Create remote WireGuard staging directory
+      ansible.builtin.file:
+        path: "{{ wireguard_staging_dir }}"
+        state: directory
+        mode: "0700"
+      check_mode: false
+
+    - name: Rsync rendered WireGuard configs to remote staging
+      delegate_to: localhost
+      become: false
+      ansible.builtin.command:
+        argv:
+          - rsync
+          - -a
+          - --delete
+          - --chmod=D700,F600
+          - --chown=root:root
+          - -e
+          - "ssh -i {{ ansible_ssh_private_key_file | expanduser }}{% if ansible_port is defined %} -p {{ ansible_port }}{% endif %} -o StrictHostKeyChecking=accept-new"
+          - "{{ wg_output_dir }}/"
+          - "{{ ansible_user | default('root') }}@{{ ansible_host }}:{{ wireguard_staging_dir }}/"
+      changed_when: true
+      check_mode: false
+      no_log: true
+
+    - name: Upload WireGuard deploy helper
+      ansible.builtin.copy:
+        src: ../files/wireguard_deploy.py
+        dest: "{{ wireguard_helper_path }}"
+        owner: root
+        group: root
+        mode: "0700"
+      check_mode: false
+
+    - name: Run WireGuard deploy helper
+      ansible.builtin.command:
+        argv: >-
+          {{
+            [
+              'python3',
+              wireguard_helper_path,
+              '--staging-dir', wireguard_staging_dir,
+              '--live-dir', wireguard_deploy.remote_dir,
+              '--backup-dir', wireguard_backup_dir,
+              '--service-manager', deploy.service_manager | default('systemd')
+            ] + (['--dry-run'] if ansible_check_mode | bool else [])
+          }}
+      register: wireguard_helper_result
+      changed_when: "'\"changed\": true' in wireguard_helper_result.stdout"
+      check_mode: false
+
+    - name: Show WireGuard deploy helper summary
+      ansible.builtin.debug:
+        msg: "{{ wireguard_helper_result.stdout | from_json }}"

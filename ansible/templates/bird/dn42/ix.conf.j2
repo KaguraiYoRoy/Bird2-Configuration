@@ -1,0 +1,89 @@
+function dn42_ix_add_community(){
+    bgp_large_community.add((DN42_OWNAS,1,1));
+    bgp_large_community.add((DN42_OWNAS,2,101));
+}
+
+function dn42_ix_check_community(){
+    if !(bgp_large_community ~ [(DN42_OWNAS,1,1)]) then return false;
+    if bgp_large_community ~ [(DN42_OWNAS,65535,65282)] then return false;
+    if bgp_large_community ~ [(DN42_OWNAS,65535,65281)] then return false;
+
+    if bgp_large_community ~ [(DN42_OWNAS,2,0)] then return false;
+    if bgp_large_community ~ [(DN42_OWNAS,2,101)] then return false;
+    if bgp_large_community ~ [(DN42_OWNAS,2,102)] then return false;
+
+    return true;
+}
+
+template bgp dn42_ixpeers {
+    router id DN42_OWNIP;
+    local as DN42_OWNAS;
+    path metric 1;
+
+    ipv4 {
+        table master4;
+        import filter {
+            if is_valid_dn42_network() && !is_self_dn42_net() then {
+                bgp_local_pref = dn42_ebgp_calculate_priority(); 
+                remove_confederation_as();
+                remove_private_community();
+                dn42_ix_add_community();
+                accept;
+            }
+            reject;
+        };
+
+        export filter {
+            if is_valid_dn42_network() && source ~ [RTS_STATIC, RTS_BGP] then{ 
+                if roa_check(dn42_roa_flap_v4, net, bgp_path.last) = ROA_INVALID then reject;
+                if !dn42_ix_check_community() then reject;
+                if is_self_dn42_net() then {
+                    bgp_community.add((64511, DN42_REGION));
+                    bgp_community.add((64511, DN42_COUNTRY));
+                }
+
+                remove_confederation_as();
+                remove_private_community();
+                accept;
+            }
+            reject;
+        };
+    };
+
+    ipv6 {
+        table master6;
+        import filter {
+            if is_valid_dn42_network_v6() && !is_self_dn42_net_v6() then {
+                bgp_local_pref = dn42_ebgp_calculate_priority(); 
+                remove_confederation_as();
+                remove_private_community();
+                dn42_ix_add_community();
+                accept;
+            }
+            reject;
+        };
+        export filter {
+            if is_valid_dn42_network_v6() && source ~ [RTS_STATIC, RTS_BGP] then{
+                if roa_check(dn42_roa_flap_v6, net, bgp_path.last) = ROA_INVALID then reject;
+                if !dn42_ix_check_community() then reject;
+                if is_self_dn42_net_v6() then {
+                    bgp_community.add((64511, DN42_REGION));
+                    bgp_community.add((64511, DN42_COUNTRY));
+                }
+                remove_confederation_as();
+                remove_private_community();
+                accept;
+            }
+            reject;
+        };
+    };
+}
+{% for session in dn42.ix.sessions | default([]) %}
+protocol bgp '{{ session.protocol }}' from dn42_ixpeers {
+{% if session.description is defined and session.description is not none %}    description "{{ session.description | replace('\\', '\\\\') | replace('\"', '\\"') }}";
+{% endif %}    neighbor {{ session.neighbor.address }}{% if session.neighbor.interface is defined and session.neighbor.interface %} % '{{ session.neighbor.interface }}'{% endif %} as {{ session.neighbor.asn }};
+{% if session.ipv4.extended_next_hop | default(false) %}    ipv4{
+        extended next hop;
+    };
+{% endif %}};
+{% endfor %}

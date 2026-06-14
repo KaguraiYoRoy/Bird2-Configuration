@@ -1,0 +1,59 @@
+- name: Validate rendered BIRD configs
+  hosts: bird_nodes
+  gather_facts: false
+  become: false
+  check_mode: false
+  vars:
+    node_output_dir: "{{ render_root }}/{{ inventory_hostname }}"
+  tasks:
+    - name: Check optional BIRD secrets file
+      delegate_to: localhost
+      ansible.builtin.stat:
+        path: "{{ bird_deploy.secrets_file }}"
+      register: bird_secrets_file
+
+    - name: Load optional BIRD secrets
+      delegate_to: localhost
+      ansible.builtin.include_vars:
+        file: "{{ bird_deploy.secrets_file }}"
+      when: bird_secrets_file.stat.exists
+      no_log: true
+
+    - name: Set default BIRD secrets
+      ansible.builtin.set_fact:
+        bird_secrets: "{{ {'bgp_passwords': {}} | combine(bird_secrets | default({}), recursive=True) }}"
+      no_log: true
+
+    - name: Require IANA upstream BGP password secrets
+      ansible.builtin.assert:
+        quiet: true
+        that:
+          - upstream.password_ref is not defined or bird_secrets.bgp_passwords[upstream.password_ref] is defined
+        fail_msg: "Missing BIRD BGP password secret for {{ inventory_hostname }} {{ upstream.protocol }}."
+      loop: "{{ iana.upstreams | default([]) }}"
+      loop_control:
+        loop_var: upstream
+        label: "{{ upstream.protocol }}"
+      when: iana.enabled | default(false)
+      no_log: true
+
+    - name: Check whether bird is installed
+      delegate_to: localhost
+      ansible.builtin.command: bash -lc 'command -v bird'
+      register: bird_binary
+      changed_when: false
+      failed_when: false
+
+    - name: Skip validation when bird is missing
+      delegate_to: localhost
+      ansible.builtin.debug:
+        msg: "bird is not installed locally; skipping {{ inventory_hostname }} parse check"
+      when: bird_binary.rc != 0
+
+    - name: Run BIRD parse-only validation
+      delegate_to: localhost
+      ansible.builtin.command: bird -p -c bird.conf
+      args:
+        chdir: "{{ node_output_dir }}"
+      changed_when: false
+      when: bird_binary.rc == 0

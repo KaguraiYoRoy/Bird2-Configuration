@@ -1,0 +1,304 @@
+dn42:
+  own_ip: 172.20.234.225
+  own_ipv6: fd18:3e15:61d0::1
+  region: 52
+  country: 1344
+  flapalerted:
+    local: 172.20.234.225
+    neighbor:
+      address: 172.20.234.227
+      port: 1790
+    rpki_remote:
+      address: 172.20.234.227
+      port: 8083
+  peers:
+  - description: '@iu_yang1 https://blog.begalaxy.top/index.php/38.html'
+    neighbor:
+      address: fe80::1836
+    ipv4:
+      extended_next_hop: true
+    asn: 4201273722
+  - description: '@MadobiNanami https://blog.nanami.tech/'
+    neighbor:
+      address: fe80::55
+    ipv4:
+      extended_next_hop: true
+    asn: 4242420055
+  - description: '@Lie_Kong https://blog.lie-kong.top/dn42/'
+    neighbor:
+      address: fe80::70:2
+    ipv4:
+      extended_next_hop: true
+    asn: 4242420070
+  - description: '@linmontfurry'
+    neighbor:
+      address: fe80::88
+    ipv4:
+      extended_next_hop: true
+    asn: 4242420088
+  - description: https://sdubs.vip
+    neighbor:
+      address: fe80::202:2
+    ipv4:
+      extended_next_hop: true
+    asn: 4242420202
+  - description: '@ZeroWolf233 https://zerowolf.cn/dn42/'
+    neighbor:
+      address: fe80::233
+    ipv4:
+      extended_next_hop: true
+    asn: 4242420233
+  - description: '@Nuro_Atamashino'
+    neighbor:
+      address: fe80::298
+    ipv4:
+      extended_next_hop: true
+    asn: 4242420298
+  - description: '@zxxwdd'
+    neighbor:
+      address: fe80::337
+    ipv4:
+      extended_next_hop: true
+    asn: 4242420337
+  - description: '@Alice_8585'
+    neighbor:
+      address: fe80::387
+    ipv4:
+      extended_next_hop: true
+    asn: 4242420387
+  - description: '@opkgbot'
+    neighbor:
+      address: fe80::398
+    ipv4:
+      extended_next_hop: true
+    asn: 4242420398
+  - description: '@Virtual0PTR https://blog.0xptr.top/en/about/dn42_peering'
+    neighbor:
+      address: fe80::d555
+    ipv4:
+      extended_next_hop: true
+    asn: 4242420555
+  - description: '@v3tianyi'
+    neighbor:
+      address: fe80::712
+    ipv4:
+      extended_next_hop: true
+    asn: 4242420712
+  - description: '@Iridoideae'
+    neighbor:
+      address: fe80::1023:2
+    ipv4:
+      extended_next_hop: true
+    asn: 4242421023
+  - description: '@jlu5ca https://highdef.network/'
+    neighbor:
+      address: fe80::1080:38
+    ipv4:
+      extended_next_hop: true
+    asn: 4242421080
+  - description: '@antenna000 https://blog.yuyuko.com/post/7'
+    neighbor:
+      address: fe80::1117
+    ipv4:
+      extended_next_hop: true
+    asn: 4242421117
+  - description: '@Ximiawa_bot @Mxmilu https://milu.ink/dn42'
+    neighbor:
+      address: fe80::1166
+    ipv4:
+      extended_next_hop: true
+    asn: 4242421166
+  - description: '@pfxlabs https://prefixlabs.net/'
+    neighbor:
+      address: fe80::1240:7
+    ipv4:
+      extended_next_hop: true
+    asn: 4242421240
+  - description: '@BIGGER_THAN_SHIT'
+    neighbor:
+      address: fe80::9527
+    ipv4:
+      extended_next_hop: true
+    asn: 4242421260
+  - description: '@Xeri_Xeiu https://blog.xeiu.top/dn42-info'
+    neighbor:
+      address: fe80::3:1336
+    ipv4:
+      extended_next_hop: true
+    asn: 4242421336
+  - description: '@DictXiong https://beardic.cn/zh-cn/dn42/'
+    neighbor:
+      address: fe80::1366
+    ipv4:
+      extended_next_hop: true
+    asn: 4242421366
+  - description: https://dn42.guet.eu.org/zh-cn/contact/
+    neighbor:
+      address: fe80::1686
+    ipv4:
+      extended_next_hop: true
+    asn: 4242421686
+  - description: '@messageleaf https://exploro.one/dn42'
+    neighbor:
+      address: fe80::5ec6:ff37:aec1:d0ab
+    ipv4:
+      extended_next_hop: true
+    asn: 4242421771
+  - description: '@Potat0_DN42_Bot'
+    neighbor:
+      address: fe80::1816
+    ipv4:
+      extended_next_hop: true
+    asn: 4242421816
+  - description: '@imlonghao'
+    neighbor:
+      address: fe80::1888
+    ipv4:
+      extended_next_hop: true
+    asn: 4242421888
+  - description: https://luotianyi.eu/dn42/
+    neighbor:
+      address: fe80::1999
+    ipv4:
+      extended_next_hop: true
+    asn: 4242421999
+  - description: wyf@932686.xyz https://blog.wolfyang.fan/notes/dn42
+    neighbor:
+      address: fe80::2034
+    ipv4:
+      extended_next_hop: true
+    asn: 4242422034
+  - description: '@izmimz'
+    neighbor:
+      address: fe80::2164
+    ipv4:
+      extended_next_hop: true
+    asn: 4242422164
+  - description: https://iedon.net
+    neighbor:
+      address: fe80::2189:120
+    ipv4:
+      extended_next_hop: true
+    asn: 4242422189
+  - description: https://peering.maraun.de/
+    neighbor:
+      address: fe80::2225
+    ipv4:
+      extended_next_hop: true
+    asn: 4242422225
+  - description: '@moohric https://www.mhr.hk/posts/dn42-peering/'
+    neighbor:
+      address: fe80::2279
+    ipv4:
+      extended_next_hop: true
+    asn: 4242422279
+  - description: '@SessX6cf https://dn42.xhustudio.eu.org/peering.html'
+    neighbor:
+      address: fe80::2466
+    ipv4:
+      extended_next_hop: true
+    asn: 4242422466
+  - description: '@unstartdev https://unstartdev.eu.org/dn42'
+    neighbor:
+      address: fe80::2467
+    ipv4:
+      extended_next_hop: true
+    asn: 4242422467
+  - description: '@samandjyf1 https://blog.sam1314.com/DN42/'
+    neighbor:
+      address: fe80::2503
+    ipv4:
+      extended_next_hop: true
+    asn: 4242422503
+  - description: https://lantian.pub
+    neighbor:
+      address: fe80::2547
+    ipv4:
+      extended_next_hop: true
+    asn: 4242422547
+  - description: https://peer.dn42.6700.cc
+    neighbor:
+      address: fe80::3088:192
+    ipv4:
+      extended_next_hop: true
+    asn: 4242423088
+  - description: '@Grayowo'
+    neighbor:
+      address: fe80::3101:2
+    ipv4:
+      extended_next_hop: true
+    asn: 4242423101
+  - description: AS10099@foxmail.com @WOW55999 https://dn42.gtio.de/
+    neighbor:
+      address: fe80::2:3128
+    ipv4:
+      extended_next_hop: true
+    asn: 4242423128
+  - description: '@Auride'
+    neighbor:
+      address: fe80::2024:3310
+    ipv4:
+      extended_next_hop: true
+    asn: 4242423310
+  - description: '@Ykino233'
+    neighbor:
+      address: fe80::3311
+    ipv4:
+      extended_next_hop: true
+    asn: 4242423311
+  - description: https://dn42.baka.pub/
+    neighbor:
+      address: fe80::2999:225
+    ipv4:
+      extended_next_hop: true
+    asn: 4242423374
+  - description: '@jack153376'
+    neighbor:
+      address: fe80::3376
+    ipv4:
+      extended_next_hop: true
+    asn: 4242423376
+  - description: '@LeZi9916'
+    neighbor:
+      address: fe80::3377
+    ipv4:
+      extended_next_hop: true
+    asn: 4242423377
+  - description: '@winter_pm_bot'
+    neighbor:
+      address: fd4e:d0:d38d:68c1::1
+    ipv4:
+      extended_next_hop: true
+    asn: 4242423658
+  - description: '@tsy_ink'
+    neighbor:
+      address: fe80::3686
+    ipv4:
+      extended_next_hop: true
+    asn: 4242423686
+  - description: https://dn42.g-load.eu
+    neighbor:
+      address: fe80::ade0
+    ipv4:
+      extended_next_hop: true
+    asn: 4242423914
+  - description: https://blog.sherpherd.net/dn42.html
+    neighbor:
+      address: fe80::3947:1
+    ipv4:
+      extended_next_hop: true
+    asn: 4242423947
+  - description: '@Sm1rkBot https://blog.bitrate.top/dn42'
+    neighbor:
+      address: fe80::3997
+    ipv4:
+      extended_next_hop: true
+    asn: 4242423997
+  - description: '@charliemoomoo'
+    neighbor:
+      address: fe80::3999
+    ipv4:
+      extended_next_hop: true
+    asn: 4242423999
+  ix:
+    sessions: []
