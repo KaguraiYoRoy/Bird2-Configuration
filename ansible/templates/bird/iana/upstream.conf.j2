@@ -44,6 +44,7 @@ template bgp iana_upstream {
 protocol bgp '{{ upstream.protocol }}' from iana_upstream{
 {% if upstream.description is defined and upstream.description is not none %}    description "{{ upstream.description | replace('\\', '\\\\') | replace('\"', '\\"') }}";
 {% endif %}    neighbor {{ upstream.neighbor.address }} as {{ upstream.neighbor.asn }};
-{% if upstream.password_ref is defined %}    password "{{ bird_secrets.bgp_passwords[upstream.password_ref] | replace('\\', '\\\\') | replace('\"', '\\"') }}";
+{% if upstream.multihop is defined %}    multihop {{ upstream.multihop }};
+{% endif %}{% if upstream.password_ref is defined %}    password "{{ bird_secrets.bgp_passwords[upstream.password_ref] | replace('\\', '\\\\') | replace('\"', '\\"') }}";
 {% endif %}}
 {% endfor %}

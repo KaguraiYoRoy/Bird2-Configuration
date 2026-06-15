@@ -50,33 +50,17 @@ intra:
     v4_routes:
     - prefix: 172.20.234.225/32
       communities:
-      - - 4242422024
-        - 1
-        - 1
-      - - 4242422024
-        - 2
-        - 0
-      - - 4242422024
-        - 2
-        - 100
-      - - 4242422024
-        - 65535
-        - 65281
+      - [4242422024, 1, 1]
+      - [4242422024, 2, 0]
+      - [4242422024, 2, 100]
+      - [4242422024, 65535, 65281]
     v6_routes:
     - prefix: fd18:3e15:61d0::1/128
       communities:
-      - - 4242422024
-        - 1
-        - 1
-      - - 4242422024
-        - 2
-        - 0
-      - - 4242422024
-        - 2
-        - 100
-      - - 4242422024
-        - 65535
-        - 65281
+      - [4242422024, 1, 1]
+      - [4242422024, 2, 0]
+      - [4242422024, 2, 100]
+      - [4242422024, 65535, 65281]
   ibgp_sessions:
   - file: lax.conf
     protocol: intra_ibgp_lax
@@ -88,3 +72,14 @@ intra:
     neighbor:
       address: fe80::2024:227
       interface: intra_tyo
+  - file: hkg_b.conf
+    protocol: intra_ibgp_hkg_b
+    neighbor:
+      address: fe80::2053:69b
+      interface: dn42_4242423377
+    ipv4:
+      import_policy: iana_full
+      export_policy: iana_full
+    ipv6:
+      import_policy: iana_full
+      export_policy: iana_full

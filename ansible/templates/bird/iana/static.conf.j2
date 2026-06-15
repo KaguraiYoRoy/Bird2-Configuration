@@ -3,8 +3,8 @@ protocol static iana_static_advertise{
 {% endfor %}
     ipv6 {
         import filter{
-            bgp_large_community.add((IANA_OWNAS,1,1));
-            bgp_large_community.add((IANA_OWNAS,2,100));
+            bgp_large_community.add((205369,1,1));
+            bgp_large_community.add((205369,2,100));
             accept;
         };
         export none;
@@ -12,8 +12,9 @@ protocol static iana_static_advertise{
 }
 {% for route in iana.static.extra_routes | default([]) %}
 protocol static {{ route.protocol }}{
-    route {{ route.prefix }} via "{{ route.via_interface }}";
-    
+{% if route.via.address is defined %}    route {{ route.prefix }} via {{ route.via.address }}{% if route.via.interface is defined and route.via.interface %} % '{{ route.via.interface }}'{% endif %};
+{% else %}    route {{ route.prefix }} via "{{ route.via.interface }}";
+{% endif %}
     ipv6 {
         import filter{
 {% for community in route.communities %}            bgp_large_community.add({{ community }});

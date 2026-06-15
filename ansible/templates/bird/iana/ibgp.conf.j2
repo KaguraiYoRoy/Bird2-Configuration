@@ -3,8 +3,8 @@ function iana_ibgp_add_community(){
 }
 
 function iana_ibgp_check_community(){
-    if !(bgp_large_community ~ [(IANA_OWNAS,1,1)]) then return false;
-    if bgp_large_community ~ [(IANA_OWNAS,65535,65282)] then return false;
+    if !(bgp_large_community ~ [(205369,1,1)]) then return false;
+    if bgp_large_community ~ [(205369,65535,65282)] then return false;
     return true;
 }
 

@@ -4,10 +4,16 @@ bird:
   device_semicolon: false
   include_sections:
   - - path: filter.conf
-  - - path: dn42/filter.conf
+  - - path: iana/rpki.conf
+    - path: iana/filter.conf
+    - path: iana/static.conf
+    - path: iana/upstream.conf
+    - path: iana/peer.conf
+    - path: iana/ibgp.conf
+  - - path: dn42/rpki.conf
+    - path: dn42/filter.conf
     - path: dn42/flapalerted.conf
     - path: dn42/static.conf
-    - path: dn42/rpki.conf
     - path: dn42/ebgp.conf
   - - path: intra/filter.conf
     - path: intra/ibgp.conf
@@ -15,8 +21,14 @@ bird:
   - - path: kernel.conf
 modules:
   iana:
-    enabled: false
-    includes: []
+    enabled: true
+    includes:
+    - rpki.conf
+    - filter.conf
+    - static.conf
+    - upstream.conf
+    - peer.conf
+    - ibgp.conf
   dn42:
     enabled: true
     includes:

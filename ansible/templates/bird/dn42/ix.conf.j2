@@ -1,16 +1,16 @@
 function dn42_ix_add_community(){
-    bgp_large_community.add((DN42_OWNAS,1,1));
-    bgp_large_community.add((DN42_OWNAS,2,101));
+    bgp_large_community.add((4242422024,1,1));
+    bgp_large_community.add((4242422024,2,101));
 }
 
 function dn42_ix_check_community(){
-    if !(bgp_large_community ~ [(DN42_OWNAS,1,1)]) then return false;
-    if bgp_large_community ~ [(DN42_OWNAS,65535,65282)] then return false;
-    if bgp_large_community ~ [(DN42_OWNAS,65535,65281)] then return false;
+    if !(bgp_large_community ~ [(4242422024,1,1)]) then return false;
+    if bgp_large_community ~ [(4242422024,65535,65282)] then return false;
+    if bgp_large_community ~ [(4242422024,65535,65281)] then return false;
 
-    if bgp_large_community ~ [(DN42_OWNAS,2,0)] then return false;
-    if bgp_large_community ~ [(DN42_OWNAS,2,101)] then return false;
-    if bgp_large_community ~ [(DN42_OWNAS,2,102)] then return false;
+    if bgp_large_community ~ [(4242422024,2,0)] then return false;
+    if bgp_large_community ~ [(4242422024,2,101)] then return false;
+    if bgp_large_community ~ [(4242422024,2,102)] then return false;
 
     return true;
 }

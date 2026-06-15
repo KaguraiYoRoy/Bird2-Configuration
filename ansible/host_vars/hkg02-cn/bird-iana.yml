@@ -23,14 +23,8 @@ iana:
       address: 2602:f92a:1315:2::1
       asn: 203168
   ibgp:
-    enabled: true
-    sessions:
-    - protocol: iana_ibgp_LeZi
-      neighbor:
-        address: fe80::2053:69b
-        interface: dn42_4242423377
-      local: fe80::2053:69a
-      direct: true
+    enabled: false
+    sessions: []
   static:
     advertise_routes:
     - IANA_OWNNETv6

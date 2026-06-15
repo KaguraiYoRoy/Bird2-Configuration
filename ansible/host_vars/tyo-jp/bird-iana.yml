@@ -23,7 +23,8 @@ iana:
     extra_routes:
     - protocol: iana_static
       prefix: fc00:230::/64
-      via_interface: eth0
+      via:
+        interface: eth0
       communities:
       - (205369,65535,65282)
   own_ipv6: 2a14:7583:f228::63f4

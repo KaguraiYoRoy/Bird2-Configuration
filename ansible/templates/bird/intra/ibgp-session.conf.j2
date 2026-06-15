@@ -1,6 +1,20 @@
+{% set ipv4 = session.ipv4 | default({}) %}
+{% set ipv6 = session.ipv6 | default({}) %}
+{% set ipv4_import_policy = ipv4.import_policy | default(session.import_policy | default('default')) %}
+{% set ipv4_export_policy = ipv4.export_policy | default(session.export_policy | default('default')) %}
+{% set ipv6_import_policy = ipv6.import_policy | default(session.import_policy | default('default')) %}
+{% set ipv6_export_policy = ipv6.export_policy | default(session.export_policy | default('default')) %}
 protocol bgp '{{ session.protocol }}' from intra_ibgpeers{
     neighbor {{ session.neighbor.address }} % '{{ session.neighbor.interface }}';
     ipv4{
+        table master4;
+        import filter intra_ibgp_import_{{ ipv4_import_policy }};
+        export filter intra_ibgp_export_{{ ipv4_export_policy }};
         extended next hop;
+    };
+    ipv6{
+        table master6;
+        import filter intra_ibgp_import_{{ ipv6_import_policy }};
+        export filter intra_ibgp_export_{{ ipv6_export_policy }};
     };
 };
