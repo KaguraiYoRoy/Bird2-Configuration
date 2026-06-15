@@ -146,6 +146,22 @@ wireguard:
       endpoint: 24.199.110.90:22024
     post_up:
     - sysctl -w net.ipv6.conf.%i.autoconf=0
+  - name: dn42_4242420893
+    address:
+    - fe80::2024/64
+    listen_port: 20893
+    table: 'off'
+    peer:
+      public_key: 6BFCe8vi6R9magcs/BqZbSqblNNqR/jcrNt1E7/NDD8=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: uc01.dn42.maiyun.me:24224
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
   - name: dn42_4242421023
     address:
     - fe80::2024/64

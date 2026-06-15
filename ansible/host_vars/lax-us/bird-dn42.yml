@@ -60,6 +60,12 @@ dn42:
     ipv4:
       extended_next_hop: true
     asn: 4242420721
+  - description: dn42admin@maiyun.me https://maiyun.me/contact-me.html
+    neighbor:
+      address: fe80::893
+    ipv4:
+      extended_next_hop: true
+    asn: 4242420893
   - description: '@Iridoideae'
     neighbor:
       address: fe80::1023:2
