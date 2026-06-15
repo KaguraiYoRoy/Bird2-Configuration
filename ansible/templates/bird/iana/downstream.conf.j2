@@ -18,6 +18,7 @@ function iana_downstream_check_community(){
 }
 {% if 'default' in ns.import_policies %}
 filter iana_downstream_import_default {
+    if bgp_path.len > 1 then reject;
     if !iana_filter_default_check() then reject;
     if is_self_iana_v6() then reject;
     remove_confederation_as();
