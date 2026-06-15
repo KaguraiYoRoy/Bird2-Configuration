@@ -6,6 +6,7 @@ iana:
     neighbor:
       address: fc00:32e0::1
       asn: 44324
+  downstreams: []
   peers:
   - protocol: iana_ix_zxix_rs1
     local: 2406:840:1f:1000::20:5369:1

@@ -1,0 +1,79 @@
+{% set ns = namespace(import_policies=[], export_policies=[]) %}
+{% for downstream in iana.downstreams | default([]) %}
+{% set import_policy = downstream.import_policy | default('default') %}
+{% set export_policy = downstream.export_policy | default('default') %}
+{% if import_policy not in ns.import_policies %}{% set ns.import_policies = ns.import_policies + [import_policy] %}{% endif %}
+{% if export_policy not in ns.export_policies %}{% set ns.export_policies = ns.export_policies + [export_policy] %}{% endif %}
+{% endfor %}
+function iana_downstream_add_community(){
+    bgp_large_community.add((IANA_OWNAS,1,1));
+    bgp_large_community.add((IANA_OWNAS,2,100));
+}
+
+function iana_downstream_check_community(){
+    if !(bgp_large_community ~ [(IANA_OWNAS,1,1)]) then return false;
+    if bgp_large_community ~ [(IANA_OWNAS,65535,65282)] then return false;
+    if bgp_large_community ~ [(IANA_OWNAS,65535,65281)] then return false;
+    return true;
+}
+{% if 'default' in ns.import_policies %}
+filter iana_downstream_import_default {
+    if !iana_filter_default_check() then reject;
+    if is_self_iana_v6() then reject;
+    remove_confederation_as();
+    remove_private_community();
+    iana_downstream_add_community();
+    accept;
+}
+{% endif %}
+{% if 'reject' in ns.import_policies %}
+filter iana_downstream_import_reject {
+    reject;
+}
+{% endif %}
+{% if 'default' in ns.export_policies %}
+filter iana_downstream_export_default {
+    if !iana_filter_default_check() then reject;
+    if !iana_downstream_check_community() then reject;
+    remove_confederation_as();
+    remove_private_community();
+    accept;
+}
+{% endif %}
+{% if 'own_only' in ns.export_policies %}
+filter iana_downstream_export_own_only {
+    if !iana_filter_default_check() then reject;
+    if !iana_downstream_check_community() then reject;
+    if !is_self_iana_v6() then reject;
+    remove_confederation_as();
+    remove_private_community();
+    accept;
+}
+{% endif %}
+{% if 'reject' in ns.export_policies %}
+filter iana_downstream_export_reject {
+    reject;
+}
+{% endif %}
+template bgp iana_downstream {
+    router id IANA_ROUTER_ID;
+    local as IANA_OWNAS;
+    path metric 1;
+    graceful restart;
+}
+{% for downstream in iana.downstreams | default([]) %}
+{% set import_policy = downstream.import_policy | default('default') %}
+{% set export_policy = downstream.export_policy | default('default') %}
+protocol bgp '{{ downstream.protocol }}' from iana_downstream{
+{% if downstream.description is defined and downstream.description is not none %}    description "{{ downstream.description | replace('\\', '\\\\') | replace('\"', '\\"') }}";
+{% endif %}{% if downstream.local is defined %}    local {{ downstream.local }};
+{% endif %}    neighbor {{ downstream.neighbor.address }}{% if downstream.neighbor.interface is defined and downstream.neighbor.interface %} % '{{ downstream.neighbor.interface }}'{% endif %} as {{ downstream.neighbor.asn }};
+{% if downstream.multihop is defined %}    multihop {{ downstream.multihop }};
+{% endif %}{% if downstream.direct | default(false) %}    direct;
+{% endif %}{% if downstream.password_ref is defined %}    password "{{ bird_secrets.bgp_passwords[downstream.password_ref] | replace('\\', '\\\\') | replace('\"', '\\"') }}";
+{% endif %}    ipv6 {
+        import filter iana_downstream_import_{{ import_policy }};
+        export filter iana_downstream_export_{{ export_policy }};
+    };
+}
+{% endfor %}

@@ -9,6 +9,7 @@ bird:
     - path: iana/static.conf
     - path: iana/upstream.conf
     - path: iana/peer.conf
+    - path: iana/downstream.conf
   - - path: dn42/rpki.conf
     - path: dn42/flapalerted.conf
     - path: dn42/filter.conf
@@ -27,6 +28,7 @@ modules:
     - static.conf
     - upstream.conf
     - peer.conf
+    - downstream.conf
   dn42:
     enabled: true
     includes:

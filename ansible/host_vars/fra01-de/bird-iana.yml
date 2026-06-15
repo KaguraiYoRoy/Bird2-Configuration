@@ -8,6 +8,7 @@ iana:
       asn: 64515
     multihop: 2
     password_ref: fra01_iana_upstream_64515
+  downstreams: []
   peers: []
   ibgp:
     enabled: false

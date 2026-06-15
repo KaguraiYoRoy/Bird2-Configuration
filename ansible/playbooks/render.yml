@@ -56,16 +56,16 @@
         mode: "0755"
       when: iana.enabled | default(false)
 
-    - name: Require IANA upstream BGP password secrets
+    - name: Require IANA BGP password secrets
       ansible.builtin.assert:
         quiet: true
         that:
-          - upstream.password_ref is not defined or bird_secrets.bgp_passwords[upstream.password_ref] is defined
-        fail_msg: "Missing BIRD BGP password secret for {{ inventory_hostname }} {{ upstream.protocol }}."
-      loop: "{{ iana.upstreams | default([]) }}"
+          - session.password_ref is not defined or bird_secrets.bgp_passwords[session.password_ref] is defined
+        fail_msg: "Missing BIRD BGP password secret for {{ inventory_hostname }} {{ session.protocol }}."
+      loop: "{{ (iana.upstreams | default([])) + (iana.downstreams | default([])) }}"
       loop_control:
-        loop_var: upstream
-        label: "{{ upstream.protocol }}"
+        loop_var: session
+        label: "{{ session.protocol }}"
       when: iana.enabled | default(false)
       no_log: true
 

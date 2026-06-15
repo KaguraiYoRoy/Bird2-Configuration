@@ -6,6 +6,7 @@ iana:
     neighbor:
       address: fc00:230::1
       asn: 44324
+  downstreams: []
   peers:
   - protocol: iana_ix_203168
     description: Protocol 7 IX
