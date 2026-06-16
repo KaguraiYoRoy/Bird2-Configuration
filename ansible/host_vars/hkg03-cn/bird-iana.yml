@@ -6,6 +6,7 @@ iana:
     neighbor:
       address: fd00:7720::1
       asn: 7720
+    multihop: 2
   downstreams: []
   peers: []
   ibgp:
@@ -16,11 +17,22 @@ iana:
     - "2a14:7583:f220::/43"
     - IANA_AnycastNETv6
     extra_routes:
-    - name: iana_local_route_advertise
+    - protocol: iana_static
       prefixes:
-      - prefix: IANA_OWNNETv6
+      - prefix: 2401:5a0:1000::1/128
+        via:
+          interface: eth0
         communities:
         - NO_EXPORT
+        large_communities:
+        - (205369,65535,65282)
+      - prefix: fd00:7720::1/128
+        via:
+          recursive: 2401:5a0:1000::1
+        communities:
+        - NO_EXPORT
+        large_communities:
+        - (205369,65535,65282)
   own_ipv6: 2a14:7583:f224::872c
   own_net_v6: 2a14:7583:f220::/43
   own_netset_v6: '[ 2a14:7581:0ffb::/48+, 2a14:7583:f200::/40+, 2a14:67c3:fff0::/44+,

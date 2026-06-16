@@ -23,6 +23,8 @@ iana:
       via:
         address: fe80::fc00:6ff:fe3c:d801
         interface: enp1s0
+      communities:
+      - NO_EXPORT
       large_communities:
       - (205369,65535,65282)
   own_ipv6: 2a14:7583:f244::3b06
