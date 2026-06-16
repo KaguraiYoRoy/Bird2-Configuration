@@ -32,7 +32,7 @@ iana:
     - IANA_AnycastNETv6
     extra_routes: []
   own_ipv6: 2a14:7583:f224::7d89
-  own_net_v6: 2a14:7583:f224::/48
+  own_net_v6: 2a14:7583:f220::/43
   own_netset_v6: '[ 2a14:7581:0ffb::/48+, 2a14:7583:f200::/40+, 2a14:67c3:fff0::/44+,
     2a14:67c3:c0::/44+ ]'
   router_id: 23.149.120.51
