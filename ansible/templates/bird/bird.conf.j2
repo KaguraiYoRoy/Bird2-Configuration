@@ -29,6 +29,10 @@ define INTRA_ROUTERID            = {{ intra.router_id }};
 define INTRA_PREFIX_V4           = {{ intra_global.prefix_v4 }};
 define INTRA_PREFIX_V6           = {{ intra_global.prefix_v6 }};
 
+define BLACKHOLE              = (65535, 666);
+define NO_EXPORT              = (65535, 65281);
+define NO_ADVERTISE           = (65535, 65282);
+
 protocol device {
     scan time {{ bird.device_scan_time | default(10) }};
 }{% if bird.device_semicolon | default(false) %};{% endif %}
