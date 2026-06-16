@@ -1,7 +1,9 @@
 protocol static intra_static_v4{
 {% for route in intra.static.v4_routes %}    route {{ route.prefix }} reject{
-{% for community in route.communities %}        bgp_large_community.add(({{ community | join(',') }}));
-{% endfor %}    };
+{% for community in route.communities | default([]) %}{% if community is string %}        bgp_community.add({{ community }});
+{% elif community | length == 2 %}        bgp_community.add(({{ community | join(',') }}));
+{% else %}        bgp_large_community.add(({{ community | join(',') }}));
+{% endif %}{% endfor %}    };
 {% endfor %}
     ipv4 {
         import all;
@@ -11,8 +13,10 @@ protocol static intra_static_v4{
 
 protocol static intra_static_v6{
 {% for route in intra.static.v6_routes %}    route {{ route.prefix }} reject{
-{% for community in route.communities %}        bgp_large_community.add(({{ community | join(',') }}));
-{% endfor %}    };
+{% for community in route.communities | default([]) %}{% if community is string %}        bgp_community.add({{ community }});
+{% elif community | length == 2 %}        bgp_community.add(({{ community | join(',') }}));
+{% else %}        bgp_large_community.add(({{ community | join(',') }}));
+{% endif %}{% endfor %}    };
 {% endfor %}
     ipv6 {
         import all;

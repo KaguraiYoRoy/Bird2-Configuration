@@ -7,6 +7,8 @@ function dn42_ix_check_community(){
     if !(bgp_large_community ~ [(4242422024,1,1)]) then return false;
     if bgp_large_community ~ [(4242422024,65535,65282)] then return false;
     if bgp_large_community ~ [(4242422024,65535,65281)] then return false;
+    if bgp_community ~ [(65535,65281)] then reject;
+    if bgp_community ~ [(65535,65282)] then reject;
 
     if bgp_large_community ~ [(4242422024,2,0)] then return false;
     if bgp_large_community ~ [(4242422024,2,101)] then return false;

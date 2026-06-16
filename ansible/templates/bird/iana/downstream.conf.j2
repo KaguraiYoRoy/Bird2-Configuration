@@ -14,6 +14,8 @@ function iana_downstream_check_community(){
     if !(bgp_large_community ~ [(IANA_OWNAS,1,1)]) then return false;
     if bgp_large_community ~ [(IANA_OWNAS,65535,65282)] then return false;
     if bgp_large_community ~ [(IANA_OWNAS,65535,65281)] then return false;
+    if bgp_community ~ [(65535,65281)] then reject;
+    if bgp_community ~ [(65535,65282)] then reject;
     return true;
 }
 {% if 'default' in ns.import_policies %}
