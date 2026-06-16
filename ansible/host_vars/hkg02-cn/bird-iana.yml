@@ -8,9 +8,9 @@ iana:
       asn: 44324
   downstreams: 
   - protocol: iana_downstream_219489
-    local: fe80::20:5369
+    local: fc00:32e0::8800:1
     neighbor:
-      address: fe80::21:9489
+      address: fc00:32e0::8800:1
       interface: gre219489
       asn: 219489
   peers:
