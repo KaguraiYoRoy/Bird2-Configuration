@@ -8,7 +8,7 @@ iana:
       asn: 44324
   downstreams: 
   - protocol: iana_downstream_219489
-    local: fc00:32e0::8800:1
+    local: fc00:32e0::3200:1
     neighbor:
       address: fc00:32e0::8800:1
       asn: 219489
