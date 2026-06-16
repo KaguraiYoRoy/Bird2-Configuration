@@ -10,28 +10,56 @@ protocol static iana_static_advertise{
         export none;
     };
 }
-{% for route in iana.static.extra_routes | default([]) %}
-protocol static {{ route.protocol }}{
+{% for route_group in iana.static.extra_routes | default([]) %}
+{% if route_group.prefixes is defined %}
+protocol static {{ route_group.name }}{
+{% for route in route_group.prefixes %}
+{% set communities = route.communities | default([]) %}
+{% set large_communities = route.large_communities | default([]) %}
 {% if route.via is defined %}
-    {% if route.via.address is defined %}    
-        route {{ route.prefix }} via {{ route.via.address }}{% if route.via.interface is defined and route.via.interface %} % '{{ route.via.interface }}'{% endif %};
-    {% else %}    
-        route {{ route.prefix }} via "{{ route.via.interface }}";
+{% if route.via.address is defined %}    route {{ route.prefix }} via {{ route.via.address }}{% if route.via.interface is defined and route.via.interface %} % '{{ route.via.interface }}'{% endif %}{% if communities or large_communities %} {
+{% for community in communities %}        bgp_community.add({{ community }});
+{% endfor %}{% for community in large_communities %}        bgp_large_community.add({{ community }});
+{% endfor %}    }{% endif %};
+{% else %}    route {{ route.prefix }} via "{{ route.via.interface }}"{% if communities or large_communities %} {
+{% for community in communities %}        bgp_community.add({{ community }});
+{% endfor %}{% for community in large_communities %}        bgp_large_community.add({{ community }});
+{% endfor %}    }{% endif %};
+{% endif %}
+{% else %}    route {{ route.prefix }} reject{% if communities or large_communities %} {
+{% for community in communities %}        bgp_community.add({{ community }});
+{% endfor %}{% for community in large_communities %}        bgp_large_community.add({{ community }});
+{% endfor %}    }{% endif %};
+{% endif %}
+{% endfor %}
+    ipv6 {
+        import all;
+        export none;
+    };
+}
+{% else %}
+protocol static {{ route_group.protocol }}{
+{% if route_group.via is defined %}
+    {% if route_group.via.address is defined %}
+        route {{ route_group.prefix }} via {{ route_group.via.address }}{% if route_group.via.interface is defined and route_group.via.interface %} % '{{ route_group.via.interface }}'{% endif %};
+    {% else %}
+        route {{ route_group.prefix }} via "{{ route_group.via.interface }}";
     {% endif%}
 {% else %}
-    route {{ route.prefix }} reject;
+    route {{ route_group.prefix }} reject;
 {% endif %}
     ipv6 {
         import filter{
-{% for community in route.communities %}            
+{% for community in route_group.communities | default([]) %}
             bgp_community.add({{ community }});
 {% endfor %}
-{% for community in route.large_communities %}            
+{% for community in route_group.large_communities | default([]) %}
             bgp_large_community.add({{ community }});
-{% endfor %}                        
+{% endfor %}
             accept;
         };
         export none;
     };
 }
+{% endif %}
 {% endfor %}
