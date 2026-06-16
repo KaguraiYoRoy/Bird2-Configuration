@@ -6,7 +6,13 @@ iana:
     neighbor:
       address: fc00:32e0::1
       asn: 44324
-  downstreams: []
+  downstreams: 
+  - protocol: iana_downstream_219489
+    local: fe80::20:5369
+    neighbor:
+      address: fe80::21:9489
+      interface: gre219489
+      asn: 219489
   peers:
   - protocol: iana_ix_zxix_rs1
     local: 2406:840:1f:1000::20:5369:1
