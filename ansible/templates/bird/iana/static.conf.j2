@@ -12,12 +12,16 @@ protocol static iana_static_advertise{
 }
 {% for route_group in iana.static.extra_routes | default([]) %}
 {% if route_group.prefixes is defined %}
-protocol static {{ route_group.name }}{
+protocol static {{ route_group.name | default(route_group.protocol) }}{
 {% for route in route_group.prefixes %}
 {% set communities = route.communities | default([]) %}
 {% set large_communities = route.large_communities | default([]) %}
 {% if route.via is defined %}
-{% if route.via.address is defined %}    route {{ route.prefix }} via {{ route.via.address }}{% if route.via.interface is defined and route.via.interface %} % '{{ route.via.interface }}'{% endif %}{% if communities or large_communities %} {
+{% if route.via.recursive is defined %}    route {{ route.prefix }} recursive {{ route.via.recursive }}{% if communities or large_communities %} {
+{% for community in communities %}        bgp_community.add({{ community }});
+{% endfor %}{% for community in large_communities %}        bgp_large_community.add({{ community }});
+{% endfor %}    }{% endif %};
+{% elif route.via.address is defined %}    route {{ route.prefix }} via {{ route.via.address }}{% if route.via.interface is defined and route.via.interface %} % '{{ route.via.interface }}'{% endif %}{% if communities or large_communities %} {
 {% for community in communities %}        bgp_community.add({{ community }});
 {% endfor %}{% for community in large_communities %}        bgp_large_community.add({{ community }});
 {% endfor %}    }{% endif %};
