@@ -74,6 +74,12 @@ intra:
     neighbor:
       address: fe80::2024:227
       interface: intra_tyo
+    ipv4:
+      import_policy: full
+      export_policy: full
+    ipv6:
+      import_policy: full
+      export_policy: full
   - file: hkg_b.conf
     protocol: intra_ibgp_hkg_b
     neighbor:

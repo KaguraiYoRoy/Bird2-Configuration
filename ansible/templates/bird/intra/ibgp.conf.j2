@@ -61,6 +61,19 @@ filter intra_ibgp_export_iana_full {
 }
 {% endif %}
 
+{% if 'full' in ns.import_policies %}
+filter intra_ibgp_import_full {
+    if bgp_large_community ~ [(205369,65535,65282)] || bgp_large_community ~ [(4242422024,65535,65282)] then reject;
+    accept;
+}
+{% endif %}
+{% if 'full' in ns.export_policies %}
+filter intra_ibgp_export_full {
+    if bgp_large_community ~ [(205369,65535,65282)] || bgp_large_community ~ [(4242422024,65535,65282)] then reject;
+    accept;
+}
+{% endif %}
+
 template bgp intra_ibgpeers {
     router   id INTRA_ROUTERID;
     local    as INTRA_OWNAS;
