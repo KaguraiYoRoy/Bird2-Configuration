@@ -11,7 +11,6 @@ iana:
     local: fc00:32e0::8800:1
     neighbor:
       address: fc00:32e0::8800:1
-      interface: gre219489
       asn: 219489
   peers:
   - protocol: iana_ix_zxix_rs1
