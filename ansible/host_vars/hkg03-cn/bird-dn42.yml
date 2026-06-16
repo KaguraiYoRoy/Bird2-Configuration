@@ -1,0 +1,16 @@
+dn42:
+  own_ip: 172.20.234.225
+  own_ipv6: fd18:3e15:61d0::1
+  region: 52
+  country: 1344
+  flapalerted:
+    local: 100.64.0.2
+    neighbor:
+      address: 172.20.234.227
+      port: 1790
+    rpki_remote:
+      address: 172.20.234.227
+      port: 8083
+  peers: []
+  ix:
+    sessions: []

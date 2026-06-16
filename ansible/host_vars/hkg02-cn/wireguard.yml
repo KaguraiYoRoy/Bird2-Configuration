@@ -912,3 +912,17 @@ wireguard:
     post_up:
     - sysctl -w net.ipv6.conf.%i.autoconf=0
     fwmark: '4242'
+  - name: intra_hkg03
+    address:
+    - fe80::2024:225/64
+    listen_port: 10002
+    table: 'off'
+    peer:
+      public_key: gNiB+ZAfvxIthwuCLUxZ9QS/RYWyp0OW4rsdODm+NXc=
+      allowed_ips:
+      - 0.0.0.0/0
+      - ::/0
+      endpoint: ipv4.hkg03-cn.ecs.iyoroy-infra.top:10225
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
