@@ -162,6 +162,12 @@ dn42:
     ipv4:
       extended_next_hop: true
     asn: 4242421999
+  - description: '@butlanys'
+    neighbor:
+      address: fe80::2018
+    ipv4:
+      extended_next_hop: true
+    asn: 4242422018
   - description: wyf@932686.xyz https://blog.wolfyang.fan/notes/dn42
     neighbor:
       address: fe80::2034
