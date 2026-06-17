@@ -133,6 +133,12 @@ dn42:
     ipv4:
       extended_next_hop: true
     asn: 4242422189
+  - description: '@cybercrushman'
+    neighbor:
+      address: fe80::2289
+    ipv4:
+      extended_next_hop: true
+    asn: 4242422289
   - description: '@moohric https://www.mhr.hk/posts/dn42-peering/'
     neighbor:
       address: fe80::2279
