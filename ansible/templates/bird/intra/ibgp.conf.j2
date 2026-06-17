@@ -78,6 +78,7 @@ template bgp intra_ibgpeers {
     router   id INTRA_ROUTERID;
     local    as INTRA_OWNAS;
     neighbor external;
+    interpret communities off;
 };
 
 include "ibgp/*";
