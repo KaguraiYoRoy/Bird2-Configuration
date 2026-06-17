@@ -14,3 +14,4 @@ wireguard:
       endpoint: ipv6.fra01-de.ecs.iyoroy-infra.top:10001
     post_up:
     - sysctl -w net.ipv6.conf.%i.autoconf=0
+    mtu: 1420

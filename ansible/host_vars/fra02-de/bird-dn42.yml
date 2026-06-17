@@ -1,6 +1,6 @@
 dn42:
   own_ip: 100.64.0.1
-  own_ipv6: fd18:3e15:61d0::4
+  own_ipv6: fd18:3e15:61d0:cafe::1
   region: 41
   country: 1276
   flapalerted:
