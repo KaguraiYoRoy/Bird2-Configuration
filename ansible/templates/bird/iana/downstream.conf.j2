@@ -63,6 +63,17 @@ template bgp iana_downstream {
     local as IANA_OWNAS;
     path metric 1;
     graceful restart;
+
+    ipv4 {
+        next hop self;
+        import none;
+        export none;
+    };
+    ipv6 {
+        next hop self;
+        import none;
+        export none;
+    };
 }
 {% for downstream in iana.downstreams | default([]) %}
 {% set import_policy = downstream.import_policy | default('default') %}

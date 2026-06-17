@@ -20,7 +20,14 @@ function iana_peer_check_community(){
 template bgp iana_peer{
     router id IANA_ROUTER_ID;
     local as IANA_OWNAS;
+
+    ipv4 {
+        next hop self;
+        import none;
+        export none;
+    };
     ipv6 {
+        next hop self;
         import filter {
             if !iana_filter_default_check() then reject;
             remove_confederation_as();
