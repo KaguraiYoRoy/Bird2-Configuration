@@ -78,6 +78,12 @@ dn42:
     ipv4:
       extended_next_hop: true
     asn: 4242421117
+  - description: '@temu_root https://dn42.fly.dev/'
+    neighbor:
+      address: fe80::1123
+    ipv4:
+      extended_next_hop: true
+    asn: 4242421123
   - description: factor2431@outlook.com @factor2431
     neighbor:
       address: fe80::1534
