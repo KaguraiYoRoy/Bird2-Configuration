@@ -7,6 +7,9 @@ iana:
       address: fd00:7720::1
       asn: 7720
     multihop: 2
+    next_hop_rewrites:
+    - from: fd00:7720::1
+      to: 2401:5a0:1000::1
   downstreams: []
   peers: []
   ibgp:
