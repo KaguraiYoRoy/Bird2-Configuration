@@ -12,12 +12,12 @@ iana:
     neighbor:
       address: fc00:32e0::8800:1
       asn: 219489
-  - protocol: iana_downstream_197827
+  - protocol: iana_downstream_197817
     local: fe80::21b:10ff:fe51:bc7b
     neighbor:
       address: fe80::2a3:a2ff:fe08:e14c
       interface: eth0
-      asn: 197827
+      asn: 197817
   peers:
   - protocol: iana_ix_zxix_rs1
     local: 2406:840:1f:1000::20:5369:1
