@@ -209,6 +209,7 @@ wireguard:
       - fe00::/8
     post_up:
     - sysctl -w net.ipv6.conf.%i.autoconf=0
+    mtu: 1340
   - name: dn42_4242421534
     address:
     - fe80::2024/64
