@@ -155,6 +155,6 @@
           - "{{ node_output_dir }}/iana_downstream_whitelist_generator.sh" 
           - "{{ node_output_dir }}/iana_downstream_whitelist.conf"
       register: generator_output
-      no_log: false
+      no_log: true
       when: iana.enabled | default(false)
       run_once: true
