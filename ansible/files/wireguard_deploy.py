@@ -105,17 +105,7 @@ def remove_openrc_link(interface, dry_run):
         path.unlink()
 
 
-def apply_service_action(service_manager, action, interface, dry_run, ignore_failure=False):
-    command = service_command(service_manager, action, interface)
-    if dry_run:
-        return {
-            "interface": interface,
-            "action": action,
-            "command": command,
-            "rc": 0,
-            "dry_run": True,
-        }
-    result = run(command, check=False)
+def service_result_record(interface, action, command, result, ignore_failure=False):
     record = {
         "interface": interface,
         "action": action,
@@ -128,6 +118,31 @@ def apply_service_action(service_manager, action, interface, dry_run, ignore_fai
         record["stderr"] = result.stderr
     if result.returncode != 0 and not ignore_failure:
         record["failed"] = True
+    return record
+
+
+def apply_service_action(service_manager, action, interface, dry_run, ignore_failure=False):
+    command = service_command(service_manager, action, interface)
+    if dry_run:
+        return {
+            "interface": interface,
+            "action": action,
+            "command": command,
+            "rc": 0,
+            "dry_run": True,
+        }
+
+    result = run(command, check=False)
+    record = service_result_record(interface, action, command, result, ignore_failure)
+
+    if service_manager == "openrc" and action in {"start", "restart"} and "already exists" in result.stderr:
+        cleanup_command = ["ip", "link", "delete", "dev", interface]
+        cleanup_result = run(cleanup_command, check=False)
+        retry_result = run(command, check=False)
+        record = service_result_record(interface, action, command, retry_result, ignore_failure)
+        record["recovered_from"] = service_result_record(interface, action, command, result, True)
+        record["cleanup"] = service_result_record(interface, "delete-stale-interface", cleanup_command, cleanup_result, True)
+
     return record
 
 
