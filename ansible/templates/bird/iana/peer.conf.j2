@@ -53,7 +53,7 @@ protocol bgp '{{ peer.protocol }}' from iana_peer{
 {% endif %}    local {{ peer.local }};
     neighbor {{ peer.neighbor.address }} as {{ peer.neighbor.asn }};
 {% if not (peer.enforce_first_as | default(true)) %}
-    enforce_first_as off;
+    enforce first as off;
 {% endif %}
     ipv6 {
         import filter
