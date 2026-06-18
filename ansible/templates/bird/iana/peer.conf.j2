@@ -16,6 +16,20 @@ function iana_peer_check_community(){
 
     return true;
 }
+function iana_peer_import_default() {
+    if !iana_filter_default_check() then reject;
+    remove_confederation_as();
+    remove_private_community();
+    iana_peer_add_community();
+    accept;
+}
+function iana_peer_export_default() {
+    if !iana_filter_default_check() then reject;
+    if !iana_peer_check_community() then reject;
+    remove_confederation_as();
+    remove_private_community();
+    accept;
+}
 
 template bgp iana_peer{
     router id IANA_ROUTER_ID;
@@ -28,20 +42,8 @@ template bgp iana_peer{
     };
     ipv6 {
         next hop self;
-        import filter {
-            if !iana_filter_default_check() then reject;
-            remove_confederation_as();
-            remove_private_community();
-            iana_peer_add_community();
-            accept;
-        };
-        export filter {
-            if !iana_filter_default_check() then reject;
-            if !iana_peer_check_community() then reject;
-            remove_confederation_as();
-            remove_private_community();
-            accept;
-        };
+        import none;
+        export none;
     };
     graceful restart;
 }
@@ -50,5 +52,16 @@ protocol bgp '{{ peer.protocol }}' from iana_peer{
 {% if peer.description is defined and peer.description is not none %}    description "{{ peer.description | replace('\\', '\\\\') | replace('\"', '\\"') }}";
 {% endif %}    local {{ peer.local }};
     neighbor {{ peer.neighbor.address }} as {{ peer.neighbor.asn }};
+    ipv6 {
+        import filter
+        {
+            if (bgp_path.last !~ peer_{{ peer.neighbor.asn }}_as_set) then 
+            {
+                reject;
+            }
+            iana_peer_import_default();
+        };
+        export where iana_peer_export_default();
+    };
 }
 {% endfor %}
