@@ -27,24 +27,28 @@ iana:
       address: 2406:840:1f:1000::1
       asn: 140961
     as_set: "AS-ZXIX"
+    enforce_first_as: false
   - protocol: iana_ix_zxix_rs2
     local: 2406:840:1f:1000::20:5369:1
     neighbor:
       address: 2406:840:1f:1000::2
       asn: 140961
     as_set: "AS-ZXIX"
+    enforce_first_as: false
   - protocol: iana_ix_akix
     local: 2602:f92a:1315:2::34
     neighbor:
       address: 2602:f92a:1315:2::1
       asn: 203168
     as_set: "RADB::AS-JYL"
+    enforce_first_as: false
   - protocol: iana_ix_bgp_exchange
     local: 2a0e:8f01:1000:16::140
     neighbor:
       address: 2a0e:8f01:1000:16::1
       asn: 24381
     as_set: "AS-BGPEXCHANGE"
+    enforce_first_as: false
   ibgp:
     enabled: false
     sessions: []

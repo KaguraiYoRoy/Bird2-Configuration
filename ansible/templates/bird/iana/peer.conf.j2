@@ -52,6 +52,9 @@ protocol bgp '{{ peer.protocol }}' from iana_peer{
 {% if peer.description is defined and peer.description is not none %}    description "{{ peer.description | replace('\\', '\\\\') | replace('\"', '\\"') }}";
 {% endif %}    local {{ peer.local }};
     neighbor {{ peer.neighbor.address }} as {{ peer.neighbor.asn }};
+{% if not (peer.enforce_first_as | default(true)) %}
+    enforce_first_as off;
+{% endif %}
     ipv6 {
         import filter
         {
