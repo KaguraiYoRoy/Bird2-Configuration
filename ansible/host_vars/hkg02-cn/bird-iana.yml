@@ -12,28 +12,33 @@ iana:
     neighbor:
       address: fc00:32e0::8800:1
       asn: 219489
+    as_set: "AS219489"
   - protocol: iana_downstream_197817
     local: fe80::21b:10ff:fe51:bc7b
     neighbor:
       address: fe80::2a3:a2ff:fe08:e14c
       interface: eth0
       asn: 197817
+    as_set: "AS197817:AS-PARTNERS"
   peers:
   - protocol: iana_ix_zxix_rs1
     local: 2406:840:1f:1000::20:5369:1
     neighbor:
       address: 2406:840:1f:1000::1
       asn: 140961
+    as_set: "AS-ZXIX"
   - protocol: iana_ix_zxix_rs2
     local: 2406:840:1f:1000::20:5369:1
     neighbor:
       address: 2406:840:1f:1000::2
       asn: 140961
+    as_set: "AS-ZXIX"
   - protocol: iana_ix_akix
     local: 2602:f92a:1315:2::34
     neighbor:
       address: 2602:f92a:1315:2::1
       asn: 203168
+    as_set: "RADB::AS-JYL"
   ibgp:
     enabled: false
     sessions: []

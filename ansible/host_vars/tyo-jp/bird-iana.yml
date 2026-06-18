@@ -14,6 +14,7 @@ iana:
     neighbor:
       address: 2602:f92a:1315::1
       asn: 203168
+    as_set: "RADB::AS-JYL"
   ibgp:
     enabled: false
     sessions: []
