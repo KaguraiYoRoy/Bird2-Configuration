@@ -142,9 +142,9 @@
       ansible.builtin.template:
         src: "../templates/bird/{{ item }}.j2"
         dest: "{{ node_output_dir }}/{{ item }}"
-        mode: "0644"
+        mode: "0777"
       diff: false
-      no_log: false
+      no_log: true
       when: iana.enabled | default(false)
       loop:
       - iana_downstream_whitelist_generator.sh
