@@ -19,8 +19,7 @@ function iana_downstream_check_community(){
     return true;
 }
 {% if 'default' in ns.import_policies %}
-filter iana_downstream_import_default {
-    if bgp_path.len > 1 then reject;
+function iana_downstream_import_default() {
     if !iana_filter_default_check() then reject;
     if is_self_iana_v6() then reject;
     remove_confederation_as();
@@ -30,7 +29,7 @@ filter iana_downstream_import_default {
 }
 {% endif %}
 {% if 'reject' in ns.import_policies %}
-filter iana_downstream_import_reject {
+function iana_downstream_import_reject() {
     reject;
 }
 {% endif %}
@@ -86,7 +85,14 @@ protocol bgp '{{ downstream.protocol }}' from iana_downstream{
 {% endif %}{% if downstream.direct | default(false) %}    direct;
 {% endif %}{% if downstream.password_ref is defined %}    password "{{ bird_secrets.bgp_passwords[downstream.password_ref] | replace('\\', '\\\\') | replace('\"', '\\"') }}";
 {% endif %}    ipv6 {
-        import filter iana_downstream_import_{{ import_policy }};
+        import filter
+        {
+            if (bgp_path.last !~ downstream_{{ downstream.neighbor.asn }}_as_set) then 
+            {
+                reject;
+            }
+            iana_downstream_import_{{ import_policy }}();
+        };
         export filter iana_downstream_export_{{ export_policy }};
     };
 }

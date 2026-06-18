@@ -140,11 +140,21 @@
     - name: Render IANA downstream AS-SET list generator
       delegate_to: localhost
       ansible.builtin.template:
-        src: "../templates/bird/{{ item }}.j2"
-        dest: "{{ node_output_dir }}/{{ item }}"
-        mode: "0777"
+        src: "../templates/bird/iana_downstream_whitelist_generator.sh.j2"
+        dest: "{{ node_output_dir }}/iana_downstream_whitelist_generator.sh"
+        mode: "0755"
       diff: false
       no_log: true
       when: iana.enabled | default(false)
-      loop:
-      - iana_downstream_whitelist_generator.sh
+      run_once: true
+
+    - name: Render IANA downstream AS-SET list
+      delegate_to: localhost
+      ansible.builtin.command: 
+        argv: 
+          - "{{ node_output_dir }}/iana_downstream_whitelist_generator.sh" 
+          - "{{ node_output_dir }}/iana_downstream_whitelist.conf"
+      register: generator_output
+      no_log: false
+      when: iana.enabled | default(false)
+      run_once: true

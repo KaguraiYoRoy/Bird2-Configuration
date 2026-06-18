@@ -1,6 +1,7 @@
 #!/usr/bin/bash
+PRESET_PATH="iana_downstream_whitelist.conf"
 TMP_OUTPUT=$(mktemp)
-OUTPUT_PATH="/etc/bird/iana_downstream_whilelist.conf"
+OUTPUT_PATH="${1:-$PRESET_PATH}"
 
 downstream_asn_list=({{ iana.downstreams | map(attribute='neighbor.asn') | join(' ') }})
 declare -A downstream_asset_list
@@ -18,7 +19,7 @@ for asn in "${downstream_asn_list[@]}"; do
     if [[ -z "$as_set" ]]; then
         as_set="AS${asn}"
     fi
-    bgpq4 -b -t -l "downstream_${asn}_as_set" "$as_set" >> "$TMP_OUTPUT"
+    bgpq4 -b -t -l "downstream_${asn}_as_set" "$as_set" | sed '1s/^/define /' >> "$TMP_OUTPUT"
     echo >> "$TMP_OUTPUT"
 done
 
@@ -38,8 +39,10 @@ if [[ -n "${peer_seen_asn[$asn]}" ]]; then
     if [[ -z "$as_set" ]]; then
         as_set="AS${asn}"
     fi
-    bgpq4 -b -t -l "peer_${asn}_as_set" "$as_set" >> "$TMP_OUTPUT"
+    bgpq4 -b -t -l "peer_${asn}_as_set" "$as_set"  | sed '1s/^/define /' >> "$TMP_OUTPUT"
     echo >> "$TMP_OUTPUT"
 done
 
 mv $TMP_OUTPUT $OUTPUT_PATH
+
+chmod 644 $OUTPUT_PATH
