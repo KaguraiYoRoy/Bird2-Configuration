@@ -34,10 +34,10 @@ modules:
     - static.conf
 intra:
   own_as: 4220240101
-  router_id: 100.64.0.1
+  router_id: 172.20.234.226
   static:
     v4_routes:
-    - prefix: 100.64.0.1/32
+    - prefix: 172.20.234.226/32
       communities:
       - [4242422024, 1, 1]
       - [4242422024, 2, 0]
@@ -45,7 +45,7 @@ intra:
       - [4242422024, 65535, 65281]
       - [65535, 65281]
     v6_routes:
-    - prefix: fd18:3e15:61d0:cafe::1/128
+    - prefix: fd18:3e15:61d0::2/128
       communities:
       - [4242422024, 1, 1]
       - [4242422024, 2, 0]
