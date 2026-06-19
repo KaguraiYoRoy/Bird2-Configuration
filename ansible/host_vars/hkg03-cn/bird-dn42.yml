@@ -1,6 +1,6 @@
 dn42:
-  own_ip: 172.20.234.225
-  own_ipv6: fd18:3e15:61d0::1
+  own_ip: 172.20.234.231
+  own_ipv6: fd18:3e15:61d0::7
   region: 52
   country: 1344
   flapalerted:

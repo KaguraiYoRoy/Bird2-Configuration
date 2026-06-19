@@ -40,7 +40,7 @@ intra:
   router_id: DN42_OWNIP
   static:
     v4_routes:
-    - prefix: 100.64.0.2/32
+    - prefix: 172.20.234.231/32
       communities:
       - [4242422024, 1, 1]
       - [4242422024, 2, 0]
@@ -48,7 +48,7 @@ intra:
       - [4242422024, 65535, 65281]
       - [65535, 65281]
     v6_routes:
-    - prefix: fd18:3e15:61d0:cafe::2/128
+    - prefix: fd18:3e15:61d0::7/128
       communities:
       - [4242422024, 1, 1]
       - [4242422024, 2, 0]
