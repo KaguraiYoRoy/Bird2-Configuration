@@ -412,6 +412,24 @@ wireguard:
     post_up:
     - sysctl -w net.ipv6.conf.%i.autoconf=0
     fwmark: '4242'
+  - name: dn42_4242422363
+    address:
+    - fe80::2024/64
+    listen_port: 22363
+    table: 'off'
+    peer:
+      public_key: rOKibWt5scg4L/0P4cx8ev3ikpK281srU/GVi8cIZgE=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+      endpoint: oraclearm-jp.ca73.org:23672
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+    mtu: 1380
   - name: dn42_4242422717
     address:
     - fe80::2024/64

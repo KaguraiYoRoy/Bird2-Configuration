@@ -145,6 +145,12 @@ dn42:
     ipv4:
       extended_next_hop: true
     asn: 4242422279
+  - description: '@charliealexander73'
+    neighbor:
+      address: fe80::ca73:2363:2024
+    ipv4:
+      extended_next_hop: true
+    asn: 4242422363
   - description: 23746 https://jp42.whojk.com/autopeer/action_page.php
     neighbor:
       address: fe80::2717
