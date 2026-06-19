@@ -58,10 +58,17 @@ protocol bgp '{{ peer.protocol }}' from iana_peer{
     ipv6 {
         import filter
         {
+{% if (peer.as_set | default('none') | lower) != 'none' %}
             if (bgp_path.last !~ peer_{{ peer.neighbor.asn }}_as_set) then 
             {
                 reject;
             }
+{% else %}
+            if (get_unique_as_path_len() > 1) then
+            {
+                reject;
+            }
+{% endif %}
             iana_peer_import_default();
         };
         export where iana_peer_export_default();
