@@ -1,6 +1,6 @@
 iana:
   enabled: true
-  upstreams: 
+  upstreams6: 
   - protocol: iana_upstream_204211
     description: '@dyc233'
     neighbor:

@@ -1,6 +1,6 @@
 iana:
   enabled: false
-  upstreams: []
+  upstreams6: []
   peers: []
   ibgp:
     enabled: false
