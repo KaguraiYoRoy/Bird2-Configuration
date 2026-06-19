@@ -15,6 +15,7 @@ iana:
       address: 2602:f92a:1315::1
       asn: 203168
     as_set: "RADB::AS-JYL"
+    enforce_first_as: false
   ibgp:
     enabled: false
     sessions: []
