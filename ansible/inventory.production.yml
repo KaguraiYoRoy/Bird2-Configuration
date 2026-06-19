@@ -7,6 +7,8 @@ bird_nodes:
       ansible_host: ipv4.fra01-de.ecs.iyoroy-infra.top
     fra02-de:
       ansible_host: ipv6.fra02-de.ecs.iyoroy-infra.top
+    hkg01-cn:
+      ansible_host: ipv4.hkg01-cn.ecs.iyoroy-infra.top
     hkg02-cn:
       ansible_host: ipv4.hkg02-cn.ecs.iyoroy-infra.top
     hkg03-cn:

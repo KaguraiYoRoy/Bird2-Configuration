@@ -90,6 +90,17 @@ intra:
     ipv6:
       import_policy: full
       export_policy: full
+  - file: hkg01.conf
+    protocol: intra_ibgp_hkg01
+    neighbor:
+      address: fe80::2024:232
+      interface: intra_hkg01
+    ipv4:
+      import_policy: full
+      export_policy: full
+    ipv6:
+      import_policy: full
+      export_policy: full
   - file: hkg03.conf
     protocol: intra_ibgp_hkg03
     neighbor:
