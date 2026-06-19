@@ -8,17 +8,17 @@ function remove_private_community(){
     bgp_large_community.delete([(205369, *, *)]);
 }
 
-function get_unique_as_path_len(int asn; int cnt; int set seen) -> int
+function get_unique_as_path_len() -> int
+int last;
+int cnt;
 {
     cnt = 0;
-    seen = [];
+    last = 0;
 
-    for asn in bgp_path do 
-    {
-        if !(asn ~ seen) then 
-        {
-            seen = seen + [ asn ];
+    for int asn in bgp_path do {
+        if asn != last then {
             cnt = cnt + 1;
+            last = asn;
         }
     }
 
