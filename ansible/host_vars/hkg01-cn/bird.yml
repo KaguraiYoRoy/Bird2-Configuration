@@ -36,7 +36,7 @@ modules:
     - ibgp.conf
     - static.conf
 intra:
-  own_as: 4220240102
+  own_as: 4220240103
   router_id: DN42_OWNIP
   static:
     v4_routes:
