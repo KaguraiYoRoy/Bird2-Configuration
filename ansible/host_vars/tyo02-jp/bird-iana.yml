@@ -1,6 +1,11 @@
 iana:
   enabled: true
-  upstreams: []
+  upstreams: 
+  - protocol: iana_upstream_204211
+    description: '@dyc233'
+    neighbor:
+      address: 2602:f429:31::2
+      asn: 204211
   downstreams: []
   peers: 
   - protocol: iana_ix_tyix_v4
