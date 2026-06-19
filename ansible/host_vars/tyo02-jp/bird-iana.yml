@@ -2,7 +2,21 @@ iana:
   enabled: true
   upstreams: []
   downstreams: []
-  peers: []
+  peers: 
+  - protocol: iana_ix_tyix_v4
+    local: 	23.154.164.153
+    neighbor:
+      address: 	23.154.164.129
+      asn: 402298
+    as_set: "none"
+    enforce_first_as: false
+  - protocol: iana_ix_tyix_v6
+    local: 2602:f429:31::1a
+    neighbor:
+      address: 2602:f429:31::1
+      asn: 402298
+    as_set: "none"
+    enforce_first_as: false
   ibgp:
     enabled: false
     sessions: []
