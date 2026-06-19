@@ -4,6 +4,7 @@ bird:
   device_semicolon: true
   include_sections:
   - - path: filter.conf
+    - path: iana_downstream_whitelist.conf
   - - path: iana/rpki.conf
     - path: iana/filter.conf
     - path: iana/static.conf
