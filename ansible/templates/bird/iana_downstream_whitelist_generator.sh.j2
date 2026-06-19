@@ -1,7 +1,30 @@
 #!/usr/bin/bash
+set -euo pipefail
+
 PRESET_PATH="iana_downstream_whitelist.conf"
 TMP_OUTPUT=$(mktemp)
 OUTPUT_PATH="${1:-$PRESET_PATH}"
+
+emit_as_set() {
+    local list_name="$1"
+    local as_set="$2"
+    local source
+    local object
+
+    if [[ "${as_set,,}" == "none" ]]; then
+        return
+    fi
+
+    if [[ "$as_set" == *::* ]]; then
+        source="${as_set%%::*}"
+        object="${as_set#*::}"
+        bgpq4 -b -t -l "$list_name" -S "$source" "$object" | sed '1s/^/define /' >> "$TMP_OUTPUT"
+    else
+        bgpq4 -b -t -l "$list_name" "$as_set" | sed '1s/^/define /' >> "$TMP_OUTPUT"
+    fi
+
+    echo >> "$TMP_OUTPUT"
+}
 
 downstream_asn_list=({{ iana.downstreams | map(attribute='neighbor.asn') | join(' ') }})
 declare -A downstream_asset_list
@@ -11,7 +34,7 @@ downstream_asset_list[{{ downstream.neighbor.asn }}]="{{ downstream.as_set }}"
 {% endfor %}
 
 for asn in "${downstream_asn_list[@]}"; do
-    if [[ -n "${downstream_seen_asn[$asn]}" ]]; then
+    if [[ -n "${downstream_seen_asn[$asn]:-}" ]]; then
         continue
     fi
     downstream_seen_asn["$asn"]=1
@@ -19,8 +42,7 @@ for asn in "${downstream_asn_list[@]}"; do
     if [[ -z "$as_set" ]]; then
         as_set="AS${asn}"
     fi
-    bgpq4 -b -t -l "downstream_${asn}_as_set" "$as_set" | sed '1s/^/define /' >> "$TMP_OUTPUT"
-    echo >> "$TMP_OUTPUT"
+    emit_as_set "downstream_${asn}_as_set" "$as_set"
 done
 
 peer_asn_list=({{ iana.peers | map(attribute='neighbor.asn') | join(' ') }})
@@ -31,7 +53,7 @@ peer_asset_list[{{ peer.neighbor.asn }}]="{{ peer.as_set }}"
 {% endfor %}
 
 for asn in "${peer_asn_list[@]}"; do
-if [[ -n "${peer_seen_asn[$asn]}" ]]; then
+    if [[ -n "${peer_seen_asn[$asn]:-}" ]]; then
         continue
     fi
     peer_seen_asn["$asn"]=1
@@ -39,8 +61,7 @@ if [[ -n "${peer_seen_asn[$asn]}" ]]; then
     if [[ -z "$as_set" ]]; then
         as_set="AS${asn}"
     fi
-    bgpq4 -b -t -l "peer_${asn}_as_set" "$as_set"  | sed '1s/^/define /' >> "$TMP_OUTPUT"
-    echo >> "$TMP_OUTPUT"
+    emit_as_set "peer_${asn}_as_set" "$as_set"
 done
 
 mv $TMP_OUTPUT $OUTPUT_PATH
