@@ -4,7 +4,7 @@ dn42:
   region: 52
   country: 1344
   flapalerted:
-    local: 100.64.0.2
+    local: 172.20.234.231
     neighbor:
       address: 172.20.234.227
       port: 1790
