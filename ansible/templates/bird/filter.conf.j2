@@ -7,3 +7,20 @@ function remove_private_community(){
     bgp_large_community.delete([(4242422024, *, *)]);
     bgp_large_community.delete([(205369, *, *)]);
 }
+
+function get_unique_as_path_len(int asn; int cnt; int set seen;) -> int
+{
+    cnt = 0;
+    seen = [];
+
+    for asn in bgp_path do 
+    {
+        if !(asn ~ seen) then 
+        {
+            seen = seen + [ asn ];
+            cnt = cnt + 1;
+        }
+    }
+
+    return cnt;
+}
