@@ -6,10 +6,10 @@ dn42:
   flapalerted:
     local: 172.20.234.229
     neighbor:
-      address: 172.20.234.227
+      address: 172.20.234.232
       port: 1790
     rpki_remote:
-      address: 172.20.234.227
+      address: 172.20.234.232
       port: 8083
   peers:
   - description: '@lyc8503 http://blog.lyc8503.net/'
