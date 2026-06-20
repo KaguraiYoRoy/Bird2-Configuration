@@ -1,11 +1,11 @@
 iana:
   enabled: true
-  upstreams4:
-  - protocol: iana_upstream_44324_v4
-    description: MoeDove
-    neighbor:
-      address: 10.151.104.1
-      asn: 44324
+  # upstreams4: 
+  # - protocol: iana_upstream_44324_v4
+  #   description: MoeDove
+  #   neighbor:
+  #     address: 10.151.104.1
+  #     asn: 44324
   upstreams6:
   - protocol: iana_upstream_44324_v6
     description: MoeDove
