@@ -1,7 +1,7 @@
 - name: Deploy rendered WireGuard configs remotely
   hosts: bird_nodes
   gather_facts: false
-  serial: 1
+  strategy: free
   become: "{{ deploy.become | default(false) }}"
   vars:
     wg_output_dir: "{{ wireguard_deploy.render_root }}/{{ inventory_hostname }}"

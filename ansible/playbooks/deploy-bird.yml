@@ -1,7 +1,7 @@
 - name: Deploy rendered BIRD configs remotely
   hosts: bird_nodes
   gather_facts: false
-  serial: 1
+  strategy: free
   become: "{{ deploy.become | default(false) }}"
   vars:
     node_output_dir: "{{ render_root }}/{{ inventory_hostname }}"
