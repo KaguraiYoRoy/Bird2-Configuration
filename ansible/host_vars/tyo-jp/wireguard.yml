@@ -688,3 +688,15 @@ wireguard:
       endpoint: ipv4.tyo02-jp.ecs.iyoroy-infra.top:10227
     post_up:
     - sysctl -w net.ipv6.conf.%i.autoconf=0
+  - name: intra_tyo03
+    address:
+    - fe80::2024:227/64
+    listen_port: 10234
+    table: 'off'
+    peer:
+      public_key: lCx0qzITDvh2ZIfNppOttFnKFa16fCqDGn7mWufMzGE=
+      allowed_ips:
+      - 0.0.0.0/0
+      - ::/0
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0

@@ -19,3 +19,9 @@ bird_nodes:
       ansible_host: ipv4.tyo-jp.ecs.iyoroy-infra.top
     tyo02-jp:
       ansible_host: ipv4.tyo02-jp.ecs.iyoroy-infra.top
+    tyo03-jp:
+      ansible_host: 114.111.176.35
+      ansible_port: 6400
+      ansible_ssh_common_args: '-o ProxyCommand="ssh -W %h:%p -q -i ~/keys/default/id_ed25519 root@pvg-cn.ecs.iyoroy-infra.top"'
+    pvg01-cn:
+      ansible_host: ipv4.pvg-cn.ecs.iyoroy-infra.top

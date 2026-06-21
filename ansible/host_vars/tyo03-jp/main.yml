@@ -1,0 +1,8 @@
+node:
+  name: tyo-jp
+deploy:
+  service_manager: systemd
+  bird:
+    enabled: true
+  wireguard:
+    enabled: true
