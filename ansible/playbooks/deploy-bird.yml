@@ -64,7 +64,7 @@
           - --chmod=D755,F644
           - --chown=root:root
           - -e
-          - "ssh -i {{ ansible_ssh_private_key_file | expanduser }}{% if ansible_port is defined %} -p {{ ansible_port }}{% endif %} -o StrictHostKeyChecking=accept-new"
+          - "ssh -i {{ ansible_ssh_private_key_file | expanduser }}{% if ansible_port is defined %} -p {{ ansible_port }}{% endif %} -o StrictHostKeyChecking=accept-new {{ ansible_ssh_common_args | default('') }}"
           - "{{ node_output_dir }}/"
           - "{{ ansible_user | default('root') }}@{{ ansible_host }}:{{ bird_staging_dir }}/"
       changed_when: true
