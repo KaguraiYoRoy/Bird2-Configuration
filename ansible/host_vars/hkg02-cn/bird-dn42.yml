@@ -270,6 +270,12 @@ dn42:
     ipv4:
       extended_next_hop: true
     asn: 4242423377
+  - description: '@af9af584e050'
+    neighbor:
+      address: fe80::4242:4233:800d
+    ipv4:
+      extended_next_hop: true
+    asn: 4242423380
   - description: '@winter_pm_bot'
     neighbor:
       address: fd4e:d0:d38d:68c1::1

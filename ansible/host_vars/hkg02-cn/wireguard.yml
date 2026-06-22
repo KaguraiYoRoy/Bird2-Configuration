@@ -782,6 +782,22 @@ wireguard:
     - sysctl -w net.ipv6.conf.%i.autoconf=0
     fwmark: '4242'
     private_key_ref: hkg02-cn/dn42_4242423377
+  - name: dn42_4242423380
+    address:
+    - fe80::2024/64
+    listen_port: 23380
+    table: 'off'
+    peer:
+      public_key: UH/8wh7yFbkvhob4vuHm0y5fqqR6mCxu0fzsggLFxw8=
+      allowed_ips:
+      - 10.0.0.0/8
+      - 172.20.0.0/14
+      - 172.31.0.0/16
+      - fd00::/8
+      - fe00::/8
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
   - name: dn42_4242423658
     address:
     - fe80::2024/64
