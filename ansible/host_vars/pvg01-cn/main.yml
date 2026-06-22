@@ -1,0 +1,8 @@
+node:
+  name: hkg02-cn
+deploy:
+  service_manager: systemd
+  bird:
+    enabled: true
+  wireguard:
+    enabled: true

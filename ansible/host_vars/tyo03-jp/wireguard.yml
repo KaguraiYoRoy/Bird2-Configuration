@@ -15,3 +15,16 @@ wireguard:
     post_up:
     - sysctl -w net.ipv6.conf.%i.autoconf=0
     fwmark: '4242'
+  - name: intra_pvg01
+    address:
+    - fe80::2024:234/64
+    listen_port: 6433
+    table: 'off'
+    peer:
+      public_key: VdHU69ZeCaaq2V7Hg362YG+9dZ97DHYZxW0G7/Rs5FY=
+      allowed_ips:
+      - 0.0.0.0/0
+      - ::/0
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'

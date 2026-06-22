@@ -1,0 +1,82 @@
+bird:
+  log_syslog_all: true
+  device_scan_time: 10
+  device_semicolon: true
+  include_sections:
+  - - path: filter.conf
+  - - path: iana/rpki.conf
+    - path: iana/filter.conf
+    - path: iana/static.conf
+  - - path: dn42/rpki.conf
+    - path: dn42/filter.conf
+    - path: dn42/flapalerted.conf
+    - path: dn42/static.conf
+    - path: dn42/ebgp.conf
+  - - path: intra/filter.conf
+    - path: intra/ibgp.conf
+    - path: intra/static.conf
+  - - path: kernel.conf
+modules:
+  iana:
+    enabled: true
+    includes:
+    - rpki.conf
+    - filter.conf
+    - static.conf
+    - upstream.conf
+    - peer.conf
+    - downstream.conf
+    - ibgp.conf
+  dn42:
+    enabled: true
+    includes:
+    - rpki.conf
+    - filter.conf
+    - flapalerted.conf
+    - static.conf
+    - ebgp.conf
+  intra:
+    enabled: true
+    includes:
+    - filter.conf
+    - ibgp.conf
+    - static.conf
+intra:
+  own_as: 4220240001
+  router_id: DN42_OWNIP
+  static:
+    v4_routes:
+    - prefix: 172.20.234.233/32
+      communities:
+      - [4242422024, 1, 1]
+      - [4242422024, 2, 0]
+      - [4242422024, 2, 100]
+      - [4242422024, 65535, 65281]
+      - [65535, 65281]
+    v6_routes:
+    - prefix: fd18:3e15:61d0::9/128
+      communities:
+      - [4242422024, 1, 1]
+      - [4242422024, 2, 0]
+      - [4242422024, 2, 100]
+      - [4242422024, 65535, 65281]
+      - [65535, 65281]
+    - prefix: 2a14:67c3:fff0::3513/128
+      communities:
+      - [4242422024, 1, 1]
+      - [4242422024, 2, 0]
+      - [4242422024, 2, 100]
+      - [4242422024, 65535, 65281]
+      - [65535, 65281]
+  ibgp_sessions:
+  - file: tyo03.conf
+    protocol: intra_ibgp_tyo03
+    neighbor:
+      address: fe80::2024:234
+      interface: intra_tyo03
+    ipv4:
+      import_policy: full
+      export_policy: full
+    ipv6:
+      import_policy: full
+      export_policy: full
