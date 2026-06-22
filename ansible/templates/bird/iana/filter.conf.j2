@@ -5,7 +5,7 @@ function is_self_iana_v6() {
 function iana_filter_default_check(){
     if net ~ [::/0] then return false;
     if net.len > 48 then return false;
-    if bgp_path.len = 0 && is_self_iana_v6() then return true;
+    if bgp_large_community ~ [(IANA_OWNAS,1,1)] && is_self_iana_v6() then return true;
     if roa_check(iana_roa_v6, net, bgp_path.last) = ROA_INVALID then return false;
     return true;
 }
