@@ -61,7 +61,7 @@ intra:
       - [4242422024, 2, 100]
       - [4242422024, 65535, 65281]
       - [65535, 65281]
-    - prefix: 2a14:67c3:fff0::3513/128
+    - prefix: 2a14:7583:f22d:2000::5fac/128
       communities:
       - [4242422024, 1, 1]
       - [4242422024, 2, 0]
@@ -80,3 +80,14 @@ intra:
     ipv6:
       import_policy: full
       export_policy: full
+  - file: pvg_82b4.conf
+    protocol: intra_ibgp_pvg_82b4
+    neighbor:
+      address: fe80::82b4
+      interface: intra_pvg_82b4
+    ipv4:
+      import_policy: iana_full
+      export_policy: iana_full
+    ipv6:
+      import_policy: iana_full
+      export_policy: iana_full
