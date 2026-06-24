@@ -6,7 +6,12 @@ iana:
     neighbor:
       address: 2602:f429:31::2
       asn: 204211
-  downstreams: []
+  downstreams: 
+  - protocol: iana_downstream_197817
+    neighbor:
+      address: 2602:f429:31::16
+      asn: 197817
+    as_set: "AS197817:AS-PARTNERS"
   peers: 
   - protocol: iana_ix_tyix_v4
     local: 	23.154.164.153
