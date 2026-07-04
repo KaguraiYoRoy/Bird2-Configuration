@@ -38,7 +38,7 @@ template bgp iana_upstream_v4 {
             remove_private_community();
             accept;
         };
-        export limit 10;
+        export limit 50;
     };
 
     graceful restart; 
@@ -65,7 +65,7 @@ template bgp iana_upstream_v6 {
             remove_private_community();
             accept;
         };
-        export limit 10;
+        export limit 50;
     };
 
     graceful restart; 
