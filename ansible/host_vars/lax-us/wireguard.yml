@@ -461,7 +461,7 @@ wireguard:
       allowed_ips:
       - 0.0.0.0/0
       - ::/0
-      endpoint: ipv6.fra01-de.ecs.iyoroy-infra.top:10229
+      endpoint: ipv4.fra01-de.ecs.iyoroy-infra.top:10229
     post_up:
     - sysctl -w net.ipv6.conf.%i.autoconf=0
   - name: intra_hkg02
