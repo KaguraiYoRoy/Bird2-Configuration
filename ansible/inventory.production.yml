@@ -25,3 +25,7 @@ bird_nodes:
       ansible_ssh_common_args: '-o ProxyCommand="ssh -W %h:%p -q -i ~/keys/default/id_ed25519 root@pvg-cn.ecs.iyoroy-infra.top"'
     pvg01-cn:
       ansible_host: ipv4.pvg-cn.ecs.iyoroy-infra.top
+    hkg04-cn:
+      ansible_host: ipv4.szx-cn.ecs.iyoroy-infra.top
+      ansible_port: 13200
+      ansible_ssh_common_args: '-o ProxyCommand="ssh -W %h:%p -q -i ~/keys/default/id_ed25519 root@pvg-cn.ecs.iyoroy-infra.top"'

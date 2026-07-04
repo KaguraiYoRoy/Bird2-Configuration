@@ -1,0 +1,20 @@
+iana:
+  enabled: true
+  upstreams6: []
+  downstreams: []
+  peers: []
+  ibgp:
+    enabled: false
+    sessions: []
+  static:
+    advertise_routes:
+    - "2a14:7583:f220::/43"
+    extra_routes:
+    - protocol: iana_static
+      prefixes: []
+  own_ipv6: 2a14:7583:f224::c75a
+  own_net_v6: 2a14:7583:f220::/43
+  own_netset_v6: '[ 2a14:7581:0ffb::/48+, 2a14:7583:f200::/40+, 2a14:67c3:fff0::/44+,
+    2a14:67c3:c0::/44+ ]'
+  router_id: 103.213.4.103
+  allow_netset_v6: '[]'
