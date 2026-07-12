@@ -91,3 +91,14 @@ intra:
     ipv6:
       import_policy: iana_full
       export_policy: iana_full
+  - file: hkg04.conf
+    protocol: intra_ibgp_hkg04
+    neighbor:
+      address: fe80::2024:235
+      interface: intra_hkg04
+    ipv4:
+      import_policy: full
+      export_policy: full
+    ipv6:
+      import_policy: full
+      export_policy: full

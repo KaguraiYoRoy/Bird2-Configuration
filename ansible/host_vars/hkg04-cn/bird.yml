@@ -74,3 +74,14 @@ intra:
     ipv6:
       import_policy: full
       export_policy: full
+  - file: pvg01.conf
+    protocol: intra_ibgp_pvg01
+    neighbor:
+      address: fe80::2024:233
+      interface: intra_pvg01
+    ipv4:
+      import_policy: full
+      export_policy: full
+    ipv6:
+      import_policy: full
+      export_policy: full
