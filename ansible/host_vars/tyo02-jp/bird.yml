@@ -83,3 +83,14 @@ intra:
     ipv6:
       import_policy: full
       export_policy: full
+  - file: tyo03.conf
+    protocol: intra_ibgp_tyo03
+    neighbor:
+      address: fe80::2024:234
+      interface: intra_tyo03
+    ipv4:
+      import_policy: full
+      export_policy: full
+    ipv6:
+      import_policy: full
+      export_policy: full

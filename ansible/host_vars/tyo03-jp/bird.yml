@@ -81,6 +81,17 @@ intra:
     ipv6:
       import_policy: full
       export_policy: full
+  - file: tyo02.conf
+    protocol: intra_ibgp_tyo02
+    neighbor:
+      address: fe80::2024:230
+      interface: intra_tyo02
+    ipv4:
+      import_policy: full
+      export_policy: full
+    ipv6:
+      import_policy: full
+      export_policy: full
   - file: pvg01.conf
     protocol: intra_ibgp_pvg01
     neighbor:
