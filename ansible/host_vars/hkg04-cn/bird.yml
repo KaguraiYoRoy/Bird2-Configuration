@@ -36,7 +36,7 @@ modules:
     - ibgp.conf
     - static.conf
 intra:
-  own_as: 4220240102
+  own_as: 4220240103
   router_id: DN42_OWNIP
   static:
     v4_routes:
@@ -68,6 +68,17 @@ intra:
     neighbor:
       address: fe80::2024:225
       interface: intra_hkg02
+    ipv4:
+      import_policy: full
+      export_policy: full
+    ipv6:
+      import_policy: full
+      export_policy: full
+  - file: hkg03.conf
+    protocol: intra_ibgp_hkg03
+    neighbor:
+      address: fe80::2024:231
+      interface: intra_hkg03
     ipv4:
       import_policy: full
       export_policy: full

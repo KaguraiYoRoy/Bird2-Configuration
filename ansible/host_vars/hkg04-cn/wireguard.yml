@@ -2,7 +2,7 @@
 # https://sparkvm.net/
 #
 # Port mapping: 13201~13215
-# hkg04-cn.ecs.iyoroy-infra.top:13200 -> 22
+# szx-cn.ecs.iyoroy-infra.top:13200 -> 22
 # :13201 -> pvg01
 
 wireguard:
@@ -19,6 +19,20 @@ wireguard:
       - 0.0.0.0/0
       - ::/0
       endpoint: ipv4.hkg02-cn.ecs.iyoroy-infra.top:10235
+    post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+    fwmark: '4242'
+  - name: intra_hkg03
+    address:
+    - fe80::2024:235/64
+    listen_port: 10231
+    table: 'off'
+    peer:
+      public_key: gNiB+ZAfvxIthwuCLUxZ9QS/RYWyp0OW4rsdODm+NXc=
+      allowed_ips:
+      - 0.0.0.0/0
+      - ::/0
+      endpoint: ipv4.hkg03-cn.ecs.iyoroy-infra.top:10235
     post_up:
     - sysctl -w net.ipv6.conf.%i.autoconf=0
     fwmark: '4242'
