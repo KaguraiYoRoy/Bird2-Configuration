@@ -1,3 +1,10 @@
+# Node: IEPL @ NoBrand Cloud
+# https://cloud.nbdnet.com/
+#
+# Port mapping: 6400-6499
+# tyo03-jp.ecs.iyoroy-infra.top:6400 -> 22
+# :6433 -> pvg01
+
 wireguard:
   default_private_key_ref: tyo03-jp/default
   interfaces:

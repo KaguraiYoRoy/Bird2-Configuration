@@ -1,3 +1,10 @@
+# Node: IEPL @ SparkVM
+# https://sparkvm.net/
+#
+# Port mapping: 13201~13215
+# hkg04-cn.ecs.iyoroy-infra.top:13200 -> 22
+# :13201 -> pvg01
+
 wireguard:
   default_private_key_ref: hkg04-cn/default
   interfaces:
