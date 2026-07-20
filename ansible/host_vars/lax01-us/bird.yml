@@ -5,21 +5,10 @@ bird:
 modules:
   iana:
     enabled: false
-    includes: []
   dn42:
     enabled: true
-    includes:
-    - filter.conf
-    - flapalerted.conf
-    - static.conf
-    - rpki.conf
-    - ebgp.conf
   intra:
     enabled: true
-    includes:
-    - filter.conf
-    - ibgp.conf
-    - static.conf
 intra:
   static:
     v4_routes:

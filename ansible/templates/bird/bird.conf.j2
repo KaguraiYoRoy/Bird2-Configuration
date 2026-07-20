@@ -50,11 +50,39 @@ protocol device {
     scan time {{ bird.device_scan_time | default(10) }};
 }{% if bird.device_semicolon | default(false) %};{% endif %}
 
-{% set iana_enabled = modules is defined and modules.iana is defined and modules.iana.enabled %}
-{% set dn42_enabled = modules is defined and modules.dn42 is defined and modules.dn42.enabled %}
-{% set intra_enabled = modules is defined and modules.intra is defined and modules.intra.enabled %}
+{% set iana_enabled = iana is defined and iana.enabled | default(false) %}
+{% set dn42_enabled = dn42 is defined %}
+{% set intra_enabled = intra is defined %}
+
+{# ── IANA includes (auto-derived, modules.iana.includes overrides) ── #}
+{% set _iana_upstream_count = (iana.upstreams4 | default([]) | length) + (iana.upstreams6 | default([]) | length) %}
+{% set _iana_has_peers = (iana.peers | default([]) | length) > 0 %}
+{% set _iana_has_downstreams = (iana.downstreams | default([]) | length) > 0 %}
+{% set _iana_has_ibgp = (iana.ibgp | default({})).enabled | default(false) %}
+{% set iana_default_includes = ['rpki.conf', 'filter.conf', 'static.conf'] %}
+{% if _iana_upstream_count > 0 %}{% set iana_default_includes = iana_default_includes + ['upstream.conf'] %}{% endif %}
+{% if _iana_has_peers %}{% set iana_default_includes = iana_default_includes + ['peer.conf'] %}{% endif %}
+{% if _iana_has_downstreams %}{% set iana_default_includes = iana_default_includes + ['downstream.conf'] %}{% endif %}
+{% if _iana_has_ibgp %}{% set iana_default_includes = iana_default_includes + ['ibgp.conf'] %}{% endif %}
+
+{# ── DN42 includes (auto-derived, modules.dn42.includes overrides) ── #}
+{% set _dn42_has_peers = (dn42.peers | default([]) | length) > 0 %}
+{% set _dn42_has_ix = (dn42.ix | default({})).sessions | default([]) | length > 0 %}
+{% set _dn42_inactive = modules.dn42.inactive_files | default([]) %}
+{% if 'rpki.conf' in _dn42_inactive %}
+{% set dn42_default_includes = ['filter.conf', 'flapalerted.conf', 'static.conf'] %}
+{% else %}
+{% set dn42_default_includes = ['rpki.conf', 'filter.conf', 'flapalerted.conf', 'static.conf'] %}
+{% endif %}
+{% if _dn42_has_peers %}{% set dn42_default_includes = dn42_default_includes + ['ebgp.conf'] %}{% endif %}
+{% if _dn42_has_ix %}{% set dn42_default_includes = dn42_default_includes + ['ix.conf'] %}{% endif %}
+
+{# ── Intra includes (auto-derived, modules.intra.includes overrides) ── #}
+{% set intra_default_includes = ['filter.conf', 'ibgp.conf', 'static.conf'] %}
+
+{# ── Render includes ── #}
 {% set root_includes = ['filter.conf'] %}
-{% if iana_enabled and (((iana.peers | default([])) | length > 0) or ((iana.downstreams | default([])) | length > 0)) %}
+{% if iana_enabled and (_iana_has_peers or _iana_has_downstreams) %}
 {% set root_includes = root_includes + ['iana_downstream_whitelist.conf'] %}
 {% endif %}
 {% set root_includes = root_includes + (bird.extra_root_includes | default([])) %}
@@ -63,19 +91,19 @@ include "{{ include }}";
 {% endfor %}
 
 {% if iana_enabled %}
-{% for include in modules.iana.includes | default([]) %}
+{% for include in modules.iana.includes | default(iana_default_includes) %}
 include "iana/{{ include }}";
 {% endfor %}
 {% endif %}
 
 {% if dn42_enabled %}
-{% for include in modules.dn42.includes | default([]) %}
+{% for include in modules.dn42.includes | default(dn42_default_includes) %}
 include "dn42/{{ include }}";
 {% endfor %}
 {% endif %}
 
 {% if intra_enabled %}
-{% for include in modules.intra.includes | default([]) %}
+{% for include in modules.intra.includes | default(intra_default_includes) %}
 include "intra/{{ include }}";
 {% endfor %}
 {% endif %}
