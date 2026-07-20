@@ -5,7 +5,12 @@ bird_nodes:
   hosts:
     fra01-de:
     fra02-de:
-    hkg02-cn:
-    hkg03-cn:
-    lax-us:
-    tyo-jp:
+    hkg01-hk:
+    hkg02-hk:
+    hkg03-hk:
+    lax01-us:
+    tyo01-jp:
+    tyo02-jp:
+    tyo03-jp:
+    pvg01-cn:
+    hkg04-hk:

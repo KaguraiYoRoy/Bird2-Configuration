@@ -2,8 +2,6 @@ bird:
   log_syslog_all: true
   device_scan_time: 10
   device_semicolon: true
-  extra_root_includes:
-  - iana_downstream_whitelist.conf
 modules:
   iana:
     enabled: true

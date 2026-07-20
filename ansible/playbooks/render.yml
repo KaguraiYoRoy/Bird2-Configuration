@@ -145,16 +145,18 @@
         mode: "0755"
       diff: false
       no_log: true
-      when: iana.enabled | default(false)
-      run_once: true
+      when:
+        - iana.enabled | default(false)
+        - (iana.peers | default([]) | length > 0) or (iana.downstreams | default([]) | length > 0)
 
     - name: Render IANA downstream AS-SET list
       delegate_to: localhost
-      ansible.builtin.command: 
-        argv: 
-          - "{{ node_output_dir }}/iana_downstream_whitelist_generator.sh" 
+      ansible.builtin.command:
+        argv:
+          - "{{ node_output_dir }}/iana_downstream_whitelist_generator.sh"
           - "{{ node_output_dir }}/iana_downstream_whitelist.conf"
       register: generator_output
       no_log: true
-      when: iana.enabled | default(false)
-      run_once: true
+      when:
+        - iana.enabled | default(false)
+        - (iana.peers | default([]) | length > 0) or (iana.downstreams | default([]) | length > 0)

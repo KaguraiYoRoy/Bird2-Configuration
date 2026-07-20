@@ -51,8 +51,12 @@ protocol device {
 {% set iana_enabled = modules is defined and modules.iana is defined and modules.iana.enabled %}
 {% set dn42_enabled = modules is defined and modules.dn42 is defined and modules.dn42.enabled %}
 {% set intra_enabled = modules is defined and modules.intra is defined and modules.intra.enabled %}
-{% set root_includes = ['filter.conf'] + (bird.extra_root_includes | default([])) %}
-{% for include in root_includes %}
+{% set root_includes = ['filter.conf'] %}
+{% if iana_enabled and (((iana.peers | default([])) | length > 0) or ((iana.downstreams | default([])) | length > 0)) %}
+{% set root_includes = root_includes + ['iana_downstream_whitelist.conf'] %}
+{% endif %}
+{% set root_includes = root_includes + (bird.extra_root_includes | default([])) %}
+{% for include in root_includes | unique %}
 include "{{ include }}";
 {% endfor %}
 

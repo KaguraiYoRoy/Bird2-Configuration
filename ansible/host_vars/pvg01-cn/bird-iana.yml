@@ -7,9 +7,6 @@ iana:
   ibgp:
     enabled: false
     sessions: []
-  ibgp:
-    enabled: false
-    sessions: []
   static:
     advertise_routes:
     - "2a14:7583:f22d:2000::/56"
