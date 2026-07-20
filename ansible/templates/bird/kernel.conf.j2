@@ -1,11 +1,12 @@
-protocol kernel kernel_v4{  
+protocol kernel kernel_v4{
     ipv4 {
         table master4;
         import none;
         export filter {
             if source = RTS_STATIC then reject;
-            if bgp_large_community ~ [(4242422024,*,*)] then krt_prefsrc = DN42_OWNIP;
-            accept;
+            krt_prefsrc = INTRA_LOOPBACKv4;
+{% if dn42 is defined %}            if bgp_large_community ~ [(4242422024,*,*)] && !(bgp_large_community ~ [(4242422024,2,0)]) then krt_prefsrc = DN42_OWNIP;
+{% endif %}            accept;
         };
     };
 }
@@ -16,8 +17,9 @@ protocol kernel kernel_v6 {
         import none;
         export filter {
             if source = RTS_STATIC then reject;
-            if bgp_large_community ~ [(4242422024,*,*)] then krt_prefsrc = DN42_OWNIPv6;
-{% if iana.enabled | default(false) %}            else krt_prefsrc = IANA_OWNIPv6;
+            krt_prefsrc = INTRA_LOOPBACKv6;
+{% if dn42 is defined %}            if bgp_large_community ~ [(4242422024,*,*)] && !(bgp_large_community ~ [(4242422024,2,0)]) then krt_prefsrc = DN42_OWNIPv6;
+{% endif %}{% if iana is defined and iana.enabled | default(false) %}            if bgp_large_community ~ [(205369,*,*)] then krt_prefsrc = IANA_OWNIPv6;
 {% endif %}            accept;
         };
     };
