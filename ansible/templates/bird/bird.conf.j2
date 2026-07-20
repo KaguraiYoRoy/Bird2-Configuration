@@ -33,11 +33,13 @@ define DN42_COUNTRY              = {{ dn42.country }};
 define INTRA_CONFEDERATION_START = {{ intra_global.confederation_start }};
 define INTRA_CONFEDERATION_END   = {{ intra_global.confederation_end }};
 define INTRA_OWNAS               = {{ intra.own_as | default(derived_intra_as) }};
-define INTRA_ROUTERID            = {{ intra.router_id }};
+define INTRA_ROUTERID            = {{ intra.router_id | default(derived_intra_loopback_v4) }};
 define INTRA_PREFIX_V4           = {{ intra_global.prefix_v4 }};
 define INTRA_PREFIX_V6           = {{ intra_global.prefix_v6 }};
 define INTRA_LOOPBACKv4          = {{ intra.loopback_v4 | default(derived_intra_loopback_v4) }};
+define INTRA_LOOPBACKv4NET       = {{ intra.loopback_v4_net | default((intra.loopback_v4 | default(derived_intra_loopback_v4)) ~ '/32') }};
 define INTRA_LOOPBACKv6          = {{ intra.loopback_v6 | default(derived_intra_loopback_v6) }};
+define INTRA_LOOPBACKv6NET       = {{ intra.loopback_v6_net | default((intra.loopback_v6 | default(derived_intra_loopback_v6)) ~ '/128') }};
 define INTRA_LLA                 = {{ intra.link_local_v6 | default(derived_intra_lla) }};
 {% endif %}
 define BLACKHOLE              = (65535, 666);

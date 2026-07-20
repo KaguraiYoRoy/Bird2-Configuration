@@ -23,8 +23,6 @@ modules:
     - ibgp.conf
     - static.conf
 intra:
-  own_as: 4220240104
-  router_id: DN42_OWNIP
   static:
     v4_routes:
     - prefix: 172.20.234.232/32
@@ -53,7 +51,7 @@ intra:
   - file: hkg02.conf
     protocol: intra_ibgp_hkg02
     neighbor:
-      address: fe80::2024:225
+      node: hkg02-hk
       interface: intra_hkg02
     ipv4:
       import_policy: full

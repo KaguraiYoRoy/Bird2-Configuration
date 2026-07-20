@@ -2,8 +2,7 @@ wireguard:
   default_private_key_ref: fra01-de/default
   interfaces:
   - name: intra_fra02
-    address:
-    - fe80::2024:228/64
+    address_mode: intra_local
     listen_port: 10001
     table: 'off'
     peer:
@@ -15,8 +14,7 @@ wireguard:
     post_up:
     - sysctl -w net.ipv6.conf.%i.autoconf=0
   - name: intra_hkg02
-    address:
-    - fe80::2024:228/64
+    address_mode: intra_local
     listen_port: 10225
     table: 'off'
     peer:
@@ -28,8 +26,7 @@ wireguard:
     post_up:
     - sysctl -w net.ipv6.conf.%i.autoconf=0
   - name: intra_lax
-    address:
-    - fe80::2024:228/64
+    address_mode: intra_local
     listen_port: 10229
     table: 'off'
     peer:
@@ -41,8 +38,7 @@ wireguard:
     post_up:
     - sysctl -w net.ipv6.conf.%i.autoconf=0
   - name: intra_tyo
-    address:
-    - fe80::2024:228/64
+    address_mode: intra_local
     listen_port: 10227
     table: 'off'
     peer:

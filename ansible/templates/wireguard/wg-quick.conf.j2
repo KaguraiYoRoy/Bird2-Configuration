@@ -1,7 +1,11 @@
 {% set private_key_ref = wg_interface.private_key_ref | default(wireguard.default_private_key_ref) %}
+{% set wg_addresses = wg_interface.address | default([]) %}
+{% if wg_interface.address_mode | default('') == 'intra_local' %}
+{% set wg_addresses = ['%s:%d:%d:%s/64' | format(intra_global.link_local_prefix, node.tier, node.region, node.node_token)] %}
+{% endif %}
 [Interface]
 PrivateKey = {{ wireguard_secrets.private_keys[private_key_ref] }}
-{% for address in wg_interface.address %}
+{% for address in wg_addresses %}
 Address = {{ address }}
 {% endfor %}
 ListenPort = {{ wg_interface.listen_port }}

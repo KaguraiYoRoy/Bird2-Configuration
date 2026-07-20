@@ -28,8 +28,6 @@ modules:
     - ibgp.conf
     - static.conf
 intra:
-  own_as: 4220240001
-  router_id: DN42_OWNIP
   static:
     v4_routes:
     - prefix: 172.20.234.225/32
@@ -58,12 +56,12 @@ intra:
   - file: lax.conf
     protocol: intra_ibgp_lax
     neighbor:
-      address: fe80::2024:229
+      node: lax01-us
       interface: intra_lax
   - file: tyo.conf
     protocol: intra_ibgp_tyo
     neighbor:
-      address: fe80::2024:227
+      node: tyo01-jp
       interface: intra_tyo
     ipv4:
       import_policy: full
@@ -74,7 +72,7 @@ intra:
   - file: hkg01.conf
     protocol: intra_ibgp_hkg01
     neighbor:
-      address: fe80::2024:232
+      node: hkg01-hk
       interface: intra_hkg01
     ipv4:
       import_policy: full
@@ -85,7 +83,7 @@ intra:
   - file: hkg03.conf
     protocol: intra_ibgp_hkg03
     neighbor:
-      address: fe80::2024:2
+      node: hkg03-hk
       interface: intra_hkg03
     ipv4:
       import_policy: full
@@ -96,7 +94,7 @@ intra:
   - file: hkg04.conf
     protocol: intra_ibgp_hkg04
     neighbor:
-      address: fe80::2024:235
+      node: hkg04-hk
       interface: intra_hkg04
     ipv4:
       import_policy: full
@@ -106,6 +104,7 @@ intra:
       export_policy: full
   - file: hkg_b.conf
     protocol: intra_ibgp_hkg_b
+    local_as: 4220240001
     neighbor:
       address: fe80::2053:69b
       interface: dn42_4242423377

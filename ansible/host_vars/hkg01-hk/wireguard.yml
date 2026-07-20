@@ -2,8 +2,7 @@ wireguard:
   default_private_key_ref: hkg01-cn/default
   interfaces:
   - name: intra_hkg02
-    address:
-    - fe80::2024:232/64
+    address_mode: intra_local
     listen_port: 10225
     table: 'off'
     peer:

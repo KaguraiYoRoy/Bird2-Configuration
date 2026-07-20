@@ -27,8 +27,6 @@ modules:
     - ibgp.conf
     - static.conf
 intra:
-  own_as: 4220240103
-  router_id: DN42_OWNIP
   static:
     v4_routes:
     - prefix: 172.20.234.230/32
@@ -57,7 +55,7 @@ intra:
   - file: tyo.conf
     protocol: intra_ibgp_tyo
     neighbor:
-      address: fe80::2024:227
+      node: tyo01-jp
       interface: intra_tyo
     ipv4:
       import_policy: full
@@ -68,7 +66,7 @@ intra:
   - file: tyo03.conf
     protocol: intra_ibgp_tyo03
     neighbor:
-      address: fe80::2024:234
+      node: tyo03-jp
       interface: intra_tyo03
     ipv4:
       import_policy: full

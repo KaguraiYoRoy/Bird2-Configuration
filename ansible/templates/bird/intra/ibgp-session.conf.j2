@@ -4,8 +4,15 @@
 {% set ipv4_export_policy = ipv4.export_policy | default(session.export_policy | default('default')) %}
 {% set ipv6_import_policy = ipv6.import_policy | default(session.import_policy | default('default')) %}
 {% set ipv6_export_policy = ipv6.export_policy | default(session.export_policy | default('default')) %}
+{% if session.neighbor.node is defined %}
+{% set neighbor_node = hostvars[session.neighbor.node].node %}
+{% set neighbor_address = '%s:%d:%d:%s' | format(intra_global.link_local_prefix, neighbor_node.tier, neighbor_node.region, neighbor_node.node_token) %}
+{% else %}
+{% set neighbor_address = session.neighbor.address %}
+{% endif %}
 protocol bgp '{{ session.protocol }}' from intra_ibgpeers{
-    neighbor {{ session.neighbor.address }} % '{{ session.neighbor.interface }}';
+{% if session.local_as is defined %}    local as {{ session.local_as }};
+{% endif %}    neighbor {{ neighbor_address }} % '{{ session.neighbor.interface }}';
     ipv4{
         table master4;
         import filter intra_ibgp_import_{{ ipv4_import_policy }};

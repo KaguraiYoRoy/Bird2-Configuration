@@ -21,8 +21,6 @@ modules:
     - ibgp.conf
     - static.conf
 intra:
-  own_as: 4220240101
-  router_id: 172.20.234.226
   static:
     v4_routes:
     - prefix: 172.20.234.226/32
@@ -44,5 +42,5 @@ intra:
   - file: fra01.conf
     protocol: intra_ibgp_fra01
     neighbor:
-      address: fe80::2024:228
+      node: fra01-de
       interface: intra_fra01

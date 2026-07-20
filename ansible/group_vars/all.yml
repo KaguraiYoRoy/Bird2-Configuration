@@ -14,10 +14,16 @@ intra_global:
   confederation_start: 4220240000
   confederation_end: 4220249999
   prefix_v4: '[ 100.64.0.0/16+ ]'
-  prefix_v6: '[ fd18:3e15:61d0:cafe::/64+ ]'
+  prefix_v6: '[ fd18:3e15:61d0:ffff::/64+ ]'
   loopback_v6_prefix: fd18:3e15:61d0:ffff
   link_local_prefix: fe80::2024
   confederation_as_format: '422024%d%d%02d'
+  underlay_loopback_communities:
+    - [4242422024, 1, 1]
+    - [4242422024, 2, 0]
+    - [4242422024, 2, 100]
+    - [4242422024, 65535, 65281]
+    - [65535, 65281]
 
 bird_deploy:
   remote_dir: /etc/bird

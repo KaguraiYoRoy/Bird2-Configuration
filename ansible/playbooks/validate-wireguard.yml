@@ -17,8 +17,9 @@
         quiet: true
         that:
           - wg_interface.name is defined
-          - wg_interface.address is defined
-          - wg_interface.address | length > 0
+          - wg_interface.address is defined or (wg_interface.address_mode | default('')) == 'intra_local'
+          - (wg_interface.address | default([])) | length > 0 or (wg_interface.address_mode | default('')) == 'intra_local'
+          - (wg_interface.address_mode | default('')) != 'intra_local' or (node is defined and node.tier is defined and node.region is defined and node.node_token is defined)
           - wg_interface.listen_port is defined
           - wg_interface.table is defined
           - wg_interface.peer is defined

@@ -905,8 +905,7 @@ wireguard:
     - sysctl -w net.ipv6.conf.%i.autoconf=0
     fwmark: '4242'
   - name: intra_fra01
-    address:
-    - fe80::2024:225/64
+    address_mode: intra_local
     listen_port: 10228
     table: 'off'
     peer:
@@ -919,8 +918,7 @@ wireguard:
     - sysctl -w net.ipv6.conf.%i.autoconf=0
     fwmark: '4242'
   - name: intra_lax
-    address:
-    - fe80::2024:225/64
+    address_mode: intra_local
     listen_port: 10229
     table: 'off'
     peer:
@@ -933,8 +931,7 @@ wireguard:
     - sysctl -w net.ipv6.conf.%i.autoconf=0
     fwmark: '4242'
   - name: intra_tyo
-    address:
-    - fe80::2024:225/64
+    address_mode: intra_local
     listen_port: 10227
     table: 'off'
     peer:
@@ -947,8 +944,7 @@ wireguard:
     - sysctl -w net.ipv6.conf.%i.autoconf=0
     fwmark: '4242'
   - name: intra_hkg01
-    address:
-    - fe80::2024:225/64
+    address_mode: intra_local
     listen_port: 10232
     table: 'off'
     peer:
@@ -961,8 +957,7 @@ wireguard:
     - sysctl -w net.ipv6.conf.%i.autoconf=0
     fwmark: '4242'
   - name: intra_hkg03
-    address:
-    - fe80::2024:225/64
+    address_mode: intra_local
     listen_port: 10002
     table: 'off'
     peer:
@@ -975,8 +970,7 @@ wireguard:
     - sysctl -w net.ipv6.conf.%i.autoconf=0
     fwmark: '4242'
   - name: intra_hkg04
-    address:
-    - fe80::2024:225/64
+    address_mode: intra_local
     listen_port: 10235
     table: 'off'
     peer:
