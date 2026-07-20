@@ -1,7 +1,9 @@
+{% set _flap_server_node = hostvars['hkg01-hk'].node %}
+{% set _flap_server_v6 = '%s:%d:%d::%s' | format(intra_global.loopback_v6_prefix, _flap_server_node.tier, _flap_server_node.region, _flap_server_node.node_token) %}
 protocol bgp dn42_flapalerted {
-    router id DN42_OWNIP;
-    local {{ dn42.flapalerted.local }} as DN42_OWNAS;
-    neighbor {{ dn42.flapalerted.neighbor.address }} as DN42_OWNAS port {{ dn42.flapalerted.neighbor.port }};
+    router id INTRA_LOOPBACKv4;
+    local INTRA_LOOPBACKv6 as DN42_OWNAS;
+    neighbor {{ _flap_server_v6 }} as DN42_OWNAS port {{ dn42.flapalerted.neighbor.port }};
 
     ipv4 {
         table master4;
@@ -25,7 +27,7 @@ roa6 table dn42_roa_flap_v6;
 protocol rpki dn42_rpki_flapalerted {
     roa4 { table dn42_roa_flap_v4; };
     roa6 { table dn42_roa_flap_v6; };
-    remote {{ dn42.flapalerted.rpki_remote.address }} port {{ dn42.flapalerted.rpki_remote.port }};
+    remote {{ _flap_server_v6 }} port {{ dn42.flapalerted.rpki_remote.port }};
     max version 1;
     retry keep 10;
 };
