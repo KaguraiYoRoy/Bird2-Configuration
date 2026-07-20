@@ -1,0 +1,31 @@
+---
+# Materialize effective variables from domain intent and legacy overrides.
+#
+# This file merges:
+#   1. generated interfaces/sessions from domain-level peer declarations
+#   2. legacy wireguard.interfaces / intra.ibgp_sessions
+#
+# Downstream playbooks (render-wireguard.yml, render.yml, validate-*) should
+# consume only the effective_* variables so that domain intent and legacy
+# overrides flow through the same last-mile pipeline.
+
+- name: Build effective WireGuard interface list
+  ansible.builtin.set_fact:
+    effective_wireguard_interfaces: >-
+      {{
+        (generated_wireguard_interfaces | default([]))
+        + (wireguard.interfaces | default([]))
+      }}
+
+- name: Build effective intra iBGP session list
+  ansible.builtin.set_fact:
+    effective_intra_ibgp_sessions: >-
+      {{
+        (generated_intra_ibgp_sessions | default([]))
+        + (intra.ibgp_sessions | default([]))
+      }}
+
+- name: Ensure effective lists are set
+  ansible.builtin.set_fact:
+    effective_wireguard_interfaces: "{{ effective_wireguard_interfaces | default([]) }}"
+    effective_intra_ibgp_sessions: "{{ effective_intra_ibgp_sessions | default([]) }}"

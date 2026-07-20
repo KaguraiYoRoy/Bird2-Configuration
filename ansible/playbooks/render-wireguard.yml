@@ -12,14 +12,15 @@
       ansible.builtin.meta: end_host
       when: not (deploy.wireguard.enabled | default(wireguard_deploy.enabled | default(false)))
 
-    - name: Require WireGuard interface definitions
+    - name: Materialize domain intent variables
+      ansible.builtin.include_tasks: ../tasks/materialize-domain-intent.yml
+
+    - name: Require effective WireGuard interface definitions
       ansible.builtin.assert:
         quiet: true
         that:
-          - wireguard is defined
-          - wireguard.interfaces is defined
-          - wireguard.interfaces | length > 0
-        fail_msg: "Define wireguard.interfaces for {{ inventory_hostname }} before rendering WireGuard configs."
+          - effective_wireguard_interfaces | length > 0
+        fail_msg: "No effective_wireguard_interfaces for {{ inventory_hostname }} before rendering WireGuard configs."
 
     - name: Reset rendered WireGuard node directory
       delegate_to: localhost
@@ -36,8 +37,8 @@
 
     - name: Collect required WireGuard secret references
       ansible.builtin.set_fact:
-        required_wireguard_private_key_refs: "{{ wireguard.interfaces | map(attribute='private_key_ref', default=wireguard.default_private_key_ref) | list | unique }}"
-        required_wireguard_preshared_key_refs: "{{ wireguard.interfaces | selectattr('peer.preshared_key_ref', 'defined') | map(attribute='peer.preshared_key_ref') | list | unique }}"
+        required_wireguard_private_key_refs: "{{ effective_wireguard_interfaces | map(attribute='private_key_ref', default=wireguard.default_private_key_ref) | list | unique }}"
+        required_wireguard_preshared_key_refs: "{{ effective_wireguard_interfaces | selectattr('peer.preshared_key_ref', 'defined') | map(attribute='peer.preshared_key_ref') | list | unique }}"
       no_log: true
 
     - name: Require WireGuard secrets for interfaces
@@ -58,7 +59,7 @@
         dest: "{{ wg_output_dir }}/{{ wg_interface.name }}.conf"
         mode: "0600"
       diff: false
-      loop: "{{ wireguard.interfaces }}"
+      loop: "{{ effective_wireguard_interfaces }}"
       loop_control:
         loop_var: wg_interface
         label: "{{ wg_interface.name }}"

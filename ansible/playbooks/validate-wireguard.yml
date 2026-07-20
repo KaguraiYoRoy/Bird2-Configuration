@@ -12,6 +12,9 @@
       ansible.builtin.meta: end_host
       when: not (deploy.wireguard.enabled | default(wireguard_deploy.enabled | default(false)))
 
+    - name: Materialize domain intent variables
+      ansible.builtin.include_tasks: ../tasks/materialize-domain-intent.yml
+
     - name: Validate WireGuard interface data
       ansible.builtin.assert:
         quiet: true
@@ -29,7 +32,7 @@
           - wireguard_secrets.private_keys[(wg_interface.private_key_ref | default(wireguard.default_private_key_ref))] is defined
           - wg_interface.peer.preshared_key_ref is not defined or wireguard_secrets.preshared_keys[wg_interface.peer.preshared_key_ref] is defined
         fail_msg: "Invalid WireGuard interface data for {{ inventory_hostname }} {{ wg_interface.name | default('unknown') }}."
-      loop: "{{ wireguard.interfaces | default([]) }}"
+      loop: "{{ effective_wireguard_interfaces }}"
       loop_control:
         loop_var: wg_interface
         label: "{{ wg_interface.name | default('unknown') }}"
@@ -39,7 +42,7 @@
       ansible.builtin.stat:
         path: "{{ wg_output_dir }}/{{ wg_interface.name }}.conf"
       register: rendered_wg_configs
-      loop: "{{ wireguard.interfaces }}"
+      loop: "{{ effective_wireguard_interfaces }}"
       loop_control:
         loop_var: wg_interface
         label: "{{ wg_interface.name }}"
@@ -75,7 +78,7 @@
         chdir: "{{ wg_output_dir }}"
       changed_when: false
       no_log: true
-      loop: "{{ wireguard.interfaces }}"
+      loop: "{{ effective_wireguard_interfaces }}"
       loop_control:
         loop_var: wg_interface
         label: "{{ wg_interface.name }}"

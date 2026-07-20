@@ -116,13 +116,16 @@
         mode: "0644"
       loop: "{{ modules.intra.includes | default([]) }}"
 
+    - name: Materialize domain intent variables
+      ansible.builtin.include_tasks: ../tasks/materialize-domain-intent.yml
+
     - name: Render intra iBGP sessions
       delegate_to: localhost
       ansible.builtin.template:
         src: ../templates/bird/intra/ibgp-session.conf.j2
         dest: "{{ node_output_dir }}/intra/ibgp/{{ session.file }}"
         mode: "0644"
-      loop: "{{ intra.ibgp_sessions | default([]) }}"
+      loop: "{{ effective_intra_ibgp_sessions }}"
       loop_control:
         loop_var: session
 
