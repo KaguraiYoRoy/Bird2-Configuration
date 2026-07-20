@@ -1,5 +1,5 @@
 node:
-  name: hkg03-cn
+  name: hkg02-hk
 deploy:
   service_manager: systemd
   bird:
