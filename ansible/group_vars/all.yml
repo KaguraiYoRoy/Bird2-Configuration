@@ -43,3 +43,25 @@ wireguard_deploy:
   staging_parent: /var/tmp/bird2-configuration-wireguard
   backup_parent: /var/backups/bird2-configuration-wireguard
   secrets_file: '{{ inventory_dir }}/secrets/wireguard.yml'
+
+dn42_wireguard_defaults:
+  address:
+    - fe80::2024/64
+  allowed_ips:
+    - 10.0.0.0/8
+    - 172.20.0.0/14
+    - 172.31.0.0/16
+    - fd00::/8
+    - fe00::/8
+  table: 'off'
+  post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0
+
+intra_wireguard_defaults:
+  address_mode: intra_local
+  allowed_ips:
+    - 0.0.0.0/0
+    - ::/0
+  table: 'off'
+  post_up:
+    - sysctl -w net.ipv6.conf.%i.autoconf=0

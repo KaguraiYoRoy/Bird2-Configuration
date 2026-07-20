@@ -1,0 +1,18 @@
+intra_peers:
+  - node: hkg04-hk
+    interface: intra_hkg04
+    wireguard:
+      public_key: 1tn6T2xi+zEnNi8X7ssGH9M3WOeq1xDjZNX3mMkO7Qk=
+      listen_port: 10235
+      endpoint: 45.115.18.254:13201
+      persistent_keepalive: 30
+      fwmark: '4242'
+    bgp:
+      file: hkg04.conf
+      protocol: intra_ibgp_hkg04
+      ipv4:
+        import_policy: full
+        export_policy: full
+      ipv6:
+        import_policy: full
+        export_policy: full

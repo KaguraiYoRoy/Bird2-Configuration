@@ -1,19 +1,88 @@
 ---
 # Materialize effective variables from domain intent and legacy overrides.
 #
-# This file merges:
-#   1. generated interfaces/sessions from domain-level peer declarations
-#   2. legacy wireguard.interfaces / intra.ibgp_sessions
+# This file:
+#   1. generates interface/session data from domain-level peer declarations
+#      (intra_peers, future dn42_peers / iana_peers)
+#   2. merges generated data with legacy wireguard.interfaces / intra.ibgp_sessions
 #
 # Downstream playbooks (render-wireguard.yml, render.yml, validate-*) should
-# consume only the effective_* variables so that domain intent and legacy
-# overrides flow through the same last-mile pipeline.
+# consume only the effective_* variables.
+
+# ── Intra peer intent → WireGuard interfaces ───────────────────────────
+
+- name: Initialize generated WireGuard interfaces
+  ansible.builtin.set_fact:
+    generated_wireguard_intra: []
+
+- name: Build generated WireGuard interfaces from intra peers
+  ansible.builtin.set_fact:
+    generated_wireguard_intra: "{{ generated_wireguard_intra + [wg_iface] }}"
+  loop: "{{ intra_peers | default([]) }}"
+  loop_control:
+    loop_var: peer
+  vars:
+    _wg: "{{ peer.wireguard | default({}) }}"
+    _d: "{{ intra_wireguard_defaults | default({}) }}"
+    _peer: "{{
+      {'public_key': _wg.public_key,
+       'allowed_ips': _wg.allowed_ips | default(_d.allowed_ips)}
+      | combine({'endpoint': _wg.endpoint}              if _wg.endpoint is defined              else {})
+      | combine({'endpoints': _wg.endpoints}            if _wg.endpoints is defined            else {})
+      | combine({'persistent_keepalive': _wg.persistent_keepalive} if _wg.persistent_keepalive is defined else {})
+      | combine({'preshared_key_ref': _wg.preshared_key_ref} if _wg.preshared_key_ref is defined else {})
+    }}"
+    wg_iface: "{{
+      {'name': peer.interface,
+       'address_mode': _wg.address_mode | default(_d.address_mode),
+       'listen_port': _wg.listen_port,
+       'table': _wg.table | default(_d.table),
+       'peer': _peer,
+       'post_up': _wg.post_up | default(_d.post_up)}
+      | combine({'fwmark': _wg.fwmark}                 if _wg.fwmark is defined              else {})
+      | combine({'mtu': _wg.mtu}                       if _wg.mtu is defined                 else {})
+      | combine({'private_key_ref': _wg.private_key_ref} if _wg.private_key_ref is defined    else {})
+      | combine({'pre_up': _wg.pre_up}                 if _wg.pre_up is defined              else {})
+      | combine({'pre_down': _wg.pre_down}             if _wg.pre_down is defined            else {})
+      | combine({'post_down': _wg.post_down}           if _wg.post_down is defined           else {})
+      | combine({'address': _wg.address}               if _wg.address is defined             else {})
+      | combine({'preshared_key_ref': _wg.preshared_key_ref} if _wg.preshared_key_ref is defined else {})
+    }}"
+
+# ── Intra peer intent → intra iBGP sessions ────────────────────────────
+
+- name: Initialize generated intra iBGP sessions
+  ansible.builtin.set_fact:
+    generated_intra_ibgp_sessions: []
+
+- name: Build generated intra iBGP sessions from intra peers
+  ansible.builtin.set_fact:
+    generated_intra_ibgp_sessions: "{{ generated_intra_ibgp_sessions + [bgp_session] }}"
+  loop: "{{ intra_peers | default([]) }}"
+  loop_control:
+    loop_var: peer
+  vars:
+    _bgp: "{{ peer.bgp | default({}) }}"
+    _ipv4: "{{ _bgp.ipv4 | default({}) }}"
+    _ipv6: "{{ _bgp.ipv6 | default({}) }}"
+    _base: "{{
+      {'file': _bgp.file,
+       'protocol': _bgp.protocol,
+       'neighbor': {'node': peer.node, 'interface': peer.interface}}
+    }}"
+    _ipv4_block: "{{ {'ipv4': {'import_policy': _ipv4.import_policy, 'export_policy': _ipv4.export_policy}} if _ipv4.import_policy is defined else {} }}"
+    _ipv6_block: "{{ {'ipv6': {'import_policy': _ipv6.import_policy, 'export_policy': _ipv6.export_policy}} if _ipv6.import_policy is defined else {} }}"
+    _local_as: "{{ {'local_as': _bgp.local_as} if _bgp.local_as is defined else {} }}"
+    bgp_session: "{{ _base | combine(_ipv4_block) | combine(_ipv6_block) | combine(_local_as) }}"
+
+# ── Merge generated + legacy ───────────────────────────────────────────
 
 - name: Build effective WireGuard interface list
   ansible.builtin.set_fact:
     effective_wireguard_interfaces: >-
       {{
-        (generated_wireguard_interfaces | default([]))
+        (generated_wireguard_intra | default([]))
+        + (generated_wireguard_interfaces | default([]))
         + (wireguard.interfaces | default([]))
       }}
 
