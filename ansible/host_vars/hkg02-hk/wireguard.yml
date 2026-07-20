@@ -175,23 +175,6 @@ wireguard:
     post_up:
     - sysctl -w net.ipv6.conf.%i.autoconf=0
     fwmark: '4242'
-  - name: dn42_4242420398
-    address:
-    - fe80::2024/64
-    listen_port: 20398
-    table: 'off'
-    peer:
-      public_key: XD66eoHp06VmDUNFUguJeOY8gFLiLZ7Lkyz/WsMQSWU=
-      allowed_ips:
-      - 10.0.0.0/8
-      - 172.20.0.0/14
-      - 172.31.0.0/16
-      - fd00::/8
-      - fe00::/8
-      endpoint: hkl.dn42.boletus.icu:22024
-    post_up:
-    - sysctl -w net.ipv6.conf.%i.autoconf=0
-    fwmark: '4242'
   - name: dn42_4242420555
     address:
     - fe80::2024/64

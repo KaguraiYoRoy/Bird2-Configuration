@@ -67,11 +67,15 @@ dn42:
       extended_next_hop: true
     asn: 4242420387
   - description: '@opkgbot'
-    neighbor:
-      address: fe80::398
-    ipv4:
+    lla: fe80::398
+    bgp:
       extended_next_hop: true
     asn: 4242420398
+    wireguard:
+      public_key: XD66eoHp06VmDUNFUguJeOY8gFLiLZ7Lkyz/WsMQSWU=
+      listen_port: 20398
+      endpoint: hkl.dn42.boletus.icu:22024
+      fwmark: '4242'
   - description: '@Virtual0PTR https://blog.0xptr.top/en/about/dn42_peering'
     neighbor:
       address: fe80::d555

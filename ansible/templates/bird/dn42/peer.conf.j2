@@ -1,8 +1,11 @@
-{% set peer_interface = peer.neighbor.interface | default('dn42_' ~ peer.asn) %}
+{% set peer_interface = peer.neighbor.interface | default(peer.wireguard.interface | default('dn42_' ~ peer.asn)) %}
+{% set peer_lla = peer.lla | default(peer.neighbor.address) %}
+{% set peer_bgp = peer.bgp | default({}) %}
+{% set peer_extended_next_hop = peer_bgp.extended_next_hop | default(peer.ipv4.extended_next_hop | default(false)) %}
 protocol bgp 'dn42_peer_{{ peer.asn }}' from dnpeers {
 {% if peer.description is defined and peer.description is not none %}    description "{{ peer.description | replace('\\', '\\\\') | replace('\"', '\\"') }}";
-{% endif %}    neighbor {{ peer.neighbor.address }}{% if peer_interface %} % '{{ peer_interface }}'{% endif %} as {{ peer.asn }}{% if peer.neighbor.port is defined %} port {{ peer.neighbor.port }}{% endif %};
-{% if peer.ipv4.extended_next_hop | default(false) %}    ipv4{
+{% endif %}    neighbor {{ peer_lla }}{% if peer_interface %} % '{{ peer_interface }}'{% endif %} as {{ peer.asn }}{% if peer.neighbor.port is defined %} port {{ peer.neighbor.port }}{% endif %};
+{% if peer_extended_next_hop %}    ipv4{
         extended next hop;
     };
 {% endif %}};
