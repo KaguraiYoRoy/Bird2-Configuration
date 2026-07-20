@@ -20,11 +20,7 @@ define IANA_ALLOW_NETSETv6       = {{ iana.allow_netset_v6 | default(iana_global
 
 {% endif %}{% if dn42 is defined %}
 define DN42_OWNAS                = {{ dn42_global.own_as }};
-{% if dn42.own_ip is defined %}
-define DN42_OWNIP                = {{ dn42.own_ip }};
-{% endif %}{% if dn42.own_ipv6 is defined %}
-define DN42_OWNIPv6              = {{ dn42.own_ipv6 }};
-{% endif %}define DN42_OWNNET               = {{ dn42_global.own_net }};
+define DN42_OWNNET               = {{ dn42_global.own_net }};
 define DN42_OWNNETv6             = {{ dn42_global.own_net_v6 }};
 define DN42_OWNNETSET            = {{ dn42_global.own_netset }};
 define DN42_OWNNETSETv6          = {{ dn42_global.own_netset_v6 }};
