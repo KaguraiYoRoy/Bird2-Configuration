@@ -1,5 +1,5 @@
 node:
-  name: lax-us
+  name: tyo01-jp
 deploy:
   service_manager: systemd
   bird:

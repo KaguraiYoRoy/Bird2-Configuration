@@ -13,9 +13,9 @@ bird_nodes:
       ansible_host: ipv4.hkg02-cn.ecs.iyoroy-infra.top
     hkg03-cn:
       ansible_host: ipv4.hkg03-cn.ecs.iyoroy-infra.top
-    lax-us:
+    lax01-us:
       ansible_host: ipv4.lax-us.ecs.iyoroy-infra.top
-    tyo-jp:
+    tyo01-jp:
       ansible_host: ipv4.tyo-jp.ecs.iyoroy-infra.top
     tyo02-jp:
       ansible_host: ipv4.tyo02-jp.ecs.iyoroy-infra.top
