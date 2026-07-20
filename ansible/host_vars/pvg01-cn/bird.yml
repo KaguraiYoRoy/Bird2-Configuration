@@ -31,39 +31,10 @@ intra:
   static:
     v4_routes:
     - prefix: 172.20.234.233/32
-      communities:
-      - [4242422024, 1, 1]
-      - [4242422024, 2, 0]
-      - [4242422024, 2, 100]
-      - [4242422024, 65535, 65281]
-      - [65535, 65281]
     v6_routes:
     - prefix: fd18:3e15:61d0::9/128
-      communities:
-      - [4242422024, 1, 1]
-      - [4242422024, 2, 0]
-      - [4242422024, 2, 100]
-      - [4242422024, 65535, 65281]
-      - [65535, 65281]
     - prefix: 2a14:7583:f22d:2000::5fac/128
-      communities:
-      - [205369, 1, 1]
-      - [205369, 2, 0]
-      - [205369, 2, 100]
-      - [205369, 65535, 65281]
-      - [65535, 65281]
   ibgp_sessions:
-  - file: tyo03.conf
-    protocol: intra_ibgp_tyo03
-    neighbor:
-      node: tyo03-jp
-      interface: intra_tyo03
-    ipv4:
-      import_policy: full
-      export_policy: full
-    ipv6:
-      import_policy: full
-      export_policy: full
   - file: pvg_82b4.conf
     protocol: intra_ibgp_pvg_82b4
     local_as: 4220240005

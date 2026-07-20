@@ -1,16 +1,3 @@
 wireguard:
   default_private_key_ref: fra02-de/default
   interfaces:
-  - name: intra_fra01
-    address_mode: intra_local
-    listen_port: 10228
-    table: 'off'
-    peer:
-      public_key: 4zEFOrqHdIDPcjvu6NwbE1AAYBH1bA+SAowysX5fRT4=
-      allowed_ips:
-      - 0.0.0.0/0
-      - ::/0
-      endpoint: ipv6.fra01-de.ecs.iyoroy-infra.top:10001
-    post_up:
-    - sysctl -w net.ipv6.conf.%i.autoconf=0
-    mtu: 1420

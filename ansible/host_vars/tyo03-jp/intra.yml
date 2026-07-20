@@ -1,0 +1,48 @@
+intra_peers:
+- node: tyo01-jp
+  interface: intra_tyo01
+  wireguard:
+    public_key: Sh62ZCxnEcXyLq49mLP1jF4C2vWKhKMxjtZHxVUAQg4=
+    listen_port: 10227
+    fwmark: '4242'
+    address_mode: intra_local
+  bgp:
+    file: tyo01.conf
+    protocol: intra_ibgp_tyo01
+    ipv4:
+      import_policy: full
+      export_policy: full
+    ipv6:
+      import_policy: full
+      export_policy: full
+- node: tyo02-jp
+  interface: intra_tyo02
+  wireguard:
+    public_key: XMS2MhbgYyCZVhbiMsRwYGzpOky6GxmJOCM/NPqyuFQ=
+    listen_port: 10230
+    address_mode: intra_local
+  bgp:
+    file: tyo02.conf
+    protocol: intra_ibgp_tyo02
+    ipv4:
+      import_policy: full
+      export_policy: full
+    ipv6:
+      import_policy: full
+      export_policy: full
+- node: pvg01-cn
+  interface: intra_pvg01
+  wireguard:
+    public_key: VdHU69ZeCaaq2V7Hg362YG+9dZ97DHYZxW0G7/Rs5FY=
+    listen_port: 6433
+    fwmark: '4242'
+    address_mode: intra_local
+  bgp:
+    file: pvg01.conf
+    protocol: intra_ibgp_pvg01
+    ipv4:
+      import_policy: full
+      export_policy: full
+    ipv6:
+      import_policy: full
+      export_policy: full

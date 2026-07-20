@@ -1,0 +1,11 @@
+intra_peers:
+- node: fra01-de
+  interface: intra_fra01
+  wireguard:
+    public_key: 4zEFOrqHdIDPcjvu6NwbE1AAYBH1bA+SAowysX5fRT4=
+    listen_port: 10228
+    mtu: 1420
+    address_mode: intra_local
+  bgp:
+    file: fra01.conf
+    protocol: intra_ibgp_fra01

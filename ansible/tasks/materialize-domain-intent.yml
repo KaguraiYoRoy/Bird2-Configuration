@@ -121,18 +121,18 @@
   ansible.builtin.set_fact:
     effective_wireguard_interfaces: >-
       {{
-        (generated_wireguard_intra | default([]))
-        + (generated_wireguard_dn42 | default([]))
-        + (generated_wireguard_interfaces | default([]))
-        + (wireguard.interfaces | default([]))
+        (generated_wireguard_intra if generated_wireguard_intra is defined else [])
+        + (generated_wireguard_dn42 if generated_wireguard_dn42 is defined else [])
+        + (generated_wireguard_interfaces if generated_wireguard_interfaces is defined else [])
+        + (wireguard.interfaces if wireguard is defined and wireguard.interfaces is defined and wireguard.interfaces is not none else [])
       }}
 
 - name: Build effective intra iBGP session list
   ansible.builtin.set_fact:
     effective_intra_ibgp_sessions: >-
       {{
-        (generated_intra_ibgp_sessions | default([]))
-        + (intra.ibgp_sessions | default([]))
+        (generated_intra_ibgp_sessions if generated_intra_ibgp_sessions is defined else [])
+        + (intra.ibgp_sessions if intra is defined and intra.ibgp_sessions is defined and intra.ibgp_sessions is not none else [])
       }}
 
 - name: Ensure effective lists are set

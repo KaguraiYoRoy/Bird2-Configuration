@@ -1,18 +1,19 @@
+{% macro render_communities(community_list) %}
+{% for community in community_list %}{% if community is string %}        bgp_community.add({{ community }});
+{% elif community | length == 2 %}        bgp_community.add(({{ community | join(',') }}));
+{% else %}        bgp_large_community.add(({{ community | join(',') }}));
+{% endif %}{% endfor %}
+{% endmacro %}
 {% set intra_static = intra.static | default({}) %}
 {% set underlay_loopback = intra_static.underlay_loopback | default({}) %}
 {% set underlay_loopback_enabled = underlay_loopback.enabled | default(true) %}
 {% set underlay_loopback_communities = underlay_loopback.communities | default(intra_global.underlay_loopback_communities | default([])) %}
+{% set overlay_default_communities = intra_global.overlay_route_communities | default(underlay_loopback_communities) %}
 protocol static intra_static_v4{
 {% if underlay_loopback_enabled %}    route INTRA_LOOPBACKv4NET reject{
-{% for community in underlay_loopback_communities %}{% if community is string %}        bgp_community.add({{ community }});
-{% elif community | length == 2 %}        bgp_community.add(({{ community | join(',') }}));
-{% else %}        bgp_large_community.add(({{ community | join(',') }}));
-{% endif %}{% endfor %}    };
+{{ render_communities(underlay_loopback_communities) }}    };
 {% endif %}{% for route in intra_static.v4_routes | default([], true) %}    route {{ route.prefix }} reject{
-{% for community in route.communities | default([]) %}{% if community is string %}        bgp_community.add({{ community }});
-{% elif community | length == 2 %}        bgp_community.add(({{ community | join(',') }}));
-{% else %}        bgp_large_community.add(({{ community | join(',') }}));
-{% endif %}{% endfor %}    };
+{{ render_communities(route.communities | default(overlay_default_communities)) }}    };
 {% endfor %}
     ipv4 {
         import all;
@@ -22,15 +23,9 @@ protocol static intra_static_v4{
 
 protocol static intra_static_v6{
 {% if underlay_loopback_enabled %}    route INTRA_LOOPBACKv6NET reject{
-{% for community in underlay_loopback_communities %}{% if community is string %}        bgp_community.add({{ community }});
-{% elif community | length == 2 %}        bgp_community.add(({{ community | join(',') }}));
-{% else %}        bgp_large_community.add(({{ community | join(',') }}));
-{% endif %}{% endfor %}    };
+{{ render_communities(underlay_loopback_communities) }}    };
 {% endif %}{% for route in intra_static.v6_routes | default([], true) %}    route {{ route.prefix }} reject{
-{% for community in route.communities | default([]) %}{% if community is string %}        bgp_community.add({{ community }});
-{% elif community | length == 2 %}        bgp_community.add(({{ community | join(',') }}));
-{% else %}        bgp_large_community.add(({{ community | join(',') }}));
-{% endif %}{% endfor %}    };
+{{ render_communities(route.communities | default(overlay_default_communities)) }}    };
 {% endfor %}
     ipv6 {
         import all;

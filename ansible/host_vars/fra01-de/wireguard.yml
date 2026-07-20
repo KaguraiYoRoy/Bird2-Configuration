@@ -1,18 +1,6 @@
 wireguard:
   default_private_key_ref: fra01-de/default
   interfaces:
-  - name: intra_fra02
-    address_mode: intra_local
-    listen_port: 10001
-    table: 'off'
-    peer:
-      public_key: m7HQia4TdZB2vyI4ajcSlKv9Y/qbhsKiz+HDvsx6nno=
-      allowed_ips:
-      - 0.0.0.0/0
-      - ::/0
-      endpoint: ipv6.fra02-de.ecs.iyoroy-infra.top:10228
-    post_up:
-    - sysctl -w net.ipv6.conf.%i.autoconf=0
   - name: intra_hkg02
     address_mode: intra_local
     listen_port: 10225
@@ -23,29 +11,5 @@ wireguard:
       - 0.0.0.0/0
       - ::/0
       endpoint: ipv4.hkg02-cn.ecs.iyoroy-infra.top:10228
-    post_up:
-    - sysctl -w net.ipv6.conf.%i.autoconf=0
-  - name: intra_lax
-    address_mode: intra_local
-    listen_port: 10229
-    table: 'off'
-    peer:
-      public_key: As0rZo5b9Bwt4loPGl6iSdtOqkd2p6ExK/Xyoy9OmTU=
-      allowed_ips:
-      - 0.0.0.0/0
-      - ::/0
-      endpoint: ipv4.lax-us.ecs.iyoroy-infra.top:10228
-    post_up:
-    - sysctl -w net.ipv6.conf.%i.autoconf=0
-  - name: intra_tyo
-    address_mode: intra_local
-    listen_port: 10227
-    table: 'off'
-    peer:
-      public_key: Sh62ZCxnEcXyLq49mLP1jF4C2vWKhKMxjtZHxVUAQg4=
-      allowed_ips:
-      - 0.0.0.0/0
-      - ::/0
-      endpoint: ipv4.tyo-jp.ecs.iyoroy-infra.top:10228
     post_up:
     - sysctl -w net.ipv6.conf.%i.autoconf=0

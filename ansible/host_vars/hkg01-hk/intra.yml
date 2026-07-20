@@ -1,0 +1,17 @@
+intra_peers:
+- node: hkg02-hk
+  interface: intra_hkg02
+  wireguard:
+    public_key: bg+KnzVupBrOQntHFFVzvBx+3sqYVoyJRantT6m5fm8=
+    listen_port: 10225
+    fwmark: '4242'
+    address_mode: intra_local
+  bgp:
+    file: hkg02.conf
+    protocol: intra_ibgp_hkg02
+    ipv4:
+      import_policy: full
+      export_policy: full
+    ipv6:
+      import_policy: full
+      export_policy: full

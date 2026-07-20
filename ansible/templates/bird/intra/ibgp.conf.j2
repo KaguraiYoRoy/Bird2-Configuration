@@ -1,5 +1,6 @@
+{% set all_sessions = effective_intra_ibgp_sessions | default(intra.ibgp_sessions | default([])) %}
 {% set ns = namespace(import_policies=[], export_policies=[]) %}
-{% for session in intra.ibgp_sessions | default([]) %}
+{% for session in all_sessions %}
 {% set ipv4 = session.ipv4 | default({}) %}
 {% set ipv6 = session.ipv6 | default({}) %}
 {% set ipv4_import_policy = ipv4.import_policy | default(session.import_policy | default('default')) %}

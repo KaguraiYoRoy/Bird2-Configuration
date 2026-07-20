@@ -108,6 +108,9 @@
         loop_var: peer
         label: "dn42_{{ peer.asn }}"
 
+    - name: Materialize domain intent variables
+      ansible.builtin.include_tasks: ../tasks/materialize-domain-intent.yml
+
     - name: Render intra module files
       delegate_to: localhost
       ansible.builtin.template:
@@ -115,9 +118,6 @@
         dest: "{{ node_output_dir }}/intra/{{ item }}"
         mode: "0644"
       loop: "{{ modules.intra.includes | default([]) }}"
-
-    - name: Materialize domain intent variables
-      ansible.builtin.include_tasks: ../tasks/materialize-domain-intent.yml
 
     - name: Render intra iBGP sessions
       delegate_to: localhost

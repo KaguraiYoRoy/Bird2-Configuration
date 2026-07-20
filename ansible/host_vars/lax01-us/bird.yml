@@ -24,33 +24,5 @@ intra:
   static:
     v4_routes:
     - prefix: 172.20.234.229/32
-      communities:
-      - [4242422024, 1, 1]
-      - [4242422024, 2, 0]
-      - [4242422024, 2, 100]
-      - [4242422024, 65535, 65281]
-      - [65535, 65281]
     v6_routes:
     - prefix: fd18:3e15:61d0::5/128
-      communities:
-      - [4242422024, 1, 1]
-      - [4242422024, 2, 0]
-      - [4242422024, 2, 100]
-      - [4242422024, 65535, 65281]
-      - [65535, 65281]
-  ibgp_sessions:
-  - file: fra01.conf
-    protocol: intra_ibgp_fra01
-    neighbor:
-      node: fra01-de
-      interface: intra_fra01
-  - file: hkg02.conf
-    protocol: intra_ibgp_hkg02
-    neighbor:
-      node: hkg02-hk
-      interface: intra_hkg02
-  - file: tyo.conf
-    protocol: intra_ibgp_tyo
-    neighbor:
-      node: tyo01-jp
-      interface: intra_tyo
