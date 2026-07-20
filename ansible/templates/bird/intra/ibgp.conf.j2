@@ -14,6 +14,7 @@
 {% endfor %}
 {% if 'default' in ns.import_policies %}
 filter intra_ibgp_import_default {
+    if !(net ~ INTRA_PREFIX_V4 || net ~ INTRA_PREFIX_V6) then reject;
     if !(bgp_large_community ~ [(4242422024,1,1)]) then reject;
     if bgp_large_community ~ [(4242422024,65535,65282)] then reject;
     if bgp_community ~ [(65535,65282)] then reject;

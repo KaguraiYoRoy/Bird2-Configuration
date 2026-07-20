@@ -1,0 +1,8 @@
+function intra_ibgp_check_community() {
+    if !(bgp_large_community ~ [(4242422024,1,1)]) then return false;
+    if bgp_large_community ~ [(4242422024,65535,65282)] then return false;
+    if bgp_large_community ~ [(4242422024,65535,65281)] then return false;
+    if bgp_community ~ [(65535,65281)] then return false;
+    if bgp_community ~ [(65535,65282)] then return false;
+    return true;
+}
