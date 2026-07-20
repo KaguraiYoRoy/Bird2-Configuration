@@ -13,6 +13,4 @@ iana:
     extra_routes:
     - protocol: iana_static
       prefixes: []
-  own_ipv6: 2a14:7583:f224::d576
-  own_net_v6: 2a14:7583:f220::/43
   router_id: 103.110.81.80

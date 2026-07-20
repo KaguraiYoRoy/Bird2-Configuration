@@ -36,6 +36,4 @@ iana:
         - NO_EXPORT
         large_communities:
         - (205369,65535,65282)
-  own_ipv6: 2a14:7583:f224::872c
-  own_net_v6: 2a14:7583:f220::/43
   router_id: 103.213.4.103
