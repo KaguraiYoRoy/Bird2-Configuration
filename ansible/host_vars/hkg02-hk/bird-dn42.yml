@@ -13,8 +13,6 @@ dn42:
       port: 8083
   peers:
   - description: '@iu_yang1 https://blog.begalaxy.top/index.php/38.html'
-    neighbor:
-      address: fe80::1836
     asn: 4201273722
     wireguard:
       public_key: S8BzQtSgHy+YFnnBjE0bmBYDIvCve5Tv43Y2dcVVBm4=
@@ -25,8 +23,6 @@ dn42:
     bgp:
       extended_next_hop: true
   - description: '@MadobiNanami https://blog.nanami.tech/'
-    neighbor:
-      address: fe80::55
     asn: 4242420055
     wireguard:
       public_key: ifY8fh4xZuIVF10FJ5PYnJBkN/NuMpLscK5serYUfBw=
@@ -37,8 +33,6 @@ dn42:
     bgp:
       extended_next_hop: true
   - description: '@Lie_Kong https://blog.lie-kong.top/dn42/'
-    neighbor:
-      address: fe80::70:2
     asn: 4242420070
     wireguard:
       public_key: 3Qhit0K7maW6oMVt57KUkWDiDfZ/OWOYwzu/fYrk6iE=
@@ -49,8 +43,6 @@ dn42:
     bgp:
       extended_next_hop: true
   - description: '@linmontfurry'
-    neighbor:
-      address: fe80::88
     asn: 4242420088
     wireguard:
       public_key: kDkJLZbrW6PWXeTJEVRWKwPpv+wsnsNthW0nDDGtMhg=
@@ -62,8 +54,6 @@ dn42:
     bgp:
       extended_next_hop: true
   - description: https://sdubs.vip
-    neighbor:
-      address: fe80::202:2
     asn: 4242420202
     wireguard:
       public_key: 5YcwL93bhJqzhTxi9b1Z1ZRt2UfGVoP5jMA+UXma6HM=
@@ -75,8 +65,6 @@ dn42:
     bgp:
       extended_next_hop: true
   - description: '@ZeroWolf233 https://zerowolf.cn/dn42/'
-    neighbor:
-      address: fe80::233
     asn: 4242420233
     wireguard:
       public_key: bWUSnkOds7fUAw/hh30QaORMjPi4+/PRWY8+AgqC6UU=
@@ -87,8 +75,6 @@ dn42:
     bgp:
       extended_next_hop: true
   - description: '@Nuro_Atamashino'
-    neighbor:
-      address: fe80::298
     asn: 4242420298
     wireguard:
       public_key: v0tF03d5jK/t6hjRnOv5ddTkTxzja9HSc8SWbCQ+WzI=
@@ -100,8 +86,6 @@ dn42:
     bgp:
       extended_next_hop: true
   - description: '@zxxwdd'
-    neighbor:
-      address: fe80::337
     asn: 4242420337
     wireguard:
       public_key: WdvyDf+lEAar5MbcFYUVhvQXzWg2ZXi9Jt1860Q41y4=
@@ -112,8 +96,6 @@ dn42:
     bgp:
       extended_next_hop: true
   - description: '@Alice_8585'
-    neighbor:
-      address: fe80::387
     asn: 4242420387
     wireguard:
       public_key: krJb3l8hypXbDs8h6zNw5QQy5zdwVsRKRm1g30KnYBU=
@@ -134,8 +116,6 @@ dn42:
       endpoint: hkl.dn42.boletus.icu:22024
       fwmark: '4242'
   - description: '@Virtual0PTR https://blog.0xptr.top/en/about/dn42_peering'
-    neighbor:
-      address: fe80::d555
     asn: 4242420555
     wireguard:
       public_key: xin3e9mT1MVzPUVGG7pVIZ/FIkwOIGQNN2cVpCTLNS8=
@@ -146,8 +126,6 @@ dn42:
     bgp:
       extended_next_hop: true
   - description: '@v3tianyi'
-    neighbor:
-      address: fe80::712
     asn: 4242420712
     wireguard:
       public_key: EdTexGeX46urgHTnPJYCRyRI5kV4h/jTPpN2JQKYXXo=
@@ -158,8 +136,6 @@ dn42:
     bgp:
       extended_next_hop: true
   - description: '@Iridoideae'
-    neighbor:
-      address: fe80::1023:2
     asn: 4242421023
     wireguard:
       public_key: dPTukyAM6scP2dlCYiP55BDb0lmuBhX7Rm4G8p/9awA=
@@ -170,8 +146,6 @@ dn42:
     bgp:
       extended_next_hop: true
   - description: '@jlu5ca https://highdef.network/'
-    neighbor:
-      address: fe80::1080:38
     asn: 4242421080
     wireguard:
       public_key: eedTHubyl5caiHH50GkknQa8SQtAF8q7aqmL26w5qSs=
@@ -183,8 +157,6 @@ dn42:
     bgp:
       extended_next_hop: true
   - description: '@antenna000 https://blog.yuyuko.com/post/7'
-    neighbor:
-      address: fe80::1117
     asn: 4242421117
     wireguard:
       public_key: gqwdC9p6jdSy80oRxdatr9QdSrNMLCvRMadaCeOBqDY=
@@ -195,8 +167,6 @@ dn42:
     bgp:
       extended_next_hop: true
   - description: '@Ximiawa_bot @Mxmilu https://milu.ink/dn42'
-    neighbor:
-      address: fe80::1166
     asn: 4242421166
     wireguard:
       public_key: f9ZDh2U0UXxtEroHUYNWzaE6TZM3hhY3eLXQQpgkvBY=
@@ -208,8 +178,6 @@ dn42:
     bgp:
       extended_next_hop: true
   - description: '@pfxlabs https://prefixlabs.net/'
-    neighbor:
-      address: fe80::1240:7
     asn: 4242421240
     wireguard:
       public_key: FzWgCU4/y4pyGibDF5UYS13LvDCQ3569uNZJRUEIXiI=
@@ -220,8 +188,6 @@ dn42:
     bgp:
       extended_next_hop: true
   - description: '@BIGGER_THAN_SHIT'
-    neighbor:
-      address: fe80::9527
     asn: 4242421260
     wireguard:
       public_key: 9zsuhOiSC8rKsdUNtX678wh3rTo4McJ9ueDqm1Ha8wI=
@@ -232,8 +198,6 @@ dn42:
     bgp:
       extended_next_hop: true
   - description: '@Xeri_Xeiu https://blog.xeiu.top/dn42-info'
-    neighbor:
-      address: fe80::3:1336
     asn: 4242421336
     wireguard:
       public_key: HZwPJ/2RK9UDePLUSFLeB6LWdKMcmPVoGz/9qPHFcwY=
@@ -244,8 +208,6 @@ dn42:
     bgp:
       extended_next_hop: true
   - description: '@DictXiong https://beardic.cn/zh-cn/dn42/'
-    neighbor:
-      address: fe80::1366
     asn: 4242421366
     wireguard:
       public_key: EoPA+dH5xxHwUYCVpe/3afL0qQp5SQB7b2OHD8nrB30=
@@ -256,8 +218,6 @@ dn42:
     bgp:
       extended_next_hop: true
   - description: https://dn42.guet.eu.org/zh-cn/contact/
-    neighbor:
-      address: fe80::1686
     asn: 4242421686
     wireguard:
       public_key: D4MBIR+HsCPeEGuPg1YziRe1RgaG7jaiTw4wmV8XZUY=
@@ -268,8 +228,6 @@ dn42:
     bgp:
       extended_next_hop: true
   - description: '@messageleaf https://exploro.one/dn42'
-    neighbor:
-      address: fe80::5ec6:ff37:aec1:d0ab
     asn: 4242421771
     wireguard:
       public_key: vKIhFMvKHDVEcRls1IH7si2MSia73H3lsXAWrrC+5zU=
@@ -280,8 +238,6 @@ dn42:
     bgp:
       extended_next_hop: true
   - description: '@Potat0_DN42_Bot'
-    neighbor:
-      address: fe80::1816
     asn: 4242421816
     wireguard:
       public_key: Tv1+HniELrS4Br2i7oQgwqBJFXQKculsW8r+UOqQXH0=
@@ -293,8 +249,6 @@ dn42:
     bgp:
       extended_next_hop: true
   - description: '@imlonghao'
-    neighbor:
-      address: fe80::1888
     asn: 4242421888
     wireguard:
       public_key: RyP2/n///CanKOD1EFtiPawHfUZb14+Fg0v4pbpsrnY=
@@ -305,8 +259,6 @@ dn42:
     bgp:
       extended_next_hop: true
   - description: https://luotianyi.eu/dn42/
-    neighbor:
-      address: fe80::1999
     asn: 4242421999
     wireguard:
       public_key: DFXS1z5X3SWfGioSTicV9dPpEgD0HiuFvpfFPQD79QY=
@@ -317,8 +269,6 @@ dn42:
     bgp:
       extended_next_hop: true
   - description: '@butlanys'
-    neighbor:
-      address: fe80::2018
     asn: 4242422018
     wireguard:
       public_key: J8LY0vaOzaxH1k3Qrhjv7/U3ATj5B29HwgmednA5rUI=
@@ -329,8 +279,6 @@ dn42:
     bgp:
       extended_next_hop: true
   - description: wyf@932686.xyz https://blog.wolfyang.fan/notes/dn42
-    neighbor:
-      address: fe80::2034
     asn: 4242422034
     wireguard:
       public_key: JMk8ABRFTEjyNFXMgT0ti3RwtH6ciaFn3lmXVmsShj0=
@@ -341,8 +289,6 @@ dn42:
     bgp:
       extended_next_hop: true
   - description: '@izmimz'
-    neighbor:
-      address: fe80::2164
     asn: 4242422164
     wireguard:
       public_key: B0QyNLwiqaCY9/ar8556/a2+x37lplzVOHbvd8Qyg04=
@@ -353,8 +299,6 @@ dn42:
     bgp:
       extended_next_hop: true
   - description: https://iedon.net
-    neighbor:
-      address: fe80::2189:120
     asn: 4242422189
     wireguard:
       public_key: OlUDuWkUI9pKNsNo7Vjf/GKKVSBslh9kmqjbeYA4+34=
@@ -366,8 +310,6 @@ dn42:
     bgp:
       extended_next_hop: true
   - description: https://peering.maraun.de/
-    neighbor:
-      address: fe80::2225
     asn: 4242422225
     wireguard:
       public_key: rWTIK93+XJaP4sRvrk1gqXxAZgkz6y/axLC4mjuay1I=
@@ -378,8 +320,6 @@ dn42:
     bgp:
       extended_next_hop: true
   - description: '@moohric https://www.mhr.hk/posts/dn42-peering/'
-    neighbor:
-      address: fe80::2279
     asn: 4242422279
     wireguard:
       public_key: PUjqyQ3ATLp8Cxp3YFVQ44QLoZEpoPgdXsbMfXhDMRk=
@@ -390,8 +330,6 @@ dn42:
     bgp:
       extended_next_hop: true
   - description: '@SessX6cf https://dn42.xhustudio.eu.org/peering.html'
-    neighbor:
-      address: fe80::2466
     asn: 4242422466
     wireguard:
       public_key: 25F5Kt0fg7bTien58apDN2dLUyCN2DSe7W+Nvw7eCT4=
@@ -403,8 +341,6 @@ dn42:
     bgp:
       extended_next_hop: true
   - description: '@unstartdev https://unstartdev.eu.org/dn42'
-    neighbor:
-      address: fe80::2467
     asn: 4242422467
     wireguard:
       public_key: N6QLB7m3ZDmsTNoXIGm+LlrTqou4mfH9zTgRy83XMwU=
@@ -415,8 +351,6 @@ dn42:
     bgp:
       extended_next_hop: true
   - description: '@samandjyf1 https://blog.sam1314.com/DN42/'
-    neighbor:
-      address: fe80::2503
     asn: 4242422503
     wireguard:
       public_key: GyS7yHeu3kQykROMr6ZMix8FRUlLE/mxQWmn1zzdAUE=
@@ -427,8 +361,6 @@ dn42:
     bgp:
       extended_next_hop: true
   - description: https://lantian.pub
-    neighbor:
-      address: fe80::2547
     asn: 4242422547
     wireguard:
       public_key: xelzwt1j0aoKjsQnnq8jMjZNLbLucBPwPTvHgFH/czs=
@@ -440,8 +372,6 @@ dn42:
     bgp:
       extended_next_hop: true
   - description: https://peer.dn42.6700.cc
-    neighbor:
-      address: fe80::3088:192
     asn: 4242423088
     wireguard:
       public_key: rBTH+JyZB0X/DkwHByrCjCojxBKr/kEOm1dTAFGHR1w=
@@ -453,8 +383,6 @@ dn42:
     bgp:
       extended_next_hop: true
   - description: '@Grayowo'
-    neighbor:
-      address: fe80::3101:2
     asn: 4242423101
     wireguard:
       public_key: P/OvJv/XcCkOaA7/+UEx2Q2SsxmO/BvbsTTwZcUuXTo=
@@ -465,8 +393,6 @@ dn42:
     bgp:
       extended_next_hop: true
   - description: AS10099@foxmail.com @WOW55999 https://dn42.gtio.de/
-    neighbor:
-      address: fe80::2:3128
     asn: 4242423128
     wireguard:
       public_key: rJzBhEpXkPoEgb1SL13srNQPQOypb0GRCDudYAASAHc=
@@ -477,8 +403,6 @@ dn42:
     bgp:
       extended_next_hop: true
   - description: '@Auride'
-    neighbor:
-      address: fe80::2024:3310
     asn: 4242423310
     wireguard:
       public_key: aC9pjzMWZhbA/sLPljUFGU1K28MSopHbKNj5yyv4uzg=
@@ -489,8 +413,6 @@ dn42:
     bgp:
       extended_next_hop: true
   - description: '@Ykino233'
-    neighbor:
-      address: fe80::3311
     asn: 4242423311
     wireguard:
       public_key: qleh0csj45iN7ZM75kf3fDh0erMBJGABdvzM9BD0Byw=
@@ -501,8 +423,6 @@ dn42:
     bgp:
       extended_next_hop: true
   - description: https://dn42.baka.pub/
-    neighbor:
-      address: fe80::2999:225
     asn: 4242423374
     wireguard:
       public_key: zcxhWeI3SrJtqlHuqdeNaCeWSwJIYOTjAraXm655+VY=
@@ -513,8 +433,6 @@ dn42:
     bgp:
       extended_next_hop: true
   - description: '@jack153376'
-    neighbor:
-      address: fe80::3376
     asn: 4242423376
     wireguard:
       public_key: tqDhZy2XJBzpctfVrwlTOccTrZFQSsaJn+5T2s0mU0s=
@@ -525,8 +443,6 @@ dn42:
     bgp:
       extended_next_hop: true
   - description: '@LeZi9916'
-    neighbor:
-      address: fe80::3377
     asn: 4242423377
     wireguard:
       public_key: XaX6/G7EQbcjsrtlxNmDc/s/VSdTxtkBxZKB2JpWIHo=
@@ -540,8 +456,6 @@ dn42:
     bgp:
       extended_next_hop: true
   - description: '@af9af584e050'
-    neighbor:
-      address: fe80::4242:4233:800d
     asn: 4242423380
     wireguard:
       public_key: UH/8wh7yFbkvhob4vuHm0y5fqqR6mCxu0fzsggLFxw8=
@@ -552,8 +466,6 @@ dn42:
     bgp:
       extended_next_hop: true
   - description: '@winter_pm_bot'
-    neighbor:
-      address: fd4e:d0:d38d:68c1::1
     asn: 4242423658
     wireguard:
       public_key: L/ohOmR8NDe/sgaAI0md8RvT1lrPDZiLMny9QwLheAA=
@@ -564,8 +476,6 @@ dn42:
     bgp:
       extended_next_hop: true
   - description: '@tsy_ink'
-    neighbor:
-      address: fe80::3686
     asn: 4242423686
     wireguard:
       public_key: EhU7kTcbAzWPtII68A3lfzPaYjgcjuHEkMNtQrneDlY=
@@ -576,8 +486,6 @@ dn42:
     bgp:
       extended_next_hop: true
   - description: https://dn42.g-load.eu
-    neighbor:
-      address: fe80::ade0
     asn: 4242423914
     wireguard:
       public_key: sLbzTRr2gfLFb24NPzDOpy8j09Y6zI+a7NkeVMdVSR8=
@@ -590,8 +498,6 @@ dn42:
     bgp:
       extended_next_hop: true
   - description: https://blog.sherpherd.net/dn42.html
-    neighbor:
-      address: fe80::3947:1
     asn: 4242423947
     wireguard:
       public_key: Lz/SPcnKfbp4Z6LW7gysFxhyJXfyoett18r3kvlZcBY=
@@ -602,8 +508,6 @@ dn42:
     bgp:
       extended_next_hop: true
   - description: '@Sm1rkBot https://blog.bitrate.top/dn42'
-    neighbor:
-      address: fe80::3997
     asn: 4242423997
     wireguard:
       public_key: BwDwBx+r7zTrUZHdUeKsQFkEVEgx4iH13+0LQnCtpEE=
@@ -614,8 +518,6 @@ dn42:
     bgp:
       extended_next_hop: true
   - description: '@charliemoomoo'
-    neighbor:
-      address: fe80::3999
     asn: 4242423999
     wireguard:
       public_key: mGGBczSVKW+7UKRquI2GkbKrfxiATv9r4uF5WTP+vWI=
