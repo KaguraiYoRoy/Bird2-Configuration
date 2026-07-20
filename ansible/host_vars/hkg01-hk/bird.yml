@@ -2,19 +2,6 @@ bird:
   log_syslog_all: true
   device_scan_time: 10
   device_semicolon: true
-  include_sections:
-  - - path: filter.conf
-  - - path: iana/rpki.conf
-    - path: iana/filter.conf
-    - path: iana/static.conf
-    - path: iana/upstream.conf
-    - path: iana/peer.conf
-    - path: iana/downstream.conf
-    - path: iana/ibgp.conf
-  - - path: intra/filter.conf
-    - path: intra/ibgp.conf
-    - path: intra/static.conf
-  - - path: kernel.conf
 modules:
   iana:
     enabled: true

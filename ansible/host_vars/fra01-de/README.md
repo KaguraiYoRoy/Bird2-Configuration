@@ -1,4 +1,6 @@
 # FRA 01 - DE
+Node Token: 3b06
+
 ## Geo
 Tier: Backbone
 Region: Europe

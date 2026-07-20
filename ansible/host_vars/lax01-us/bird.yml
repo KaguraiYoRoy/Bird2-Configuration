@@ -2,17 +2,6 @@ bird:
   log_syslog_all: false
   device_scan_time: 10
   device_semicolon: false
-  include_sections:
-  - - path: filter.conf
-  - - path: dn42/filter.conf
-    - path: dn42/flapalerted.conf
-    - path: dn42/static.conf
-    - path: dn42/rpki.conf
-    - path: dn42/ebgp.conf
-  - - path: intra/filter.conf
-    - path: intra/ibgp.conf
-    - path: intra/static.conf
-  - - path: kernel.conf
 modules:
   iana:
     enabled: false

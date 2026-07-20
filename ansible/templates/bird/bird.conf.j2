@@ -2,7 +2,7 @@
 log syslog all;
 
 {% endif %}
-{% if iana.enabled | default(false) %}
+{% if iana is defined and iana.enabled | default(false) %}
 define IANA_OWNAS                = {{ iana_global.own_as }};
 define IANA_OWNIPv6              = {{ iana.own_ipv6 }};
 define IANA_AnycastNETv6         = {{ iana_global.anycast_net_v6 }};
@@ -11,7 +11,7 @@ define IANA_OWNNETSETv6          = {{ iana.own_netset_v6 }};
 define IANA_ROUTER_ID            = {{ iana.router_id }};
 define IANA_ALLOW_NETSETv6       = {{ iana.allow_netset_v6 | default(iana_global.allow_netset_v6) }};
 
-{% endif %}
+{% endif %}{% if dn42 is defined %}
 define DN42_OWNAS                = {{ dn42_global.own_as }};
 define DN42_OWNIP                = {{ dn42.own_ip }};
 define DN42_OWNIPv6              = {{ dn42.own_ipv6 }};
@@ -22,13 +22,14 @@ define DN42_OWNNETSETv6          = {{ dn42_global.own_netset_v6 }};
 define DN42_REGION               = {{ dn42.region }};
 define DN42_COUNTRY              = {{ dn42.country }};
 
+{% endif %}{% if intra is defined %}
 define INTRA_CONFEDERATION_START = {{ intra_global.confederation_start }};
 define INTRA_CONFEDERATION_END   = {{ intra_global.confederation_end }};
 define INTRA_OWNAS               = {{ intra.own_as }};
 define INTRA_ROUTERID            = {{ intra.router_id }};
 define INTRA_PREFIX_V4           = {{ intra_global.prefix_v4 }};
 define INTRA_PREFIX_V6           = {{ intra_global.prefix_v6 }};
-
+{% endif %}
 define BLACKHOLE              = (65535, 666);
 define NO_EXPORT              = (65535, 65281);
 define NO_ADVERTISE           = (65535, 65282);
@@ -37,11 +38,30 @@ protocol device {
     scan time {{ bird.device_scan_time | default(10) }};
 }{% if bird.device_semicolon | default(false) %};{% endif %}
 
-{% for section in bird.include_sections %}
-{% for include in section %}
-{% if include.enabled | default(true) %}include "{{ include.path }}";
-{% endif %}{% endfor %}
-{% if not loop.last %}
-
-{% endif %}
+{% set iana_enabled = modules is defined and modules.iana is defined and modules.iana.enabled %}
+{% set dn42_enabled = modules is defined and modules.dn42 is defined and modules.dn42.enabled %}
+{% set intra_enabled = modules is defined and modules.intra is defined and modules.intra.enabled %}
+{% set root_includes = ['filter.conf'] + (bird.extra_root_includes | default([])) %}
+{% for include in root_includes %}
+include "{{ include }}";
 {% endfor %}
+
+{% if iana_enabled %}
+{% for include in modules.iana.includes | default([]) %}
+include "iana/{{ include }}";
+{% endfor %}
+{% endif %}
+
+{% if dn42_enabled %}
+{% for include in modules.dn42.includes | default([]) %}
+include "dn42/{{ include }}";
+{% endfor %}
+{% endif %}
+
+{% if intra_enabled %}
+{% for include in modules.intra.includes | default([]) %}
+include "intra/{{ include }}";
+{% endfor %}
+{% endif %}
+
+include "kernel.conf";

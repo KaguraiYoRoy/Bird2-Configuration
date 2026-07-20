@@ -1,0 +1,7 @@
+- name: Deprecated interfaces.d archive sync
+  hosts: bird_nodes
+  gather_facts: false
+  tasks:
+    - name: Report deprecated interfaces archive sync
+      ansible.builtin.debug:
+        msg: "Deprecated: interfaces.d archive sync is no longer used."
