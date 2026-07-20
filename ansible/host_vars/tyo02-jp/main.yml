@@ -1,5 +1,9 @@
 node:
-  name: tyo-jp
+  name: tyo02-jp
+  tier: 3
+  region: 1
+  node_id: 7
+  node_token: "31c8"
 deploy:
   service_manager: systemd
   bird:

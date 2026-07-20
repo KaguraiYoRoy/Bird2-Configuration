@@ -1,5 +1,9 @@
 node:
   name: fra01-de
+  tier: 1
+  region: 2
+  node_id: 1
+  node_token: "3b06"
 deploy:
   service_manager: systemd
   bird:

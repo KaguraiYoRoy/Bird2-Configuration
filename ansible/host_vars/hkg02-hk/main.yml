@@ -1,5 +1,9 @@
 node:
   name: hkg02-hk
+  tier: 1
+  region: 1
+  node_id: 3
+  node_token: "7d89"
 deploy:
   service_manager: systemd
   bird:

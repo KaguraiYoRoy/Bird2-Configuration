@@ -1,5 +1,9 @@
 node:
   name: fra02-de
+  tier: 2
+  region: 2
+  node_id: 2
+  node_token: "0002"
 deploy:
   service_manager: openrc
   bird:

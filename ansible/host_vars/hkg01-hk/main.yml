@@ -1,5 +1,9 @@
 node:
-  name: hkg03-hk
+  name: hkg01-hk
+  tier: 9
+  region: 1
+  node_id: 2
+  node_token: "d576"
 deploy:
   service_manager: systemd
   bird:
