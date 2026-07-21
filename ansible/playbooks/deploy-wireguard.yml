@@ -19,13 +19,15 @@
           - ansible_host != 'CHANGEME'
         fail_msg: "Set ansible_host for {{ inventory_hostname }} in ansible/inventory.production.yml before deploying WireGuard."
 
-    - name: Require WireGuard interface definitions
+    - name: Materialize domain intent variables
+      ansible.builtin.include_tasks: ../tasks/materialize-domain-intent.yml
+
+    - name: Require effective WireGuard interface definitions
       ansible.builtin.assert:
         that:
-          - wireguard is defined
-          - wireguard.interfaces is defined
-          - wireguard.interfaces | length > 0
-        fail_msg: "Define wireguard.interfaces for {{ inventory_hostname }} before deploying WireGuard."
+          - effective_wireguard_interfaces is defined
+          - effective_wireguard_interfaces | length > 0
+        fail_msg: "No effective_wireguard_interfaces for {{ inventory_hostname }} before deploying WireGuard."
 
     - name: Set WireGuard deployment backup path
       ansible.builtin.set_fact:
