@@ -1,0 +1,23 @@
+auto net_underlay
+iface net_underlay
+    link-type dummy
+
+    # --- 注册 fwmark 路由表 ---
+    pre-up mkdir -p /etc/iproute2 && grep -q "1142 dn42-wg" /etc/iproute2/rt_tables || echo "1142 dn42-wg" >> /etc/iproute2/rt_tables
+
+    # --- Underlay loopback（永远存在，自动派生） ---
+    address 100.64.{{ node.tier * 10 + node.region }}.{{ node.node_id }}/32
+    address {{ intra_global.loopback_v6_prefix }}:{{ node.tier }}:{{ node.region }}::{{ node.node_token }}/128
+
+    # --- WireGuard fwmark 策略路由 ---
+    # 先用 flush 清空旧路由，再 add 当前默认路由（add 比 replace 兼容性更好）
+    post-up ip -4 route flush table 1142 2>/dev/null; ip -4 route show default table main | while read -r r; do ip -4 route add $r table 1142 2>/dev/null; done
+    post-up ip -6 route flush table 1142 2>/dev/null; ip -6 route show default table main | while read -r r; do ip -6 route add $(echo "$r" | sed 's/expires [0-9]*sec//g') table 1142 2>/dev/null; done
+    post-up ip rule add fwmark 4242 lookup 1142 pref 90 || true
+    post-up ip -6 rule add fwmark 4242 lookup 1142 pref 90 || true
+
+    # --- 清理 ---
+    pre-down ip rule del fwmark 4242 lookup 1142 pref 90 || true
+    pre-down ip -6 rule del fwmark 4242 lookup 1142 pref 90 || true
+    pre-down ip route flush table 1142 || true
+    pre-down ip -6 route flush table 1142 || true

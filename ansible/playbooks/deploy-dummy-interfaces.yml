@@ -1,0 +1,170 @@
+- name: Deploy underlay/overlay dummy interfaces
+  hosts: bird_nodes
+  gather_facts: false
+  become: true
+  vars:
+    network_render_root: "{{ inventory_dir }}/../.rendered-network"
+    network_output_dir: "{{ network_render_root }}/{{ inventory_hostname }}"
+    network_remote_dir: /etc/network/interfaces.d
+  tasks:
+    - name: Skip hosts with network deploy disabled
+      ansible.builtin.meta: end_host
+      when: not (deploy.network_enabled | default(true))
+
+    # ── Determine overlay presence ──────────────────────────────────────
+
+    - name: Determine whether overlay interface is needed
+      ansible.builtin.set_fact:
+        _has_overlay: "{{ (dn42 is defined and (dn42.own_ip is defined or dn42.own_ipv6 is defined))
+                          or (iana is defined and iana.enabled | default(false)) }}"
+
+    # ── Render locally ──────────────────────────────────────────────────
+
+    - name: Reset rendered network directory
+      delegate_to: localhost
+      become: false
+      ansible.builtin.file:
+        path: "{{ network_output_dir }}"
+        state: absent
+
+    - name: Create rendered network directory
+      delegate_to: localhost
+      become: false
+      ansible.builtin.file:
+        path: "{{ network_output_dir }}"
+        state: directory
+        mode: "0755"
+
+    - name: Render underlay interface config
+      delegate_to: localhost
+      become: false
+      ansible.builtin.template:
+        src: ../templates/network/underlay.j2
+        dest: "{{ network_output_dir }}/60-net-underlay"
+        mode: "0644"
+
+    - name: Render overlay interface config
+      delegate_to: localhost
+      become: false
+      ansible.builtin.template:
+        src: ../templates/network/overlay.j2
+        dest: "{{ network_output_dir }}/60-net-overlay"
+        mode: "0644"
+      when: _has_overlay
+
+    # ── Clean up legacy configs ─────────────────────────────────────────
+
+    - name: Check for legacy config files on remote
+      ansible.builtin.stat:
+        path: "{{ network_remote_dir }}/{{ item.file }}"
+      register: _legacy_stats
+      loop:
+        - { file: 60-iyoroynet, iface: iyoroynet }
+        - { file: 60-dn42,     iface: dn42 }
+        - { file: 90-dn42,     iface: dn42 }
+
+    - name: Tear down legacy interfaces
+      ansible.builtin.command: "ifdown {{ item.item.iface }}"
+      register: _legacy_ifdown
+      failed_when: false
+      changed_when: _legacy_ifdown.rc == 0
+      loop: "{{ _legacy_stats.results | selectattr('stat.exists') | list }}"
+      loop_control:
+        label: "{{ item.item.iface }}"
+
+    - name: Remove legacy config files
+      ansible.builtin.file:
+        path: "{{ network_remote_dir }}/{{ item.item.file }}"
+        state: absent
+      loop: "{{ _legacy_stats.results | selectattr('stat.exists') | list }}"
+      loop_control:
+        label: "{{ item.item.file }}"
+
+    # Alpine / ifupdown-ng writes config directly in /etc/network/interfaces
+    - name: Check for legacy inline stanzas in main interfaces file
+      ansible.builtin.command:
+        argv:
+          - grep
+          - -c
+          - -E
+          - '^(auto|iface)\s+(iyoroynet|dn42)\b'
+          - /etc/network/interfaces
+      register: _inline_legacy
+      failed_when: false
+      changed_when: false
+
+    - name: Tear down legacy inline interfaces
+      ansible.builtin.command: "ifdown {{ item }}"
+      register: _inline_ifdown
+      failed_when: false
+      changed_when: _inline_ifdown.rc == 0
+      loop:
+        - iyoroynet
+        - dn42
+      when: _inline_legacy.stdout | int > 0
+
+    - name: Remove legacy inline stanzas from main interfaces file
+      ansible.builtin.shell: |
+        sed -i -E '/^(auto|iface) (iyoroynet|dn42)/,/^$/{/^$/d;d}' /etc/network/interfaces
+      when: _inline_legacy.stdout | int > 0
+      changed_when: true
+
+    # ── Ensure interfaces.d is sourced (Alpine / ifupdown-ng compat) ───
+
+    - name: Ensure remote network interfaces.d directory exists
+      ansible.builtin.file:
+        path: "{{ network_remote_dir }}"
+        state: directory
+        mode: "0755"
+
+    - name: Check whether main interfaces file sources interfaces.d
+      ansible.builtin.command:
+        argv:
+          - grep
+          - -q
+          - -E
+          - '^source\s+/etc/network/interfaces\.d/\*'
+          - /etc/network/interfaces
+      register: _source_check
+      failed_when: false
+      changed_when: false
+
+    - name: Ensure interfaces.d is sourced in main interfaces file
+      ansible.builtin.lineinfile:
+        path: /etc/network/interfaces
+        line: "source /etc/network/interfaces.d/*"
+        insertbefore: BOF
+        state: present
+      when: _source_check.rc != 0
+
+    # ── Deploy new configs ──────────────────────────────────────────────
+
+    - name: Copy underlay config to remote
+      ansible.builtin.copy:
+        src: "{{ network_output_dir }}/60-net-underlay"
+        dest: "{{ network_remote_dir }}/60-net-underlay"
+        owner: root
+        group: root
+        mode: "0644"
+
+    - name: Copy overlay config to remote
+      ansible.builtin.copy:
+        src: "{{ network_output_dir }}/60-net-overlay"
+        dest: "{{ network_remote_dir }}/60-net-overlay"
+        owner: root
+        group: root
+        mode: "0644"
+      when: _has_overlay
+
+    # ── Bring up new interfaces ─────────────────────────────────────────
+
+    - name: Bring up net_underlay
+      ansible.builtin.command: ifup net_underlay
+      register: _underlay_up
+      changed_when: "'already configured' not in _underlay_up.stderr"
+
+    - name: Bring up net_overlay
+      ansible.builtin.command: ifup net_overlay
+      register: _overlay_up
+      changed_when: "'already configured' not in _overlay_up.stderr"
+      when: _has_overlay

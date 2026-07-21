@@ -1,0 +1,18 @@
+auto net_overlay
+iface net_overlay
+    link-type dummy
+
+{% if dn42 is defined and dn42.own_ip is defined %}
+    # --- DN42 overlay ---
+    address {{ dn42.own_ip }}/32
+{% endif %}
+{% if dn42 is defined and dn42.own_ipv6 is defined %}
+    address {{ dn42.own_ipv6 }}/128
+{% endif %}
+{% if iana is defined and iana.enabled | default(false) %}
+{% set _public_region_nibble = node.region * 2 %}
+{% set _own_ipv6 = iana.own_ipv6 | default('2a14:7583:f2%01x4::%s' | format(_public_region_nibble, node.node_token)) %}
+    # --- IANA public ---
+    address {{ _own_ipv6 }}/128
+    address {{ iana_global.anycast_net_v6 | regex_replace('::/48$', '::1/128') }}
+{% endif %}
