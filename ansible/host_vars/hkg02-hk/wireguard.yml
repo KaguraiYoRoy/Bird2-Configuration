@@ -1,5 +1,5 @@
 wireguard:
-  default_private_key_ref: hkg02-cn/default
+  default_private_key_ref: hkg02-hk/default
   interfaces:
   - name: dn42_4242420014
     address:
@@ -35,7 +35,7 @@ wireguard:
     post_up:
     - sysctl -w net.ipv6.conf.%i.autoconf=0
     fwmark: '4242'
-    private_key_ref: hkg02-cn/dn42_4242421817
+    private_key_ref: hkg02-hk/dn42_4242421817
   - name: intra_fra01
     address_mode: intra_local
     listen_port: 10228

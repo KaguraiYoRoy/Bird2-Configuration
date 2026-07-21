@@ -48,7 +48,7 @@ dn42:
       public_key: kDkJLZbrW6PWXeTJEVRWKwPpv+wsnsNthW0nDDGtMhg=
       listen_port: 20088
       fwmark: '4242'
-      private_key_ref: hkg02-cn/dn42_4242420088
+      private_key_ref: hkg02-hk/dn42_4242420088
       endpoint: 46.20.109.97:22024
     lla: fe80::88
     bgp:
@@ -59,7 +59,7 @@ dn42:
       public_key: 5YcwL93bhJqzhTxi9b1Z1ZRt2UfGVoP5jMA+UXma6HM=
       listen_port: 20202
       fwmark: '4242'
-      private_key_ref: hkg02-cn/dn42_4242420202
+      private_key_ref: hkg02-hk/dn42_4242420202
       endpoint: dn02.hk.hk.sdubs.vip:22024
     lla: fe80::202:2
     bgp:
@@ -80,7 +80,7 @@ dn42:
       public_key: v0tF03d5jK/t6hjRnOv5ddTkTxzja9HSc8SWbCQ+WzI=
       listen_port: 20298
       fwmark: '4242'
-      private_key_ref: hkg02-cn/dn42_4242420298
+      private_key_ref: hkg02-hk/dn42_4242420298
       endpoint: node2.ox5.cc:22024
     lla: fe80::298
     bgp:
@@ -151,7 +151,7 @@ dn42:
       public_key: eedTHubyl5caiHH50GkknQa8SQtAF8q7aqmL26w5qSs=
       listen_port: 21080
       fwmark: '4242'
-      private_key_ref: hkg02-cn/dn42_4242421080
+      private_key_ref: hkg02-hk/dn42_4242421080
       endpoint: hkg.peer.highdef.network:22024
     lla: fe80::1080:38
     bgp:
@@ -172,7 +172,7 @@ dn42:
       public_key: f9ZDh2U0UXxtEroHUYNWzaE6TZM3hhY3eLXQQpgkvBY=
       listen_port: 21166
       fwmark: '4242'
-      private_key_ref: hkg02-cn/dn42_4242421166
+      private_key_ref: hkg02-hk/dn42_4242421166
       endpoint: hk.dn42.milu.moe:22024
     lla: fe80::1166
     bgp:
@@ -243,7 +243,7 @@ dn42:
       public_key: Tv1+HniELrS4Br2i7oQgwqBJFXQKculsW8r+UOqQXH0=
       listen_port: 21816
       fwmark: '4242'
-      private_key_ref: hkg02-cn/dn42_4242421816
+      private_key_ref: hkg02-hk/dn42_4242421816
       endpoint: 103.213.4.37:22024
     lla: fe80::1816
     bgp:
@@ -304,7 +304,7 @@ dn42:
       public_key: OlUDuWkUI9pKNsNo7Vjf/GKKVSBslh9kmqjbeYA4+34=
       listen_port: 22189
       fwmark: '4242'
-      private_key_ref: hkg02-cn/dn42_4242422189
+      private_key_ref: hkg02-hk/dn42_4242422189
       endpoint: hk-hkg.dn42.iedon.net:60395
     lla: fe80::2189:120
     bgp:
@@ -366,7 +366,7 @@ dn42:
       public_key: xelzwt1j0aoKjsQnnq8jMjZNLbLucBPwPTvHgFH/czs=
       listen_port: 22547
       fwmark: '4242'
-      private_key_ref: hkg02-cn/dn42_4242422547
+      private_key_ref: hkg02-hk/dn42_4242422547
       endpoint: v4.v-ps-hkg.lantian.pub:22024
     lla: fe80::2547
     bgp:
@@ -377,7 +377,7 @@ dn42:
       public_key: rBTH+JyZB0X/DkwHByrCjCojxBKr/kEOm1dTAFGHR1w=
       listen_port: 23088
       fwmark: '4242'
-      private_key_ref: hkg02-cn/dn42_4242423088
+      private_key_ref: hkg02-hk/dn42_4242423088
       endpoint: hk1-hk.dn42.6700.cc:22024
     lla: fe80::3088:192
     bgp:
@@ -448,7 +448,7 @@ dn42:
       public_key: XaX6/G7EQbcjsrtlxNmDc/s/VSdTxtkBxZKB2JpWIHo=
       listen_port: 23377
       fwmark: '4242'
-      private_key_ref: hkg02-cn/dn42_4242423377
+      private_key_ref: hkg02-hk/dn42_4242423377
       address:
       - fe80::2024/64
       - fe80::2053:69a/64

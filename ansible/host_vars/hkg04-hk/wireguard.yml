@@ -6,5 +6,5 @@
 # :13201 -> pvg01
 
 wireguard:
-  default_private_key_ref: hkg04-cn/default
+  default_private_key_ref: hkg04-hk/default
   interfaces:
