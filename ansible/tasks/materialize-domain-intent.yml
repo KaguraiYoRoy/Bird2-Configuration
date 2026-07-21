@@ -24,10 +24,17 @@
   vars:
     _wg: "{{ peer.wireguard | default({}) }}"
     _d: "{{ intra_wireguard_defaults | default({}) }}"
+    _peer_vars: "{{ hostvars[peer.node] | default({}) }}"
+    _peer_intra: "{{ _peer_vars.intra_peers | default([]) }}"
+    _return_entry: "{{ _peer_intra | selectattr('node', 'equalto', inventory_hostname) | list }}"
+    _derived_endpoint_host: "{{ _peer_vars.ansible_host | default('') }}"
+    _derived_endpoint_port: "{{ (_return_entry[0].wireguard.listen_port) if _return_entry | length > 0 else '' }}"
+    _derived_endpoint: "{{ _derived_endpoint_host + ':' + (_derived_endpoint_port | string) if _derived_endpoint_host and _derived_endpoint_port != '' else '' }}"
+    _endpoint: "{{ _wg.endpoint if _wg.endpoint is defined else _derived_endpoint }}"
     _peer: "{{
       {'public_key': _wg.public_key,
        'allowed_ips': _wg.allowed_ips | default(_d.allowed_ips)}
-      | combine({'endpoint': _wg.endpoint}              if _wg.endpoint is defined              else {})
+      | combine({'endpoint': _endpoint}              if _endpoint | default('', true) | length > 0 else {})
       | combine({'endpoints': _wg.endpoints}            if _wg.endpoints is defined            else {})
       | combine({'persistent_keepalive': _wg.persistent_keepalive} if _wg.persistent_keepalive is defined else {})
       | combine({'preshared_key_ref': _wg.preshared_key_ref} if _wg.preshared_key_ref is defined else {})
