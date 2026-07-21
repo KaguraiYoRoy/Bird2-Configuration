@@ -18,11 +18,11 @@ intra_peers:
     file: hkg02.conf
     protocol: intra_ibgp_hkg02
 - node: tyo01-jp
-  interface: intra_tyo
+  interface: intra_tyo01
   wireguard:
     public_key: Sh62ZCxnEcXyLq49mLP1jF4C2vWKhKMxjtZHxVUAQg4=
     listen_port: 10227
     address_mode: intra_local
   bgp:
-    file: tyo.conf
-    protocol: intra_ibgp_tyo
+    file: tyo01.conf
+    protocol: intra_ibgp_tyo01

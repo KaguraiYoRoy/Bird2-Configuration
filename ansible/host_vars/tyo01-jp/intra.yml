@@ -24,14 +24,14 @@ intra_peers:
       import_policy: full
       export_policy: full
 - node: lax01-us
-  interface: intra_lax
+  interface: intra_lax01
   wireguard:
     public_key: As0rZo5b9Bwt4loPGl6iSdtOqkd2p6ExK/Xyoy9OmTU=
     listen_port: 10229
     address_mode: intra_local
   bgp:
-    file: lax.conf
-    protocol: intra_ibgp_lax
+    file: lax01.conf
+    protocol: intra_ibgp_lax01
 - node: tyo02-jp
   interface: intra_tyo02
   wireguard:
