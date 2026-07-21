@@ -1,5 +1,5 @@
 wireguard:
-  default_private_key_ref: lax-us/default
+  default_private_key_ref: lax01-us/default
   interfaces:
   - name: dn42_4242420150
     address:

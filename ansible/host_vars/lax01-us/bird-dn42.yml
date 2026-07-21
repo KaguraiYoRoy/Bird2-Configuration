@@ -235,7 +235,7 @@ dn42:
       public_key: 4RtBDlHlTLec0ThvkGKjwiyuDk0YspugIMHeUdaNZmE=
       listen_port: 23797
       endpoint: 155.94.164.158:50097
-      preshared_key_ref: lax-us/dn42_4242423797
+      preshared_key_ref: lax01-us/dn42_4242423797
     lla: fe80::3797
     bgp:
       extended_next_hop: true
