@@ -89,13 +89,22 @@
         - filter.conf
         - kernel.conf
 
+    - name: Build DN42 module file list
+      ansible.builtin.set_fact:
+        dn42_module_files: >-
+          {{
+            (dn42_module_files | default(['rpki.conf','filter.conf','flapalerted.conf','static.conf']))
+            + (['ebgp.conf'] if (dn42.peers | default([]) | length) > 0 else [])
+            + (['ix.conf'] if (dn42.ix | default({})).sessions | default([]) | length > 0 else [])
+          }}
+
     - name: Render DN42 module files
       delegate_to: localhost
       ansible.builtin.template:
         src: "../templates/bird/dn42/{{ item }}.j2"
         dest: "{{ node_output_dir }}/dn42/{{ item }}"
         mode: "0644"
-      loop: "{{ (dn42_module_files | default(['rpki.conf','filter.conf','flapalerted.conf','static.conf','ebgp.conf','ix.conf']) + (modules.dn42.inactive_files | default([]))) | unique }}"
+      loop: "{{ (dn42_module_files + (modules.dn42.inactive_files | default([]))) | unique }}"
 
     - name: Render DN42 peer sessions
       delegate_to: localhost
