@@ -12,6 +12,8 @@
 protocol static intra_static_v4{
 {% if underlay_loopback_enabled %}    route INTRA_LOOPBACKv4NET reject{
 {{ render_communities(underlay_loopback_communities) }}    };
+{% endif %}{% if dn42 is defined and dn42.own_ip is defined %}    route {{ dn42.own_ip }}/32 reject{
+{{ render_communities(overlay_default_communities) }}    };
 {% endif %}{% for route in intra_static.v4_routes | default([], true) %}    route {{ route.prefix }} reject{
 {{ render_communities(route.communities | default(overlay_default_communities)) }}    };
 {% endfor %}
@@ -24,6 +26,10 @@ protocol static intra_static_v4{
 protocol static intra_static_v6{
 {% if underlay_loopback_enabled %}    route INTRA_LOOPBACKv6NET reject{
 {{ render_communities(underlay_loopback_communities) }}    };
+{% endif %}{% if dn42 is defined and dn42.own_ipv6 is defined %}    route {{ dn42.own_ipv6 }}/128 reject{
+{{ render_communities(overlay_default_communities) }}    };
+{% endif %}{% if iana is defined and iana.enabled | default(false) %}    route IANA_OWNIPv6/128 reject{
+{{ render_communities(overlay_default_communities) }}    };
 {% endif %}{% for route in intra_static.v6_routes | default([], true) %}    route {{ route.prefix }} reject{
 {{ render_communities(route.communities | default(overlay_default_communities)) }}    };
 {% endfor %}

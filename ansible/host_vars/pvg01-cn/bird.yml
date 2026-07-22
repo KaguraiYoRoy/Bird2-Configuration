@@ -10,12 +10,6 @@ modules:
   intra:
     enabled: true
 intra:
-  static:
-    v4_routes:
-    - prefix: 172.20.234.233/32
-    v6_routes:
-    - prefix: fd18:3e15:61d0::9/128
-    - prefix: 2a14:7583:f22d:2000::5fac/128
   ibgp_sessions:
   - file: pvg_82b4.conf
     protocol: intra_ibgp_pvg_82b4

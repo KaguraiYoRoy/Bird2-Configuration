@@ -9,9 +9,3 @@ modules:
     enabled: true
   intra:
     enabled: true
-intra:
-  static:
-    v4_routes:
-    - prefix: 172.20.234.229/32
-    v6_routes:
-    - prefix: fd18:3e15:61d0::5/128

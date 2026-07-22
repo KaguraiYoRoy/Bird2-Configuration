@@ -11,9 +11,3 @@ modules:
     - rpki.conf
   intra:
     enabled: true
-intra:
-  static:
-    v4_routes:
-    - prefix: 172.20.234.226/32
-    v6_routes:
-    - prefix: fd18:3e15:61d0::2/128
