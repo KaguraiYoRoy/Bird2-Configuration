@@ -28,7 +28,10 @@ protocol static intra_static_v6{
 {{ render_communities(underlay_loopback_communities) }}    };
 {% endif %}{% if dn42 is defined and dn42.own_ipv6 is defined %}    route {{ dn42.own_ipv6 }}/128 reject{
 {{ render_communities(overlay_default_communities) }}    };
-{% endif %}{% if iana is defined and iana.enabled | default(false) %}    route IANA_OWNIPv6/128 reject{
+{% endif %}{% if iana is defined and iana.enabled | default(false) %}
+{% set _public_region_nibble = node.region * 2 %}
+{% set _derived_iana_ipv6 = '2a14:7583:f2%01x4::%s' | format(_public_region_nibble, node.node_token) %}
+    route {{ iana.own_ipv6 | default(_derived_iana_ipv6) }}/128 reject{
 {{ render_communities(overlay_default_communities) }}    };
 {% endif %}{% for route in intra_static.v6_routes | default([], true) %}    route {{ route.prefix }} reject{
 {{ render_communities(route.communities | default(overlay_default_communities)) }}    };

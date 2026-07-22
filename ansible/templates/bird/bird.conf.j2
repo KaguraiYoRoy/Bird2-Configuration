@@ -27,7 +27,8 @@ define DN42_OWNNETSETv6          = {{ dn42_global.own_netset_v6 }};
 define DN42_REGION               = {{ dn42.region }};
 define DN42_COUNTRY              = {{ dn42.country }};
 
-{% endif %}{% if intra is defined %}
+{% endif %}{% if intra is not defined %}{% set intra = {} %}{% endif %}
+{% if modules.intra.enabled | default(false) %}
 define INTRA_CONFEDERATION_START = {{ intra_global.confederation_start }};
 define INTRA_CONFEDERATION_END   = {{ intra_global.confederation_end }};
 define INTRA_OWNAS               = {{ intra.own_as | default(derived_intra_as) }};
@@ -50,7 +51,7 @@ protocol device {
 
 {% set iana_enabled = iana is defined and iana.enabled | default(false) %}
 {% set dn42_enabled = dn42 is defined %}
-{% set intra_enabled = intra is defined %}
+{% set intra_enabled = modules.intra.enabled | default(false) %}
 
 {# ── IANA includes (auto-derived, modules.iana.includes overrides) ── #}
 {% set _iana_upstream_count = (iana.upstreams4 | default([]) | length) + (iana.upstreams6 | default([]) | length) %}
