@@ -34,7 +34,7 @@
     _peer: "{{
       {'public_key': _wg.public_key,
        'allowed_ips': _wg.allowed_ips | default(_d.allowed_ips)}
-      | combine({'endpoint': _endpoint}              if _endpoint | default('', true) | length > 0 else {})
+      | combine({'endpoint': _endpoint}              if not (_wg.passive | default(false)) and _endpoint | default('', true) | length > 0 else {})
       | combine({'endpoints': _wg.endpoints}            if _wg.endpoints is defined            else {})
       | combine({'persistent_keepalive': _wg.persistent_keepalive} if _wg.persistent_keepalive is defined else {})
       | combine({'preshared_key_ref': _wg.preshared_key_ref} if _wg.preshared_key_ref is defined else {})
