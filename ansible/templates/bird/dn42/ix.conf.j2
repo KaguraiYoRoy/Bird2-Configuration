@@ -18,7 +18,7 @@ function dn42_ix_check_community(){
 }
 
 template bgp dn42_ixpeers {
-    router id {{ dn42.own_ip }};
+    router id INTRA_LOOPBACKv4;
     local as DN42_OWNAS;
     path metric 1;
 
