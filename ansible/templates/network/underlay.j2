@@ -11,8 +11,8 @@ iface net_underlay
 
     # --- WireGuard fwmark 策略路由 ---
     # 先用 flush 清空旧路由，再 add 当前默认路由（add 比 replace 兼容性更好）
-    post-up ip -4 route flush table 1142 2>/dev/null; ip -4 route show default table main | while read -r r; do ip -4 route add $r table 1142 2>/dev/null; done
-    post-up ip -6 route flush table 1142 2>/dev/null; ip -6 route show default table main | while read -r r; do ip -6 route add $(echo "$r" | sed 's/expires [0-9]*sec//g') table 1142 2>/dev/null; done
+    post-up ip -4 route flush table 1142 2>/dev/null; ip -4 route show table main | while read -r r; do ip -4 route add $r table 1142 2>/dev/null; done
+    post-up ip -6 route flush table 1142 2>/dev/null; ip -6 route show table main | while read -r r; do ip -6 route add $(echo "$r" | sed 's/expires [0-9]*sec//g') table 1142 2>/dev/null; done
     post-up ip rule add fwmark 4242 lookup 1142 pref 90 || true
     post-up ip -6 rule add fwmark 4242 lookup 1142 pref 90 || true
 
