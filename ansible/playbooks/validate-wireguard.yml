@@ -1,6 +1,7 @@
 - name: Validate rendered WireGuard configs
   hosts: bird_nodes
   gather_facts: false
+  strategy: free
   become: false
   check_mode: false
   vars_files:

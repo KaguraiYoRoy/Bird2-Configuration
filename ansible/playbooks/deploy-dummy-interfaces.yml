@@ -1,6 +1,7 @@
 - name: Deploy underlay/overlay dummy interfaces
   hosts: bird_nodes
   gather_facts: false
+  strategy: free
   become: true
   vars:
     network_render_root: "{{ inventory_dir }}/../.rendered-network"
@@ -10,6 +11,17 @@
     - name: Skip hosts with network deploy disabled
       ansible.builtin.meta: end_host
       when: not (deploy.network_enabled | default(true))
+
+    - name: Refuse local inventory for network deployment
+      ansible.builtin.assert:
+        that:
+          - ansible_connection | default('ssh') != 'local'
+          - ansible_host is defined
+          - ansible_host != 'CHANGEME'
+        fail_msg: >-
+          Network deployment must use production inventory with a real remote ansible_host.
+          The local render inventory maps every host label to the controller and would modify
+          the controller's /etc/network instead of {{ inventory_hostname }}.
 
     # ── Determine overlay presence ──────────────────────────────────────
 
@@ -135,26 +147,29 @@
         line: "source /etc/network/interfaces.d/*"
         insertbefore: BOF
         state: present
+        create: true
+        owner: root
+        group: root
+        mode: "0644"
       when: _source_check.rc != 0
 
     # ── Deploy new configs ──────────────────────────────────────────────
 
-    - name: Copy underlay config to remote
+    - name: Copy rendered network configs to remote
       ansible.builtin.copy:
-        src: "{{ network_output_dir }}/60-net-underlay"
-        dest: "{{ network_remote_dir }}/60-net-underlay"
+        src: "{{ network_output_dir }}/"
+        dest: "{{ network_remote_dir }}/"
         owner: root
         group: root
         mode: "0644"
+        directory_mode: "0755"
+      check_mode: false
 
-    - name: Copy overlay config to remote
-      ansible.builtin.copy:
-        src: "{{ network_output_dir }}/60-net-overlay"
-        dest: "{{ network_remote_dir }}/60-net-overlay"
-        owner: root
-        group: root
-        mode: "0644"
-      when: _has_overlay
+    - name: Remove stale overlay interface config when not rendered
+      ansible.builtin.file:
+        path: "{{ network_remote_dir }}/60-net-overlay"
+        state: absent
+      when: not (_has_overlay | bool)
 
     # ── Bring up new interfaces ─────────────────────────────────────────
 

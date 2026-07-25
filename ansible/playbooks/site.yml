@@ -1,7 +1,7 @@
 - import_playbook: render.yml
 - import_playbook: validate.yml
-- import_playbook: deploy-bird.yml
 - import_playbook: render-wireguard.yml
 - import_playbook: validate-wireguard.yml
-- import_playbook: deploy-wireguard.yml
 - import_playbook: deploy-dummy-interfaces.yml
+- import_playbook: deploy-wireguard.yml
+- import_playbook: deploy-bird.yml
