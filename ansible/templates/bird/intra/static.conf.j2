@@ -8,7 +8,9 @@
 {% set underlay_loopback = intra_static.underlay_loopback | default({}) %}
 {% set underlay_loopback_enabled = underlay_loopback.enabled | default(true) %}
 {% set underlay_loopback_communities = underlay_loopback.communities | default(intra_global.underlay_loopback_communities | default([])) %}
-{% set overlay_default_communities = intra_global.overlay_route_communities | default(underlay_loopback_communities) %}
+{% set dn42_overlay_communities = intra_global.dn42_overlay_route_communities %}
+{% set iana_overlay_communities = intra_global.iana_overlay_route_communities %}
+{% set overlay_default_communities = dn42_overlay_communities %}
 protocol static intra_static_v4{
 {% if underlay_loopback_enabled %}    route INTRA_LOOPBACKv4NET reject{
 {{ render_communities(underlay_loopback_communities) }}    };
@@ -32,7 +34,7 @@ protocol static intra_static_v6{
 {% set _public_region_nibble = node.region * 2 %}
 {% set _derived_iana_ipv6 = '2a14:7583:f2%01x4::%s' | format(_public_region_nibble, node.node_token) %}
     route {{ iana.own_ipv6 | default(_derived_iana_ipv6) }}/128 reject{
-{{ render_communities(overlay_default_communities) }}    };
+{{ render_communities(iana_overlay_communities) }}    };
 {% endif %}{% for route in intra_static.v6_routes | default([], true) %}    route {{ route.prefix }} reject{
 {{ render_communities(route.communities | default(overlay_default_communities)) }}    };
 {% endfor %}

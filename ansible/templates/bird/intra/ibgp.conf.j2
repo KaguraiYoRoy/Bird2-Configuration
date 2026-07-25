@@ -14,67 +14,127 @@
 {% endfor %}
 {% if 'default' in ns.import_policies %}
 filter intra_ibgp_import_default {
-    if !(net ~ INTRA_PREFIX_V4 || net ~ INTRA_PREFIX_V6) then {
-        if !(bgp_large_community ~ [(4242422024,2,0)]) then reject;
-    }
-    if !(bgp_large_community ~ [(4242422024,1,1)]) then reject;
-    if bgp_large_community ~ [(4242422024,65535,65282)] then reject;
+    # no-advertise
+    if bgp_large_community ~ [(205369,65535,65282)] || bgp_large_community ~ [(4242422024,65535,65282)] then reject;
     if bgp_community ~ [(65535,65282)] then reject;
-    accept;
+
+    # control: allow
+    if !(bgp_large_community ~ [(205369,1,1)] || bgp_large_community ~ [(4242422024,1,1)]) then reject;
+
+    # identify: private
+    if bgp_large_community ~ [(205369,2,0)] || bgp_large_community ~ [(4242422024,2,0)] then accept;
+
+    # default: reject
+    reject;
 }
 {% endif %}
 {% if 'default' in ns.export_policies %}
 filter intra_ibgp_export_default {
-    if !(bgp_large_community ~ [(4242422024,1,1)]) then reject;
-    if bgp_large_community ~ [(4242422024,65535,65282)] then reject;
+    # no-advertise
+    if bgp_large_community ~ [(205369,65535,65282)] || bgp_large_community ~ [(4242422024,65535,65282)] then reject;
     if bgp_community ~ [(65535,65282)] then reject;
-    accept;
-}
-{% endif %}
-{% if 'no_iana' in ns.import_policies %}
-filter intra_ibgp_import_no_iana {
-    if !intra_ibgp_check_community() then reject;
-    if bgp_large_community ~ [(IANA_OWNAS,*,*)] then reject;
-    accept;
-}
-{% endif %}
-{% if 'no_iana' in ns.export_policies %}
-filter intra_ibgp_export_no_iana {
-    if !intra_ibgp_check_community() then reject;
-    if bgp_large_community ~ [(IANA_OWNAS,*,*)] then reject;
-    accept;
+
+    # control: allow
+    if !(bgp_large_community ~ [(205369,1,1)] || bgp_large_community ~ [(4242422024,1,1)]) then reject;
+
+    # identify: private
+    if bgp_large_community ~ [(205369,2,0)] || bgp_large_community ~ [(4242422024,2,0)] then accept;
+
+    # default: reject
+    reject;
 }
 {% endif %}
 
 {% if 'iana_full' in ns.import_policies %}
 filter intra_ibgp_import_iana_full {
+    # no-advertise
     if bgp_large_community ~ [(205369,65535,65282)] || bgp_large_community ~ [(4242422024,65535,65282)] then reject;
     if bgp_community ~ [(65535,65282)] then reject;
+
+    # control: reject dn42
     if bgp_large_community ~ [(4242422024,1,1)] then reject;
-    accept;
+
+    # control: allow from iana
+    if bgp_large_community ~ [(205369,1,1)] then accept;
+
+    # default: reject
+    reject;
 }
 {% endif %}
 {% if 'iana_full' in ns.export_policies %}
 filter intra_ibgp_export_iana_full {
+    # no-advertise
     if bgp_large_community ~ [(205369,65535,65282)] || bgp_large_community ~ [(4242422024,65535,65282)] then reject;
     if bgp_community ~ [(65535,65282)] then reject;
+
+    # control: reject from dn42
     if bgp_large_community ~ [(4242422024,1,1)] then reject;
-    accept;
+
+    # control: allow from iana
+    if bgp_large_community ~ [(205369,1,1)] then accept;
+
+    # default: reject
+    reject;
+}
+{% endif %}
+
+{% if 'dn42_full' in ns.import_policies %}
+filter intra_ibgp_import_dn42_full {
+    # no-advertise
+    if bgp_large_community ~ [(205369,65535,65282)] || bgp_large_community ~ [(4242422024,65535,65282)] then reject;
+    if bgp_community ~ [(65535,65282)] then reject;
+
+    # control: reject from iana
+    if bgp_large_community ~ [(205369,1,1)] then reject;
+
+    # control: allow from dn42
+    if bgp_large_community ~ [(4242422024,1,1)] then accept;
+
+    # default: reject
+    reject;
+}
+{% endif %}
+{% if 'dn42_full' in ns.export_policies %}
+filter intra_ibgp_export_dn42_full {
+    # no-advertise
+    if bgp_large_community ~ [(205369,65535,65282)] || bgp_large_community ~ [(4242422024,65535,65282)] then reject;
+    if bgp_community ~ [(65535,65282)] then reject;
+
+    # control: reject from iana
+    if bgp_large_community ~ [(205369,1,1)] then reject;
+
+    # control: allow from dn42
+    if bgp_large_community ~ [(4242422024,1,1)] then accept;
+
+    # default: reject
+    reject;
 }
 {% endif %}
 
 {% if 'full' in ns.import_policies %}
 filter intra_ibgp_import_full {
+    # no-advertise
     if bgp_large_community ~ [(205369,65535,65282)] || bgp_large_community ~ [(4242422024,65535,65282)] then reject;
     if bgp_community ~ [(65535,65282)] then reject;
-    accept;
+
+    # require known origin
+    if bgp_large_community ~ [(205369,1,1)] || bgp_large_community ~ [(4242422024,1,1)] then accept;
+
+    # default: reject
+    reject;
 }
 {% endif %}
 {% if 'full' in ns.export_policies %}
 filter intra_ibgp_export_full {
+    # no-advertise
     if bgp_large_community ~ [(205369,65535,65282)] || bgp_large_community ~ [(4242422024,65535,65282)] then reject;
     if bgp_community ~ [(65535,65282)] then reject;
-    accept;
+
+    # require known origin
+    if bgp_large_community ~ [(205369,1,1)] || bgp_large_community ~ [(4242422024,1,1)] then accept;
+
+    # default: reject
+    reject;
 }
 {% endif %}
 
