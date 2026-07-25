@@ -37,6 +37,7 @@ intra_peers:
     listen_port: 6433
     fwmark: '4242'
     address_mode: intra_local
+    passive: true
   bgp:
     file: pvg01.conf
     protocol: intra_ibgp_pvg01

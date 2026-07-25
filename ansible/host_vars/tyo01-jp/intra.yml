@@ -53,6 +53,7 @@ intra_peers:
     public_key: lCx0qzITDvh2ZIfNppOttFnKFa16fCqDGn7mWufMzGE=
     listen_port: 10234
     address_mode: intra_local
+    passive: true
   bgp:
     file: tyo03.conf
     protocol: intra_ibgp_tyo03

@@ -23,6 +23,7 @@ intra_peers:
     listen_port: 10234
     fwmark: '4242'
     address_mode: intra_local
+    persistent_keepalive: 30
   bgp:
     file: tyo03.conf
     protocol: intra_ibgp_tyo03
