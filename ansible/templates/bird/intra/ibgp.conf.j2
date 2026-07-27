@@ -1,4 +1,4 @@
-{% set all_sessions = effective_intra_ibgp_sessions | default(intra.ibgp_sessions | default([])) %}
+{% set all_sessions = effective_intra_ibgp_sessions | default(intra.explicit_confed_peers | default([])) %}
 {% set ns = namespace(import_policies=[], export_policies=[]) %}
 {% for session in all_sessions %}
 {% set ipv4 = session.ipv4 | default({}) %}

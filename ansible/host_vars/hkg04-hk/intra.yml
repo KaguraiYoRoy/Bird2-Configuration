@@ -1,49 +1,50 @@
-intra_peers:
-- node: hkg02-hk
-  interface: intra_hkg02
-  wireguard:
-    public_key: bg+KnzVupBrOQntHFFVzvBx+3sqYVoyJRantT6m5fm8=
-    listen_port: 10225
-    fwmark: '4242'
-    address_mode: intra_local
-  bgp:
-    file: hkg02.conf
-    protocol: intra_ibgp_hkg02
-    ipv4:
-      import_policy: full
-      export_policy: full
-    ipv6:
-      import_policy: full
-      export_policy: full
-- node: hkg03-hk
-  interface: intra_hkg03
-  wireguard:
-    public_key: gNiB+ZAfvxIthwuCLUxZ9QS/RYWyp0OW4rsdODm+NXc=
-    listen_port: 10231
-    fwmark: '4242'
-    address_mode: intra_local
-  bgp:
-    file: hkg03.conf
-    protocol: intra_ibgp_hkg03
-    ipv4:
-      import_policy: full
-      export_policy: full
-    ipv6:
-      import_policy: full
-      export_policy: full
-- node: pvg01-cn
-  interface: intra_pvg01
-  wireguard:
-    public_key: VdHU69ZeCaaq2V7Hg362YG+9dZ97DHYZxW0G7/Rs5FY=
-    listen_port: 13201
-    fwmark: '4242'
-    address_mode: intra_local
-  bgp:
-    file: pvg01.conf
-    protocol: intra_ibgp_pvg01
-    ipv4:
-      import_policy: full
-      export_policy: full
-    ipv6:
-      import_policy: full
-      export_policy: full
+intra:
+  auto_confed_peers:
+    - node: hkg02-hk
+      interface: intra_hkg02
+      wireguard:
+        public_key: bg+KnzVupBrOQntHFFVzvBx+3sqYVoyJRantT6m5fm8=
+        listen_port: 10225
+        fwmark: '4242'
+        address_mode: intra_local
+      bgp:
+        file: hkg02.conf
+        protocol: intra_ibgp_hkg02
+        ipv4:
+          import_policy: full
+          export_policy: full
+        ipv6:
+          import_policy: full
+          export_policy: full
+    - node: hkg03-hk
+      interface: intra_hkg03
+      wireguard:
+        public_key: gNiB+ZAfvxIthwuCLUxZ9QS/RYWyp0OW4rsdODm+NXc=
+        listen_port: 10231
+        fwmark: '4242'
+        address_mode: intra_local
+      bgp:
+        file: hkg03.conf
+        protocol: intra_ibgp_hkg03
+        ipv4:
+          import_policy: full
+          export_policy: full
+        ipv6:
+          import_policy: full
+          export_policy: full
+    - node: pvg01-cn
+      interface: intra_pvg01
+      wireguard:
+        public_key: VdHU69ZeCaaq2V7Hg362YG+9dZ97DHYZxW0G7/Rs5FY=
+        listen_port: 13201
+        fwmark: '4242'
+        address_mode: intra_local
+      bgp:
+        file: pvg01.conf
+        protocol: intra_ibgp_pvg01
+        ipv4:
+          import_policy: full
+          export_policy: full
+        ipv6:
+          import_policy: full
+          export_policy: full

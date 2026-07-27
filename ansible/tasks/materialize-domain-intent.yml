@@ -3,11 +3,18 @@
 #
 # This file:
 #   1. generates interface/session data from domain-level peer declarations
-#      (intra_peers, future dn42_peers / iana_peers)
-#   2. merges generated data with legacy wireguard.interfaces / intra.ibgp_sessions
+#      (intra.auto_confed_peers, future dn42_peers / iana_peers)
+#   2. merges generated data with explicit intra / legacy wireguard overrides
 #
 # Downstream playbooks (render-wireguard.yml, render.yml, validate-*) should
 # consume only the effective_* variables.
+
+# ── Normalize intra peer intent ───────────────────────────────────────────
+
+- name: Build effective intra peer intent lists
+  ansible.builtin.set_fact:
+    effective_intra_auto_confed_peers: "{{ intra.auto_confed_peers | default([]) if intra is defined else [] }}"
+    effective_intra_explicit_confed_peers: "{{ intra.explicit_confed_peers | default([]) if intra is defined else [] }}"
 
 # ── Intra peer intent → WireGuard interfaces ───────────────────────────
 
@@ -18,14 +25,14 @@
 - name: Build generated WireGuard interfaces from intra peers
   ansible.builtin.set_fact:
     generated_wireguard_intra: "{{ generated_wireguard_intra + [wg_iface] }}"
-  loop: "{{ intra_peers | default([]) }}"
+  loop: "{{ effective_intra_auto_confed_peers }}"
   loop_control:
     loop_var: peer
   vars:
     _wg: "{{ peer.wireguard | default({}) }}"
     _d: "{{ intra_wireguard_defaults | default({}) }}"
     _peer_vars: "{{ hostvars[peer.node] | default({}) }}"
-    _peer_intra: "{{ _peer_vars.intra_peers | default([]) }}"
+    _peer_intra: "{{ (_peer_vars.intra.auto_confed_peers | default([])) if _peer_vars.intra is defined else [] }}"
     _return_entry: "{{ _peer_intra | selectattr('node', 'equalto', inventory_hostname) | list }}"
     _derived_endpoint_host: "{{ _peer_vars.ansible_host | default('') }}"
     _derived_endpoint_port: "{{ (_return_entry[0].wireguard.listen_port) if _return_entry | length > 0 else '' }}"
@@ -65,7 +72,7 @@
 - name: Build generated intra iBGP sessions from intra peers
   ansible.builtin.set_fact:
     generated_intra_ibgp_sessions: "{{ generated_intra_ibgp_sessions + [bgp_session] }}"
-  loop: "{{ intra_peers | default([]) }}"
+  loop: "{{ effective_intra_auto_confed_peers }}"
   loop_control:
     loop_var: peer
   vars:
@@ -139,7 +146,7 @@
     effective_intra_ibgp_sessions: >-
       {{
         (generated_intra_ibgp_sessions if generated_intra_ibgp_sessions is defined else [])
-        + (intra.ibgp_sessions if intra is defined and intra.ibgp_sessions is defined and intra.ibgp_sessions is not none else [])
+        + (effective_intra_explicit_confed_peers if effective_intra_explicit_confed_peers is defined else [])
       }}
 
 - name: Ensure effective lists are set

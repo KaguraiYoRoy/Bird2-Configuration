@@ -9,17 +9,3 @@ modules:
     enabled: true
   intra:
     enabled: true
-intra:
-  ibgp_sessions:
-  - file: pvg_82b4.conf
-    protocol: intra_ibgp_pvg_82b4
-    local_as: 4220240005
-    neighbor:
-      address: fe80::82b4
-      interface: intra_pvg_82b4
-    ipv4:
-      import_policy: iana_full
-      export_policy: iana_full
-    ipv6:
-      import_policy: iana_full
-      export_policy: iana_full

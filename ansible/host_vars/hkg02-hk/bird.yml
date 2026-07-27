@@ -9,17 +9,3 @@ modules:
     enabled: true
   intra:
     enabled: true
-intra:
-  ibgp_sessions:
-  - file: hkg_b.conf
-    protocol: intra_ibgp_hkg_b
-    local_as: 4220240001
-    neighbor:
-      address: fe80::2053:69b
-      interface: dn42_4242423377
-    ipv4:
-      import_policy: iana_full
-      export_policy: iana_full
-    ipv6:
-      import_policy: iana_full
-      export_policy: iana_full

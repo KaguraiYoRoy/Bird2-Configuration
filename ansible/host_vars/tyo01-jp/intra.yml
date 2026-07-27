@@ -1,65 +1,66 @@
-intra_peers:
-- node: fra01-de
-  interface: intra_fra01
-  wireguard:
-    public_key: 4zEFOrqHdIDPcjvu6NwbE1AAYBH1bA+SAowysX5fRT4=
-    listen_port: 10228
-    address_mode: intra_local
-  bgp:
-    file: fra01.conf
-    protocol: intra_ibgp_fra01
-- node: hkg02-hk
-  interface: intra_hkg02
-  wireguard:
-    public_key: bg+KnzVupBrOQntHFFVzvBx+3sqYVoyJRantT6m5fm8=
-    listen_port: 10225
-    address_mode: intra_local
-  bgp:
-    file: hkg02.conf
-    protocol: intra_ibgp_hkg02
-    ipv4:
-      import_policy: full
-      export_policy: full
-    ipv6:
-      import_policy: full
-      export_policy: full
-- node: lax01-us
-  interface: intra_lax01
-  wireguard:
-    public_key: As0rZo5b9Bwt4loPGl6iSdtOqkd2p6ExK/Xyoy9OmTU=
-    listen_port: 10229
-    address_mode: intra_local
-  bgp:
-    file: lax01.conf
-    protocol: intra_ibgp_lax01
-- node: tyo02-jp
-  interface: intra_tyo02
-  wireguard:
-    public_key: XMS2MhbgYyCZVhbiMsRwYGzpOky6GxmJOCM/NPqyuFQ=
-    listen_port: 10230
-    address_mode: intra_local
-  bgp:
-    file: tyo02.conf
-    protocol: intra_ibgp_tyo02
-    ipv4:
-      import_policy: full
-      export_policy: full
-    ipv6:
-      import_policy: full
-      export_policy: full
-- node: tyo03-jp
-  interface: intra_tyo03
-  wireguard:
-    public_key: lCx0qzITDvh2ZIfNppOttFnKFa16fCqDGn7mWufMzGE=
-    listen_port: 10234
-    address_mode: intra_local
-    passive: true
-  bgp:
-    file: tyo03.conf
-    protocol: intra_ibgp_tyo03
-    ipv4:
-      import_policy: full
-      export_policy: full
-    ipv6:
-      import_policy: full
-      export_policy: full
+intra:
+  auto_confed_peers:
+    - node: fra01-de
+      interface: intra_fra01
+      wireguard:
+        public_key: 4zEFOrqHdIDPcjvu6NwbE1AAYBH1bA+SAowysX5fRT4=
+        listen_port: 10228
+        address_mode: intra_local
+      bgp:
+        file: fra01.conf
+        protocol: intra_ibgp_fra01
+    - node: hkg02-hk
+      interface: intra_hkg02
+      wireguard:
+        public_key: bg+KnzVupBrOQntHFFVzvBx+3sqYVoyJRantT6m5fm8=
+        listen_port: 10225
+        address_mode: intra_local
+      bgp:
+        file: hkg02.conf
+        protocol: intra_ibgp_hkg02
+        ipv4:
+          import_policy: full
+          export_policy: full
+        ipv6:
+          import_policy: full
+          export_policy: full
+    - node: lax01-us
+      interface: intra_lax01
+      wireguard:
+        public_key: As0rZo5b9Bwt4loPGl6iSdtOqkd2p6ExK/Xyoy9OmTU=
+        listen_port: 10229
+        address_mode: intra_local
+      bgp:
+        file: lax01.conf
+        protocol: intra_ibgp_lax01
+    - node: tyo02-jp
+      interface: intra_tyo02
+      wireguard:
+        public_key: XMS2MhbgYyCZVhbiMsRwYGzpOky6GxmJOCM/NPqyuFQ=
+        listen_port: 10230
+        address_mode: intra_local
+      bgp:
+        file: tyo02.conf
+        protocol: intra_ibgp_tyo02
+        ipv4:
+          import_policy: full
+          export_policy: full
+        ipv6:
+          import_policy: full
+          export_policy: full
+    - node: tyo03-jp
+      interface: intra_tyo03
+      wireguard:
+        public_key: lCx0qzITDvh2ZIfNppOttFnKFa16fCqDGn7mWufMzGE=
+        listen_port: 10234
+        address_mode: intra_local
+        passive: true
+      bgp:
+        file: tyo03.conf
+        protocol: intra_ibgp_tyo03
+        ipv4:
+          import_policy: full
+          export_policy: full
+        ipv6:
+          import_policy: full
+          export_policy: full

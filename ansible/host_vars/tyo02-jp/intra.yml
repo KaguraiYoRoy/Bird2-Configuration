@@ -1,33 +1,34 @@
-intra_peers:
-- node: tyo01-jp
-  interface: intra_tyo01
-  wireguard:
-    public_key: Sh62ZCxnEcXyLq49mLP1jF4C2vWKhKMxjtZHxVUAQg4=
-    listen_port: 10227
-    fwmark: '4242'
-    address_mode: intra_local
-  bgp:
-    file: tyo01.conf
-    protocol: intra_ibgp_tyo01
-    ipv4:
-      import_policy: full
-      export_policy: full
-    ipv6:
-      import_policy: full
-      export_policy: full
-- node: tyo03-jp
-  interface: intra_tyo03
-  wireguard:
-    public_key: lCx0qzITDvh2ZIfNppOttFnKFa16fCqDGn7mWufMzGE=
-    listen_port: 10234
-    address_mode: intra_local
-    passive: true
-  bgp:
-    file: tyo03.conf
-    protocol: intra_ibgp_tyo03
-    ipv4:
-      import_policy: full
-      export_policy: full
-    ipv6:
-      import_policy: full
-      export_policy: full
+intra:
+  auto_confed_peers:
+    - node: tyo01-jp
+      interface: intra_tyo01
+      wireguard:
+        public_key: Sh62ZCxnEcXyLq49mLP1jF4C2vWKhKMxjtZHxVUAQg4=
+        listen_port: 10227
+        fwmark: '4242'
+        address_mode: intra_local
+      bgp:
+        file: tyo01.conf
+        protocol: intra_ibgp_tyo01
+        ipv4:
+          import_policy: full
+          export_policy: full
+        ipv6:
+          import_policy: full
+          export_policy: full
+    - node: tyo03-jp
+      interface: intra_tyo03
+      wireguard:
+        public_key: lCx0qzITDvh2ZIfNppOttFnKFa16fCqDGn7mWufMzGE=
+        listen_port: 10234
+        address_mode: intra_local
+        passive: true
+      bgp:
+        file: tyo03.conf
+        protocol: intra_ibgp_tyo03
+        ipv4:
+          import_policy: full
+          export_policy: full
+        ipv6:
+          import_policy: full
+          export_policy: full
