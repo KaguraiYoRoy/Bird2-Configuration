@@ -3,7 +3,7 @@ node:
   tier: 1
   region: 4
   node_id: 1
-  node_token: "0001"
+  node_token: "de75"
 deploy:
   service_manager: systemd
   bird:

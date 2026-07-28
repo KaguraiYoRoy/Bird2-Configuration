@@ -3,7 +3,7 @@ node:
   tier: 2
   region: 2
   node_id: 2
-  node_token: "0002"
+  node_token: "d131"
 deploy:
   service_manager: openrc
   bird:
