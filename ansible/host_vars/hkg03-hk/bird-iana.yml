@@ -24,6 +24,7 @@ iana:
       prefixes:
       - prefix: 2401:5a0:1000::1/128
         via:
+          address: fe80::232:17ff:fe4b:e4e0
           interface: eth0
         communities:
         - NO_EXPORT
@@ -31,7 +32,8 @@ iana:
         - (205369,65535,65282)
       - prefix: fd00:7720::1/128
         via:
-          recursive: 2401:5a0:1000::1
+          address: fe80::232:17ff:fe4b:e4e0
+          interface: eth0
         communities:
         - NO_EXPORT
         large_communities:
