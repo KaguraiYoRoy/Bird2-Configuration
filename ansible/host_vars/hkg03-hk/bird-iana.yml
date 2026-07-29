@@ -29,6 +29,7 @@ iana:
         communities:
         - NO_EXPORT
         large_communities:
+        - (205369,2,0)
         - (205369,65535,65282)
       - prefix: fd00:7720::1/128
         via:
@@ -37,5 +38,6 @@ iana:
         communities:
         - NO_EXPORT
         large_communities:
+        - (205369,2,0)
         - (205369,65535,65282)
   router_id: 103.213.4.103
