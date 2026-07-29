@@ -85,8 +85,8 @@ intra:
           export_policy: full
 
   explicit_confed_peers:
-    - file: hkg_b.conf
-      protocol: intra_ibgp_hkg_b
+    - file: hkg_9cce.conf
+      protocol: intra_ibgp_hkg_9cce
       neighbor:
         address: fe80::2053:69b
         interface: dn42_4242423377
