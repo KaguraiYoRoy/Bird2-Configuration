@@ -1,0 +1,12 @@
+node:
+  name: cdg01-fr
+  tier: 1
+  region: 2
+  node_id: 3
+  node_token: "a024"
+deploy:
+  service_manager: systemd
+  bird:
+    enabled: true
+  wireguard:
+    enabled: true

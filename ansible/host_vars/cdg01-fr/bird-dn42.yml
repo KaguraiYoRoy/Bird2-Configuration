@@ -1,0 +1,11 @@
+dn42:
+  region: 41
+  country: 1250
+  flapalerted:
+    neighbor:
+      port: 1790
+    rpki_remote:
+      port: 8083
+  peers: []
+  ix:
+    sessions: []

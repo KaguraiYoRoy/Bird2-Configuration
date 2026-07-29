@@ -9,6 +9,15 @@ intra:
       bgp:
         file: fra01.conf
         protocol: intra_ibgp_fra01
+    - node: cdg01-fr
+      interface: intra_cdg01
+      wireguard:
+        public_key: vLZLdiJrDyGpUIY5y/qR5XIvyaWCcTM4uk9Y6kdIKk8=
+        listen_port: 10123
+        address_mode: intra_local
+      bgp:
+        file: cdg01.conf
+        protocol: intra_ibgp_cdg01
     - node: hkg02-hk
       interface: intra_hkg02
       wireguard:
