@@ -1,0 +1,8 @@
+auto he-ipv6
+iface he-ipv6
+    tunnel-mode sit
+    tunnel-endpoint 66.220.18.42
+    tunnel-local 38.47.118.146
+    tunnel-ttl 255
+    address 2001:470:c:4f1::2/64
+    gateway 2001:470:c:4f1::1

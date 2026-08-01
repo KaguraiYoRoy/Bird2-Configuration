@@ -1,0 +1,6 @@
+auto ens19
+iface ens19 inet static
+    address 23.154.164.153/26
+
+iface ens19 inet6 static
+    address 2602:f429:31::1a/64

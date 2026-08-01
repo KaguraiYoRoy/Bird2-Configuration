@@ -1,0 +1,7 @@
+source /etc/network/interfaces.d/*
+
+auto lo
+iface lo inet loopback
+
+auto ens17
+iface ens17 inet dhcp

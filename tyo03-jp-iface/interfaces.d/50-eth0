@@ -1,0 +1,7 @@
+auto eth0
+iface eth0 inet static
+    address 172.16.1.64/24
+    gateway 172.16.1.1
+    hwaddress ether bc:24:11:42:3e:f8
+    dns-nameservers 1.1.1.1 8.8.8.8
+

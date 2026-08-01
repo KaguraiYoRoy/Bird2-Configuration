@@ -1,0 +1,7 @@
+auto net_overlay
+iface net_overlay
+    link-type dummy
+
+    # --- IANA public ---
+    address 2a14:7583:f224::872c/128
+    address 2a14:7581:0ffb::1/128

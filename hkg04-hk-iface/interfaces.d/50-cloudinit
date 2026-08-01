@@ -1,0 +1,28 @@
+auto eth0
+iface eth0 inet static
+    address 10.40.1.32/16
+    gateway 10.40.0.1
+    dns-nameservers 1.1.1.1 8.8.8.8
+    dns-search szx-dc1.vm.sparkvm.net
+    hwaddress fa:5e:3b:8c:a0:49
+    post-up ip route add 101.35.48.182 via 10.40.0.1 table 1142
+
+iface eth0 inet6 static
+    address 2402:20e0:2000:0:1:4dab:2e53:f107/64
+    gateway 2402:20e0:2000::1
+
+auto eth2
+iface eth2 inet static
+    address 10.24.1.179/16
+    gateway 10.24.0.1
+    dns-nameservers 1.1.1.1 8.8.8.8
+    dns-search szx-dc1.vm.sparkvm.net
+    hwaddress 4a:6e:52:91:f0:15
+    post-up ip route add default via 10.24.0.1
+    post-up ip route add 23.149.120.51 via 10.24.0.1 table 1142
+    post-up ip route add 103.110.81.80 via 10.24.0.1 table 1142
+    post-up ip route add 103.213.4.103 via 10.24.0.1 table 1142
+
+iface eth2 inet6 static
+    address 2401:fd20:3:3:1:207e:ce2d:a534/64
+    gateway 2401:fd20:3:3::1

@@ -1,0 +1,10 @@
+auto net_overlay
+iface net_overlay
+    link-type dummy
+
+    # --- DN42 overlay ---
+    address 172.20.234.228/32
+    address fd18:3e15:61d0::4/128
+    # --- IANA public ---
+    address 2a14:7583:f244::3b06/128
+    address 2a14:7581:0ffb::1/128

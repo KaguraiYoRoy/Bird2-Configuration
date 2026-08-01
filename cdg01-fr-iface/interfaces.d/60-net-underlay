@@ -1,0 +1,28 @@
+auto net_underlay
+iface net_underlay
+    link-type dummy
+
+    # --- 注册 fwmark 路由表 ---
+    pre-up mkdir -p /etc/iproute2 && grep -q "1142 dn42-wg" /etc/iproute2/rt_tables || echo "1142 dn42-wg" >> /etc/iproute2/rt_tables
+
+    # --- Underlay loopback（永远存在，自动派生） ---
+    address 100.64.12.3/32
+    address fd18:3e15:61d0:ffff:1:2::a024/128
+
+    # --- WireGuard fwmark 策略路由 ---
+    # 只复制 WireGuard underlay 出口需要的小集合（默认/直连/静态/DHCP/RA）。不要遍历整张 main 表：
+    # BIRD 收敛后 main 表可能包含大量 DN42/IANA 路由，ifup 会在这里长时间阻塞。
+    post-up ip -4 route flush table 1142 2>/dev/null || true
+    post-up for proto in kernel static dhcp ra boot; do ip -4 route show table main proto "$proto" 2>/dev/null | while read -r r; do ip -4 route replace table 1142 $r 2>/dev/null || true; done; done
+    post-up ip -4 route show table main default 2>/dev/null | while read -r r; do ip -4 route replace table 1142 $r 2>/dev/null || true; done
+    post-up ip -6 route flush table 1142 2>/dev/null || true
+    post-up for proto in kernel static dhcp ra boot; do ip -6 route show table main proto "$proto" 2>/dev/null | sed 's/expires [0-9]*sec//g' | while read -r r; do ip -6 route replace table 1142 $r 2>/dev/null || true; done; done
+    post-up ip -6 route show table main default 2>/dev/null | sed 's/expires [0-9]*sec//g' | while read -r r; do ip -6 route replace table 1142 $r 2>/dev/null || true; done
+    post-up ip rule add fwmark 4242 lookup 1142 pref 90 || true
+    post-up ip -6 rule add fwmark 4242 lookup 1142 pref 90 || true
+
+    # --- 清理 ---
+    pre-down ip rule del fwmark 4242 lookup 1142 pref 90 || true
+    pre-down ip -6 rule del fwmark 4242 lookup 1142 pref 90 || true
+    pre-down ip route flush table 1142 || true
+    pre-down ip -6 route flush table 1142 || true

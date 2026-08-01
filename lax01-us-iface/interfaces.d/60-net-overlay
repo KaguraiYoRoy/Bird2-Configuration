@@ -1,0 +1,7 @@
+auto net_overlay
+iface net_overlay
+    link-type dummy
+
+    # --- DN42 overlay ---
+    address 172.20.234.229/32
+    address fd18:3e15:61d0::5/128

@@ -1,4 +1,4 @@
-auto eth0.86
-iface eth0.86 inet static
+auto eth0.852
+iface eth0.852 inet static
     address 10.156.73.52/24
     address 2602:f92a:1315:2::34/64

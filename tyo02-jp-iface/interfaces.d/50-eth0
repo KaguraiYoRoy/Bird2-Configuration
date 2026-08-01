@@ -1,0 +1,10 @@
+auto ens18
+iface ens18 inet static
+    address 82.22.26.175/24
+    gateway 82.22.26.1
+    post-up /bin/sh -c 'resolvectl dns $IFACE 1.1.1.1 8.8.8.8; resolvectl domain $IFACE netcorn.net' || true
+    post-down /bin/sh -c 'resolvectl revert $IFACE' || true
+
+iface ens18 inet6 static
+    address 2a14:7586:6109:1::129/64
+    gateway 2a14:7586:6109:1::1

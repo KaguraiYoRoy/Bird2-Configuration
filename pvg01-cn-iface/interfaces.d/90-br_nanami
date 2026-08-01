@@ -1,0 +1,21 @@
+auto br_nanami
+iface br_nanami inet static
+    address 100.64.0.1
+    netmask 255.255.255.0
+    bridge_ports none
+    bridge_stp off
+    bridge_fd 0
+
+    post-up iptables -C FORWARD -i br_nanami -o ens5 -j ACCEPT || iptables -A FORWARD -i br_nanami -o ens5 -j ACCEPT
+    post-up iptables -C FORWARD -i ens5 -o br_nanami -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT || iptables -A FORWARD -i ens5 -o br_nanami -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+    post-up iptables -t nat -C POSTROUTING -s 100.64.0.0/24 -o ens5 -j MASQUERADE || iptables -t nat -A POSTROUTING -s 100.64.0.0/24 -o ens5 -j MASQUERADE
+    post-up iptables -t nat -C PREROUTING -i ens5 -p tcp --dport 2222 -j DNAT --to-destination 100.64.0.2:22 || iptables -t nat -A PREROUTING -i ens5 -p tcp --dport 2222 -j DNAT --to-destination 100.64.0.2:22
+    post-up iptables -t nat -C PREROUTING -i ens5 -p tcp --dport 50000:59999 -j DNAT --to-destination 100.64.0.2 || iptables -t nat -A PREROUTING -i ens5 -p tcp --dport 50000:59999 -j DNAT --to-destination 100.64.0.2
+    post-up iptables -t nat -C PREROUTING -i ens5 -p udp --dport 50000:59999 -j DNAT --to-destination 100.64.0.2 || iptables -t nat -A PREROUTING -i ens5 -p udp --dport 50000:59999 -j DNAT --to-destination 100.64.0.2
+
+    pre-down iptables -t nat -D PREROUTING -i ens5 -p udp --dport 50000:59999 -j DNAT --to-destination 100.64.0.2 || true
+    pre-down iptables -t nat -D PREROUTING -i ens5 -p tcp --dport 50000:59999 -j DNAT --to-destination 100.64.0.2 || true
+    pre-down iptables -t nat -D PREROUTING -i ens5 -p tcp --dport 2222 -j DNAT --to-destination 100.64.0.2:22 || true
+    pre-down iptables -t nat -D POSTROUTING -s 100.64.0.0/24 -o ens5 -j MASQUERADE || true
+    pre-down iptables -D FORWARD -i ens5 -o br_nanami -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT || true
+    pre-down iptables -D FORWARD -i br_nanami -o ens5 -j ACCEPT || true
