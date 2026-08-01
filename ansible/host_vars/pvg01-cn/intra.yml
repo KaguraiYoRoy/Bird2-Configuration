@@ -5,7 +5,6 @@ intra:
       wireguard:
         public_key: 1tn6T2xi+zEnNi8X7ssGH9M3WOeq1xDjZNX3mMkO7Qk=
         listen_port: 10235
-        endpoint: 45.115.18.254:13201
         persistent_keepalive: 30
         fwmark: '4242'
       bgp:
