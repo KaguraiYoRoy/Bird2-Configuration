@@ -1,0 +1,74 @@
+- name: Backup network interface configuration
+  hosts: bird_nodes
+  gather_facts: false
+  become: true
+  vars:
+    backup_root: "{{ inventory_dir | dirname }}"
+    backup_name: "{{ node.name | default(inventory_hostname) }}"
+    backup_dir: "{{ backup_root }}/{{ backup_name }}-iface"
+    backup_interface_file: "{{ backup_dir }}/interface"
+    backup_interfaces_dir: "{{ backup_dir }}/interfaces.d"
+  tasks:
+    - name: Check main interfaces file
+      ansible.builtin.stat:
+        path: /etc/network/interfaces
+      register: _interfaces_file
+
+    - name: Require main interfaces file
+      ansible.builtin.assert:
+        that:
+          - _interfaces_file.stat.exists
+          - _interfaces_file.stat.isreg
+        fail_msg: "{{ inventory_hostname }} does not have /etc/network/interfaces"
+
+    - name: Check interfaces.d directory
+      ansible.builtin.stat:
+        path: /etc/network/interfaces.d
+      register: _interfaces_dir
+
+    - name: Create local backup directories
+      delegate_to: localhost
+      become: false
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+        mode: "0755"
+      loop:
+        - "{{ backup_dir }}"
+        - "{{ backup_interfaces_dir }}"
+
+    - name: Rsync main interfaces file
+      delegate_to: localhost
+      become: false
+      ansible.builtin.command:
+        argv:
+          - rsync
+          - -a
+          - -e
+          - >-
+            ssh -i {{ ansible_ssh_private_key_file | expanduser }}{% if ansible_port is defined %} -p {{ ansible_port }}{% endif %} -o StrictHostKeyChecking=accept-new {{ ansible_ssh_common_args | default('') }}
+          - "{{ ansible_user | default('root') }}@{{ ansible_host }}:/etc/network/interfaces"
+          - "{{ backup_interface_file }}"
+      changed_when: true
+
+    - name: Rsync interfaces.d directory
+      delegate_to: localhost
+      become: false
+      ansible.builtin.command:
+        argv:
+          - rsync
+          - -a
+          - --delete
+          - -e
+          - >-
+            ssh -i {{ ansible_ssh_private_key_file | expanduser }}{% if ansible_port is defined %} -p {{ ansible_port }}{% endif %} -o StrictHostKeyChecking=accept-new {{ ansible_ssh_common_args | default('') }}
+          - "{{ ansible_user | default('root') }}@{{ ansible_host }}:/etc/network/interfaces.d/"
+          - "{{ backup_interfaces_dir }}/"
+      when:
+        - _interfaces_dir.stat.exists
+        - _interfaces_dir.stat.isdir
+      changed_when: true
+
+    - name: Report backup location
+      ansible.builtin.debug:
+        msg: "Saved {{ inventory_hostname }} network configuration to {{ backup_dir }}"
