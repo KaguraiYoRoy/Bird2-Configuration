@@ -1,8 +1,12 @@
-{% macro render_communities(community_list) %}
-{% for community in community_list %}{% if community is string %}        bgp_community.add({{ community }});
-{% elif community | length == 2 %}        bgp_community.add(({{ community | join(',') }}));
-{% else %}        bgp_large_community.add(({{ community | join(',') }}));
-{% endif %}{% endfor %}
+{% macro render_communities(community_list, community_aliases, indent='        ') -%}
+{% for community in community_list | default([]) -%}
+{% set resolved_community = (community_aliases[community] | mandatory) if community is string else community -%}
+{% if resolved_community | length == 2 -%}
+{{ indent }}bgp_community.add(({{ resolved_community | join(',') }}));
+{% else -%}
+{{ indent }}bgp_large_community.add(({{ resolved_community | join(',') }}));
+{% endif -%}
+{% endfor -%}
 {% endmacro %}
 {% set intra_static = intra.static | default({}) %}
 {% set underlay_loopback = intra_static.underlay_loopback | default({}) %}
@@ -13,11 +17,11 @@
 {% set overlay_default_communities = dn42_overlay_communities %}
 protocol static intra_static_v4{
 {% if underlay_loopback_enabled %}    route INTRA_LOOPBACKv4NET reject{
-{{ render_communities(underlay_loopback_communities) }}    };
+{{ render_communities(underlay_loopback_communities, bgp_community_aliases) }}    };
 {% endif %}{% if dn42 is defined and dn42.own_ip is defined %}    route {{ dn42.own_ip }}/32 reject{
-{{ render_communities(overlay_default_communities) }}    };
+{{ render_communities(overlay_default_communities, bgp_community_aliases) }}    };
 {% endif %}{% for route in intra_static.v4_routes | default([], true) %}    route {{ route.prefix }} reject{
-{{ render_communities(route.communities | default(overlay_default_communities)) }}    };
+{{ render_communities(route.communities | default(overlay_default_communities), bgp_community_aliases) }}    };
 {% endfor %}
     ipv4 {
         import all;
@@ -27,16 +31,16 @@ protocol static intra_static_v4{
 
 protocol static intra_static_v6{
 {% if underlay_loopback_enabled %}    route INTRA_LOOPBACKv6NET reject{
-{{ render_communities(underlay_loopback_communities) }}    };
+{{ render_communities(underlay_loopback_communities, bgp_community_aliases) }}    };
 {% endif %}{% if dn42 is defined and dn42.own_ipv6 is defined %}    route {{ dn42.own_ipv6 }}/128 reject{
-{{ render_communities(overlay_default_communities) }}    };
+{{ render_communities(overlay_default_communities, bgp_community_aliases) }}    };
 {% endif %}{% if iana is defined and iana.enabled | default(false) %}
 {% set _public_region_nibble = node.region * 2 %}
 {% set _derived_iana_ipv6 = '2a14:7583:f2%01x4::%s' | format(_public_region_nibble, node.node_token) %}
     route {{ iana.own_ipv6 | default(_derived_iana_ipv6) }}/128 reject{
-{{ render_communities(iana_overlay_communities) }}    };
+{{ render_communities(iana_overlay_communities, bgp_community_aliases) }}    };
 {% endif %}{% for route in intra_static.v6_routes | default([], true) %}    route {{ route.prefix }} reject{
-{{ render_communities(route.communities | default(overlay_default_communities)) }}    };
+{{ render_communities(route.communities | default(overlay_default_communities), bgp_community_aliases) }}    };
 {% endfor %}
     ipv6 {
         import all;
