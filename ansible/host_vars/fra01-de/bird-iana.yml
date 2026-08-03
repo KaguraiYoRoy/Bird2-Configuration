@@ -25,6 +25,5 @@ iana:
         interface: enp1s0
       communities:
       - NO_EXPORT
-      large_communities:
-      - (205369,65535,65282)
+      - [205369, 65535, 65282]
   router_id: 80.240.31.71

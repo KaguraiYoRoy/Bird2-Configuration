@@ -25,6 +25,9 @@
         bird_secrets: "{{ {'bgp_passwords': {}} | combine(bird_secrets | default({}), recursive=True) }}"
       no_log: true
 
+    - name: Validate BIRD community input
+      ansible.builtin.include_tasks: ../tasks/validate-bird-community-input.yml
+
     - name: Reset rendered node directory
       delegate_to: localhost
       ansible.builtin.file:

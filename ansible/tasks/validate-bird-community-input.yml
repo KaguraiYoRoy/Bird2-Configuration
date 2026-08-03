@@ -1,0 +1,179 @@
+- name: Validate BIRD community aliases
+  ansible.builtin.assert:
+    quiet: true
+    that:
+      - bgp_community_aliases is mapping
+      - alias.value is sequence
+      - alias.value is not string
+      - alias.value is not mapping
+      - alias.value | length in [2, 3]
+      - alias.value | select('integer') | list | length == alias.value | length
+      - alias.value | min >= 0
+      - >-
+        (
+          alias.value | length == 2
+          and alias.value | max <= 65535
+        ) or (
+          alias.value | length == 3
+          and alias.value | max <= 4294967295
+        )
+    fail_msg: >-
+      Invalid BGP community alias {{ alias.key }}={{ alias.value | to_json }}.
+      Alias values must be 2/3-integer YAML lists within BGP community bounds.
+  loop: "{{ bgp_community_aliases | dict2items }}"
+  loop_control:
+    loop_var: alias
+    label: "{{ alias.key }}"
+
+- name: Validate intra underlay loopback communities
+  ansible.builtin.include_tasks: validate-bird-community-list.yml
+  vars:
+    community_context: intra_global.underlay_loopback_communities
+    community_list: "{{ intra_global.underlay_loopback_communities | default([]) }}"
+
+- name: Validate intra DN42 overlay communities
+  ansible.builtin.include_tasks: validate-bird-community-list.yml
+  vars:
+    community_context: intra_global.dn42_overlay_route_communities
+    community_list: "{{ intra_global.dn42_overlay_route_communities | default([]) }}"
+
+- name: Validate intra IANA overlay communities
+  ansible.builtin.include_tasks: validate-bird-community-list.yml
+  vars:
+    community_context: intra_global.iana_overlay_route_communities
+    community_list: "{{ intra_global.iana_overlay_route_communities | default([]) }}"
+
+- name: Validate intra underlay loopback override communities
+  ansible.builtin.include_tasks: validate-bird-community-list.yml
+  vars:
+    community_context: intra.static.underlay_loopback.communities
+    community_list: "{{ (intra.static | default({})).underlay_loopback.communities | default([]) }}"
+  when: ((intra.static | default({})).underlay_loopback | default({})).communities is defined
+
+- name: Validate intra static IPv4 route communities
+  ansible.builtin.include_tasks: validate-bird-community-list.yml
+  vars:
+    community_context: "intra.static.v4_routes[{{ route_index }}].communities {{ route.prefix | default('unknown-prefix') }}"
+    community_list: "{{ route.communities | default([]) }}"
+  loop: "{{ (intra.static | default({})).v4_routes | default([], true) }}"
+  loop_control:
+    loop_var: route
+    index_var: route_index
+    label: "{{ route.prefix | default('unknown-prefix') }}"
+  when: route.communities is defined
+
+- name: Validate intra static IPv6 route communities
+  ansible.builtin.include_tasks: validate-bird-community-list.yml
+  vars:
+    community_context: "intra.static.v6_routes[{{ route_index }}].communities {{ route.prefix | default('unknown-prefix') }}"
+    community_list: "{{ route.communities | default([]) }}"
+  loop: "{{ (intra.static | default({})).v6_routes | default([], true) }}"
+  loop_control:
+    loop_var: route
+    index_var: route_index
+    label: "{{ route.prefix | default('unknown-prefix') }}"
+  when: route.communities is defined
+
+- name: Reject deprecated IANA advertise route large communities
+  ansible.builtin.assert:
+    quiet: true
+    that:
+      - route is not mapping or route.large_communities is not defined
+    fail_msg: >-
+      Deprecated large_communities in {{ inventory_hostname }}
+      iana.static.advertise_routes[{{ route_index }}]; use communities with
+      2/3-integer lists instead.
+  loop: "{{ (iana.static | default({})).advertise_routes | default([]) }}"
+  loop_control:
+    loop_var: route
+    index_var: route_index
+    label: "{{ route.prefix | default(route) }}"
+  when: iana.enabled | default(false)
+
+- name: Validate IANA advertise route communities
+  ansible.builtin.include_tasks: validate-bird-community-list.yml
+  vars:
+    community_context: "iana.static.advertise_routes[{{ route_index }}].communities {{ route.prefix }}"
+    community_list: "{{ route.communities | default([]) }}"
+  loop: "{{ (iana.static | default({})).advertise_routes | default([]) }}"
+  loop_control:
+    loop_var: route
+    index_var: route_index
+    label: "{{ route.prefix | default(route) }}"
+  when:
+    - iana.enabled | default(false)
+    - route is mapping
+    - route.communities is defined
+
+- name: Reject deprecated IANA grouped extra route large communities
+  ansible.builtin.assert:
+    quiet: true
+    that:
+      - route.large_communities is not defined
+    fail_msg: >-
+      Deprecated large_communities in {{ inventory_hostname }} grouped IANA
+      extra route {{ route.prefix | default('unknown-prefix') }}; use
+      communities with 2/3-integer lists instead.
+  loop: >-
+    {{
+      (iana.static | default({})).extra_routes | default([])
+      | selectattr('prefixes', 'defined')
+      | map(attribute='prefixes')
+      | flatten
+      | list
+    }}
+  loop_control:
+    loop_var: route
+    label: "{{ route.prefix | default('unknown-prefix') }}"
+  when: iana.enabled | default(false)
+
+- name: Validate IANA grouped extra route communities
+  ansible.builtin.include_tasks: validate-bird-community-list.yml
+  vars:
+    community_context: "iana.static.extra_routes[].prefixes[].communities {{ route.prefix | default('unknown-prefix') }}"
+    community_list: "{{ route.communities | default([]) }}"
+  loop: >-
+    {{
+      (iana.static | default({})).extra_routes | default([])
+      | selectattr('prefixes', 'defined')
+      | map(attribute='prefixes')
+      | flatten
+      | list
+    }}
+  loop_control:
+    loop_var: route
+    label: "{{ route.prefix | default('unknown-prefix') }}"
+  when:
+    - iana.enabled | default(false)
+    - route.communities is defined
+
+- name: Reject deprecated IANA legacy extra route large communities
+  ansible.builtin.assert:
+    quiet: true
+    that:
+      - route_group.large_communities is not defined
+    fail_msg: >-
+      Deprecated large_communities in {{ inventory_hostname }} legacy IANA
+      extra route {{ route_group.prefix | default(route_group.protocol | default(route_group.name | default('unknown'))) }};
+      use communities with 2/3-integer lists instead.
+  loop: "{{ (iana.static | default({})).extra_routes | default([]) }}"
+  loop_control:
+    loop_var: route_group
+    label: "{{ route_group.prefix | default(route_group.protocol | default(route_group.name | default('unknown'))) }}"
+  when:
+    - iana.enabled | default(false)
+    - route_group.prefixes is not defined
+
+- name: Validate IANA legacy extra route communities
+  ansible.builtin.include_tasks: validate-bird-community-list.yml
+  vars:
+    community_context: "iana.static.extra_routes[].communities {{ route_group.prefix | default(route_group.protocol | default('unknown')) }}"
+    community_list: "{{ route_group.communities | default([]) }}"
+  loop: "{{ (iana.static | default({})).extra_routes | default([]) }}"
+  loop_control:
+    loop_var: route_group
+    label: "{{ route_group.prefix | default(route_group.protocol | default(route_group.name | default('unknown'))) }}"
+  when:
+    - iana.enabled | default(false)
+    - route_group.prefixes is not defined
+    - route_group.communities is defined

@@ -10,6 +10,10 @@ iana_global:
   anycast_net_v6: 2a14:7581:0ffb::/48
   own_netset_v6: '[ 2a14:7581:0ffb::/48+, 2a14:7583:f200::/40+, 2a14:67c3:fff0::/44+, 2a14:67c3:c0::/44+ ]'
   allow_netset_v6: '[]'
+bgp_community_aliases:
+  BLACKHOLE: [65535, 666]
+  NO_EXPORT: [65535, 65281]
+  NO_ADVERTISE: [65535, 65282]
 intra_global:
   confederation_start: 4220240000
   confederation_end: 4220249999
