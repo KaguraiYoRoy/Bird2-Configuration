@@ -2,6 +2,7 @@ log/
 secrets.conf
 .rendered/
 .rendered-wireguard/
+.rendered-network/
 *-wg/
 ansible/secrets/
 __pycache__/
