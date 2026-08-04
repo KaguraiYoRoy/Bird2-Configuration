@@ -37,7 +37,6 @@ intra:
   explicit_confed_peers:
     - file: pvg_82b4.conf
       protocol: intra_ibgp_pvg_82b4
-      local_as: 4220240005
       neighbor:
         address: fe80::82b4
         interface: intra_pvg_82b4
