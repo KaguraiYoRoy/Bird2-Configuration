@@ -5,6 +5,7 @@ intra:
       wireguard:
         public_key: m7HQia4TdZB2vyI4ajcSlKv9Y/qbhsKiz+HDvsx6nno=
         listen_port: 10001
+        fwmark: '4242'
         address_mode: intra_local
       bgp:
         file: fra02.conf
@@ -14,6 +15,7 @@ intra:
       wireguard:
         public_key: vLZLdiJrDyGpUIY5y/qR5XIvyaWCcTM4uk9Y6kdIKk8=
         listen_port: 10123
+        fwmark: '4242'
         address_mode: intra_local
       bgp:
         file: cdg01.conf
@@ -23,6 +25,7 @@ intra:
       wireguard:
         public_key: As0rZo5b9Bwt4loPGl6iSdtOqkd2p6ExK/Xyoy9OmTU=
         listen_port: 10229
+        fwmark: '4242'
         address_mode: intra_local
       bgp:
         file: lax01.conf
@@ -32,6 +35,7 @@ intra:
       wireguard:
         public_key: Sh62ZCxnEcXyLq49mLP1jF4C2vWKhKMxjtZHxVUAQg4=
         listen_port: 10227
+        fwmark: '4242'
         address_mode: intra_local
       bgp:
         file: tyo01.conf
