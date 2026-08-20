@@ -91,16 +91,6 @@ dn42:
     lla: fe80::1023:2
     bgp:
       extended_next_hop: true
-  - description: https://highdef.network/
-    asn: 4242421080
-    wireguard:
-      public_key: iJXjwJGGrUTQy/P3OXmZ5lM4cjrDAd9K+vonZVUZjxY=
-      listen_port: 21080
-      fwmark: '4242'
-      endpoint: 85.113.70.18:22024
-    lla: fe80::124
-    bgp:
-      extended_next_hop: true
   - description: '@antenna000 https://blog.yuyuko.com/post/7'
     asn: 4242421117
     wireguard:
