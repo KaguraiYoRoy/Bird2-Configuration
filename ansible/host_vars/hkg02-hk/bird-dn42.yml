@@ -45,11 +45,10 @@ dn42:
   - description: '@linmontfurry'
     asn: 4242420088
     wireguard:
-      public_key: kDkJLZbrW6PWXeTJEVRWKwPpv+wsnsNthW0nDDGtMhg=
+      public_key: kAZ+q++A0oHAnZwI/CNEm2ODfahJbKeKJhjA7LbNNUw=
       listen_port: 20088
       fwmark: '4242'
-      private_key_ref: hkg02-hk/dn42_4242420088
-      endpoint: 46.20.109.97:22024
+      endpoint: 82.152.165.169:22024
     lla: fe80::88
     bgp:
       extended_next_hop: true
