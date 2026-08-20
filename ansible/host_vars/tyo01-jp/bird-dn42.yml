@@ -29,7 +29,8 @@ dn42:
       listen_port: 20021
       fwmark: '4242'
       endpoint: 178.239.125.6:22024
-    lla: fd00:5d5b:797c::1
+    ula: fd00:5d5b:797c::1
+    src: fd18:3e15:61d0::3
   - description: '@Lie_Kong https://blog.lie-kong.top/dn42/'
     asn: 4242420070
     wireguard:
