@@ -64,16 +64,6 @@ dn42:
     lla: fe80::202:2
     bgp:
       extended_next_hop: true
-  - description: '@ZeroWolf233 https://zerowolf.cn/dn42/'
-    asn: 4242420233
-    wireguard:
-      public_key: bWUSnkOds7fUAw/hh30QaORMjPi4+/PRWY8+AgqC6UU=
-      listen_port: 20233
-      fwmark: '4242'
-      endpoint: hk2.0l.ink:22024
-    lla: fe80::233
-    bgp:
-      extended_next_hop: true
   - description: '@Nuro_Atamashino'
     asn: 4242420298
     wireguard:
