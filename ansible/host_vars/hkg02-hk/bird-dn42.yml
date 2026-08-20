@@ -432,16 +432,16 @@ dn42:
     lla: fe80::2999:225
     bgp:
       extended_next_hop: true
-  - description: '@jack153376'
-    asn: 4242423376
-    wireguard:
-      public_key: tqDhZy2XJBzpctfVrwlTOccTrZFQSsaJn+5T2s0mU0s=
-      listen_port: 23376
-      fwmark: '4242'
-      endpoint: 47.243.246.14:22024
-    lla: fe80::3376
-    bgp:
-      extended_next_hop: true
+  # - description: '@jack153376' 
+  #   asn: 4242423376
+  #   wireguard:
+  #     public_key: tqDhZy2XJBzpctfVrwlTOccTrZFQSsaJn+5T2s0mU0s=
+  #     listen_port: 23376
+  #     fwmark: '4242'
+  #     endpoint: 47.243.246.14:22024
+  #   lla: fe80::3376
+  #   bgp:
+  #     extended_next_hop: true
   - description: '@LeZi9916'
     asn: 4242423377
     wireguard:
