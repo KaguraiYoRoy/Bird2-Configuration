@@ -31,16 +31,6 @@ dn42:
       endpoint: 178.239.125.6:22024
     ula: fd00:5d5b:797c::1
     src: fd18:3e15:61d0::3
-  - description: '@Lie_Kong https://blog.lie-kong.top/dn42/'
-    asn: 4242420070
-    wireguard:
-      public_key: PA5hDpcgaKsYKUyI3lLMcYojivg5LRfBuyOSsKTq1mY=
-      listen_port: 20070
-      fwmark: '4242'
-      endpoint: jp.dn42.lie-kong.top:22024
-    lla: fe80::70:1
-    bgp:
-      extended_next_hop: true
   - description: https://dn42.routedbits.io/
     asn: 4242420207
     wireguard:
