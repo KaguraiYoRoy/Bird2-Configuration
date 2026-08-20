@@ -244,7 +244,8 @@ dn42:
     wireguard:
       public_key: sLbzTRr2gfLFb24NPzDOpy8j09Y6zI+a7NkeVMdVSR8=
       listen_port: 23914
-      endpoint: us3.g-load.eu:22024
+      # endpoint: us3.g-load.eu:22024
+      endpoint: 45.67.219.231:22024
     lla: fe80::ade0
     bgp:
       extended_next_hop: true
