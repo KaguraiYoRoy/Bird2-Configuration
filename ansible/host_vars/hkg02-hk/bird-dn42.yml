@@ -28,7 +28,8 @@ dn42:
       public_key: ifY8fh4xZuIVF10FJ5PYnJBkN/NuMpLscK5serYUfBw=
       listen_port: 20055
       fwmark: '4242'
-      endpoint: 45.196.219.99:22024
+      # endpoint: global1.hk.nanami.tech:22024
+      endpoint: 154.83.86.10:22024
     lla: fe80::55
     bgp:
       extended_next_hop: true
