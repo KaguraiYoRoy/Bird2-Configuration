@@ -105,6 +105,11 @@
     _wg: "{{ peer.wireguard | default({}) }}"
     _d: "{{ dn42_wireguard_defaults | default({}) }}"
     _iface_name: "{{ _wg.interface | default('dn42_' ~ peer.asn) }}"
+    _ula_transport: "{{ peer.ula is defined and peer.src is defined }}"
+    _ula_post_up: "ip -6 addr add {{ peer.src }}/128 peer {{ peer.ula }}/128 dev %i || true"
+    _ula_post_down: "ip -6 addr del {{ peer.src }}/128 dev %i || true"
+    _post_up: "{{ (_wg.post_up | default(_d.post_up)) + ([_ula_post_up] if _ula_transport else []) }}"
+    _post_down: "{{ ([_ula_post_down] if _ula_transport else []) + (_wg.post_down | default([])) }}"
     _peer: "{{
       {'public_key': _wg.public_key,
        'allowed_ips': _wg.allowed_ips | default(_d.allowed_ips)}
@@ -119,13 +124,13 @@
        'listen_port': _wg.listen_port,
        'table': _wg.table | default(_d.table),
        'peer': _peer,
-       'post_up': _wg.post_up | default(_d.post_up)}
+       'post_up': _post_up,
+       'post_down': _post_down}
       | combine({'fwmark': _wg.fwmark}                 if _wg.fwmark is defined              else {})
       | combine({'mtu': _wg.mtu}                       if _wg.mtu is defined                 else {})
       | combine({'private_key_ref': _wg.private_key_ref} if _wg.private_key_ref is defined    else {})
       | combine({'pre_up': _wg.pre_up}                 if _wg.pre_up is defined              else {})
       | combine({'pre_down': _wg.pre_down}             if _wg.pre_down is defined            else {})
-      | combine({'post_down': _wg.post_down}           if _wg.post_down is defined           else {})
       | combine({'address_mode': _wg.address_mode}     if _wg.address_mode is defined        else {})
     }}"
 

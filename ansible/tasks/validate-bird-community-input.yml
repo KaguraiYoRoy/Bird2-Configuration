@@ -25,6 +25,20 @@
     loop_var: alias
     label: "{{ alias.key }}"
 
+- name: Validate DN42 ULA peer source pairing
+  ansible.builtin.assert:
+    quiet: true
+    that:
+      - (peer.ula is defined) == (peer.src is defined)
+    fail_msg: >-
+      Invalid DN42 peer transport config in {{ inventory_hostname }} for AS{{ peer.asn | default('unknown') }}:
+      ula and src must be defined together.
+  loop: "{{ dn42.peers | default([]) }}"
+  loop_control:
+    loop_var: peer
+    label: "AS{{ peer.asn | default('unknown') }}"
+  when: dn42 is defined
+
 - name: Validate intra underlay loopback communities
   ansible.builtin.include_tasks: validate-bird-community-list.yml
   vars:
