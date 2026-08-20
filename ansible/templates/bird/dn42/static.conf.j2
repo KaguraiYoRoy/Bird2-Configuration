@@ -1,3 +1,4 @@
+{% if dn42.own_ip is defined %}
 protocol static dn42_static_v4{
     route DN42_OWNNET reject;
 
@@ -10,7 +11,9 @@ protocol static dn42_static_v4{
         export none;
     };
 }
+{% endif %}
 
+{% if dn42.own_ipv6 is defined %}
 protocol static dn42_static_v6{
     route DN42_OWNNETv6 reject;
 
@@ -23,3 +26,4 @@ protocol static dn42_static_v6{
         export none;
     };
 }
+{% endif %}

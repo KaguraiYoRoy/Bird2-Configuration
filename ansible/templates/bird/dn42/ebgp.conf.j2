@@ -16,8 +16,15 @@ function dn42_ebgp_check_community(){
     return true;
 }
 
+{% if dn42.router_id is defined %}
+{% set dn42_router_id = dn42.router_id %}
+{% elif dn42.own_ip is defined %}
+{% set dn42_router_id = dn42.own_ip %}
+{% else %}
+{% set dn42_router_id = intra.loopback_v4 | default('100.64.%d.%d' | format(node.tier * 10 + node.region, node.node_id)) %}
+{% endif %}
 template bgp dnpeers {
-    router id {{ dn42.own_ip }};
+    router id {{ dn42_router_id }};
     local as DN42_OWNAS;
     path metric 1;
 
