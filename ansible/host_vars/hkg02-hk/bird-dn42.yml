@@ -258,16 +258,6 @@ dn42:
     lla: fe80::1888
     bgp:
       extended_next_hop: true
-  - description: https://luotianyi.eu/dn42/
-    asn: 4242421999
-    wireguard:
-      public_key: DFXS1z5X3SWfGioSTicV9dPpEgD0HiuFvpfFPQD79QY=
-      listen_port: 21999
-      fwmark: '4242'
-      endpoint: hk2.v6.dn42.luotianyi.sbs:22024
-    lla: fe80::1999
-    bgp:
-      extended_next_hop: true
   - description: '@butlanys'
     asn: 4242422018
     wireguard:
