@@ -288,16 +288,6 @@ dn42:
     lla: fe80::2034
     bgp:
       extended_next_hop: true
-  - description: '@izmimz'
-    asn: 4242422164
-    wireguard:
-      public_key: B0QyNLwiqaCY9/ar8556/a2+x37lplzVOHbvd8Qyg04=
-      listen_port: 22164
-      fwmark: '4242'
-      endpoint: hk.dn42.izm.im:32024
-    lla: fe80::2164
-    bgp:
-      extended_next_hop: true
   - description: https://iedon.net
     asn: 4242422189
     wireguard:
