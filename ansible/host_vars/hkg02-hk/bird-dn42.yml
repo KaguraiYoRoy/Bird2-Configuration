@@ -32,16 +32,6 @@ dn42:
     lla: fe80::55
     bgp:
       extended_next_hop: true
-  - description: '@Lie_Kong https://blog.lie-kong.top/dn42/'
-    asn: 4242420070
-    wireguard:
-      public_key: 3Qhit0K7maW6oMVt57KUkWDiDfZ/OWOYwzu/fYrk6iE=
-      listen_port: 20070
-      fwmark: '4242'
-      endpoint: 31.42.125.144:22024
-    lla: fe80::70:2
-    bgp:
-      extended_next_hop: true
   - description: '@linmontfurry'
     asn: 4242420088
     wireguard:
