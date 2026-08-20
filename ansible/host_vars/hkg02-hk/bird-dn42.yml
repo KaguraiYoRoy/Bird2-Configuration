@@ -114,16 +114,6 @@ dn42:
     lla: fe80::d555
     bgp:
       extended_next_hop: true
-  - description: '@v3tianyi'
-    asn: 4242420712
-    wireguard:
-      public_key: EdTexGeX46urgHTnPJYCRyRI5kV4h/jTPpN2JQKYXXo=
-      listen_port: 20712
-      fwmark: '4242'
-      endpoint: dn42.hkg6.luotianyi.us:22024
-    lla: fe80::712
-    bgp:
-      extended_next_hop: true
   - description: '@Iridoideae'
     asn: 4242421023
     wireguard:
