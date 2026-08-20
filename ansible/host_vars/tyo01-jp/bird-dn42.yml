@@ -78,7 +78,7 @@ dn42:
       listen_port: 20998
       fwmark: '4242'
       endpoint: jp1.dn42.moenet.work:32024
-    lla: fe80::998:101:2:1
+    lla: fe80::998:101:1:1
     bgp:
       extended_next_hop: true
   - description: '@Iridoideae'
