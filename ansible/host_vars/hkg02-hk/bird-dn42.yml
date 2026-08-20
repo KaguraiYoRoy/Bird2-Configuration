@@ -197,16 +197,6 @@ dn42:
     lla: fe80::9527
     bgp:
       extended_next_hop: true
-  - description: '@Xeri_Xeiu https://blog.xeiu.top/dn42-info'
-    asn: 4242421336
-    wireguard:
-      public_key: HZwPJ/2RK9UDePLUSFLeB6LWdKMcmPVoGz/9qPHFcwY=
-      listen_port: 21336
-      fwmark: '4242'
-      endpoint: hk2.dn42.xeiu.top:22024
-    lla: fe80::3:1336
-    bgp:
-      extended_next_hop: true
   - description: '@DictXiong https://beardic.cn/zh-cn/dn42/'
     asn: 4242421366
     wireguard:
