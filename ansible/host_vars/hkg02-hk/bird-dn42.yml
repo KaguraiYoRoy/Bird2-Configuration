@@ -166,17 +166,6 @@ dn42:
     lla: fe80::1117
     bgp:
       extended_next_hop: true
-  - description: '@Ximiawa_bot @Mxmilu https://milu.ink/dn42'
-    asn: 4242421166
-    wireguard:
-      public_key: f9ZDh2U0UXxtEroHUYNWzaE6TZM3hhY3eLXQQpgkvBY=
-      listen_port: 21166
-      fwmark: '4242'
-      private_key_ref: hkg02-hk/dn42_4242421166
-      endpoint: hk.dn42.milu.moe:22024
-    lla: fe80::1166
-    bgp:
-      extended_next_hop: true
   - description: '@pfxlabs https://prefixlabs.net/'
     asn: 4242421240
     wireguard:
