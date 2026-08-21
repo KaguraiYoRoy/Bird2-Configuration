@@ -383,14 +383,14 @@ dn42:
     lla: fe80::4242:4233:800d
     bgp:
       extended_next_hop: true
-  - description: '@winter_pm_bot'
+  - description: '@winter_pm_bot @XavenDN42_bot'
     asn: 4242423658
     wireguard:
-      public_key: L/ohOmR8NDe/sgaAI0md8RvT1lrPDZiLMny9QwLheAA=
+      public_key: TguH75XHV/kPTLf03KLFk9vfu6oVkahlDFeXgOnNKXQ=
       listen_port: 23658
       fwmark: '4242'
-      endpoint: 82.152.165.157:22024
-    lla: fd4e:d0:d38d:68c1::1
+      endpoint: 162.141.136.164:22024
+    lla: fe80::3658
     bgp:
       extended_next_hop: true
   - description: '@tsy_ink'
