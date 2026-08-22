@@ -111,16 +111,6 @@ dn42:
     lla: fe80::1131
     bgp:
       extended_next_hop: true
-  - description: '@Xeri_Xeiu https://blog.xeiu.top/dn42-info'
-    asn: 4242421336
-    wireguard:
-      public_key: eacDn4IjHBMavV9IeilwPmrVDoVyKBkNhgK6qUBskiM=
-      listen_port: 21336
-      fwmark: '4242'
-      endpoint: jp1-v6.dn42.xeiu.top:22024
-    lla: fe80::1336
-    bgp:
-      extended_next_hop: true
   - asn: 4242421588
     description: https://www.chrismoos.com/dn42-peering/
     wireguard:
