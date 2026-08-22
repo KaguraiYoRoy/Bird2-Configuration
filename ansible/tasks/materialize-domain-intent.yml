@@ -105,11 +105,14 @@
     _wg: "{{ peer.wireguard | default({}) }}"
     _d: "{{ dn42_wireguard_defaults | default({}) }}"
     _iface_name: "{{ _wg.interface | default('dn42_' ~ peer.asn) }}"
-    _ula_transport: "{{ peer.ula is defined and peer.src is defined }}"
-    _ula_post_up: "ip -6 addr add {{ peer.src }}/128 peer {{ peer.ula }}/128 dev %i || true"
-    _ula_post_down: "ip -6 addr del {{ peer.src }}/128 dev %i || true"
-    _post_up: "{{ (_wg.post_up | default(_d.post_up)) + ([_ula_post_up] if _ula_transport else []) }}"
-    _post_down: "{{ ([_ula_post_down] if _ula_transport else []) + (_wg.post_down | default([])) }}"
+    _transport_mode: "{{ peer.dst is defined and peer.src is defined }}"
+    _transport_is_ipv6: "{{ _transport_mode and (':' in peer.dst) }}"
+    _transport_ip_cmd: "{{ 'ip -6' if _transport_is_ipv6 else 'ip -4' }}"
+    _transport_prefixlen: "{{ 128 if _transport_is_ipv6 else 32 }}"
+    _transport_post_up: "{{ _transport_ip_cmd }} addr add {{ peer.src }}/{{ _transport_prefixlen }} peer {{ peer.dst }}/{{ _transport_prefixlen }} dev %i || true"
+    _transport_post_down: "{{ _transport_ip_cmd }} addr del {{ peer.src }}/{{ _transport_prefixlen }} dev %i || true"
+    _post_up: "{{ (_wg.post_up | default(_d.post_up)) + ([_transport_post_up] if _transport_mode else []) }}"
+    _post_down: "{{ ([_transport_post_down] if _transport_mode else []) + (_wg.post_down | default([])) }}"
     _peer: "{{
       {'public_key': _wg.public_key,
        'allowed_ips': _wg.allowed_ips | default(_d.allowed_ips)}

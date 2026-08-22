@@ -29,7 +29,7 @@ dn42:
       listen_port: 20021
       fwmark: '4242'
       endpoint: 178.239.125.6:22024
-    ula: fd00:5d5b:797c::1
+    dst: fd00:5d5b:797c::1
     src: fd18:3e15:61d0::3
   - description: https://dn42.routedbits.io/
     asn: 4242420207
@@ -130,7 +130,8 @@ dn42:
       endpoint: 202.182.101.118:58839
       address:
       - fe80::100/64
-    lla: 172.20.16.145
+    dst: 172.20.16.145
+    src: 172.20.234.227
   - description: '@messageleaf https://exploro.one/dn42'
     asn: 4242421771
     wireguard:
@@ -281,7 +282,8 @@ dn42:
       listen_port: 23264
       fwmark: '4242'
       endpoint: 140.238.228.228:51822
-    lla: fd64:8964:8964::2
+    dst: fd64:8964:8964::2
+    src: fd18:3e15:61d0::3
     bgp:
       extended_next_hop: true
   - description: https://suki.ink/dn42

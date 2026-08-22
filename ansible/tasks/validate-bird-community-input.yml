@@ -25,14 +25,15 @@
     loop_var: alias
     label: "{{ alias.key }}"
 
-- name: Validate DN42 ULA peer source pairing
+- name: Validate DN42 transport peer address pairing
   ansible.builtin.assert:
     quiet: true
     that:
-      - (peer.ula is defined) == (peer.src is defined)
+      - (peer.dst is defined) == (peer.src is defined)
+      - peer.dst is not defined or peer.src is not defined or ((':' in peer.dst) == (':' in peer.src))
     fail_msg: >-
       Invalid DN42 peer transport config in {{ inventory_hostname }} for AS{{ peer.asn | default('unknown') }}:
-      ula and src must be defined together.
+      dst and src must be defined together and use the same IP family.
   loop: "{{ dn42.peers | default([]) }}"
   loop_control:
     loop_var: peer
