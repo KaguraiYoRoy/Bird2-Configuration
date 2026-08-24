@@ -48,6 +48,12 @@ intra:
       bgp:
         file: lax01.conf
         protocol: intra_ibgp_lax01
+        ipv4:
+          import_policy: dn42_full
+          export_policy: dn42_full
+        ipv6:
+          import_policy: dn42_full
+          export_policy: dn42_full
     - node: tyo02-jp
       interface: intra_tyo02
       wireguard:
