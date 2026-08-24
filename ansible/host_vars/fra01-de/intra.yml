@@ -21,6 +21,12 @@ intra:
       bgp:
         file: cdg01.conf
         protocol: intra_ibgp_cdg01
+        ipv4:
+          import_policy: full
+          export_policy: full
+        ipv6:
+          import_policy: full
+          export_policy: full
     - node: lax01-us
       interface: intra_lax01
       wireguard:
@@ -31,6 +37,12 @@ intra:
       bgp:
         file: lax01.conf
         protocol: intra_ibgp_lax01
+        ipv4:
+          import_policy: dn42_full
+          export_policy: dn42_full
+        ipv6:
+          import_policy: dn42_full
+          export_policy: dn42_full
     - node: tyo01-jp
       interface: intra_tyo01
       wireguard:
@@ -41,3 +53,9 @@ intra:
       bgp:
         file: tyo01.conf
         protocol: intra_ibgp_tyo01
+        ipv4:
+          import_policy: full
+          export_policy: full
+        ipv6:
+          import_policy: full
+          export_policy: full
