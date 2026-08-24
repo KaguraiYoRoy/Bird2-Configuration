@@ -1,0 +1,10 @@
+description: '@moohric https://www.mhr.hk/posts/dn42-peering/'
+asn: 4242422279
+wireguard:
+  public_key: Bt0gmHMrBBCgV8/k7n8ykA31YStGc55xmyLgMyB04E0=
+  listen_port: 22279
+  fwmark: '4242'
+  endpoint: jp-nrt1.bb.mhr.hk:22024
+lla: fe80::2279
+bgp:
+  extended_next_hop: true

@@ -1,0 +1,10 @@
+description: https://blog.yuzu.im/mpage/182#node-tyo
+asn: 4242421131
+wireguard:
+  public_key: 7ZLEhruv0R7V9DUEv+BHLr5fszpp/B55aKFtVoIACno=
+  listen_port: 21131
+  fwmark: '4242'
+  endpoint: ipv4.tokyo.japan.dn42.yuzu.im:22024
+lla: fe80::1131
+bgp:
+  extended_next_hop: true

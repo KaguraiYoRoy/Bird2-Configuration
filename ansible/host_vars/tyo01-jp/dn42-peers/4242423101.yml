@@ -1,0 +1,10 @@
+description: '@Grayowo'
+asn: 4242423101
+wireguard:
+  public_key: 3jkhBO/nKqWH1M377OhTZbwAXnnquy+Ggj4UbGtP+R8=
+  listen_port: 23101
+  fwmark: '4242'
+  endpoint: 156.246.90.162:22024
+lla: fe80::3101:3
+bgp:
+  extended_next_hop: true

@@ -1,0 +1,10 @@
+description: '@winter_pm_bot @XavenDN42_bot'
+asn: 4242423658
+wireguard:
+  public_key: TguH75XHV/kPTLf03KLFk9vfu6oVkahlDFeXgOnNKXQ=
+  listen_port: 23658
+  fwmark: '4242'
+  endpoint: 162.141.136.164:22024
+lla: fe80::3658
+bgp:
+  extended_next_hop: true

@@ -1,0 +1,9 @@
+description: https://dn42.routedbits.io/
+asn: 4242420207
+wireguard:
+  public_key: s4uGYMeLV30vO/Z3+c1qrg/YA1eIMRVFYUsZEGD1hH8=
+  listen_port: 20207
+  endpoint: router.lax1.routedbits.com:52024
+lla: fe80::207
+bgp:
+  extended_next_hop: true

@@ -1,0 +1,10 @@
+description: '@zxxwdd'
+asn: 4242420337
+wireguard:
+  public_key: QK813SDMiaIhfBw9VOkpTCgQSLdUNFDmSphymv5c7To=
+  listen_port: 20337
+  mtu: 1320
+  endpoint: lax01.dn42.wwrr.ru:22024
+lla: fe80::337
+bgp:
+  extended_next_hop: true

@@ -1,0 +1,9 @@
+description: '@temu_root https://dn42.fly.dev/'
+asn: 4242421123
+wireguard:
+  public_key: Z6OKJSR1sxMBgUd1uXEe/UxoBsOvRgbTnexy7z/ryUI=
+  listen_port: 21123
+  mtu: 1340
+lla: fe80::1123
+bgp:
+  extended_next_hop: true

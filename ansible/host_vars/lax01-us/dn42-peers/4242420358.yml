@@ -1,0 +1,9 @@
+description: '@X01512'
+asn: 4242420358
+wireguard:
+  public_key: 7HzHyeA2M7yo/zVmc+e0zG+I7j2SnIx+7ZpXOca93mg=
+  listen_port: 20358
+  endpoint: 45.32.129.207:22024
+lla: fe80::358
+bgp:
+  extended_next_hop: true

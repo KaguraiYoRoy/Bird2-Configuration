@@ -1,0 +1,9 @@
+description: '@daylilies https://daylily.network/dn42'
+asn: 4242421919
+wireguard:
+  public_key: yOt9PIXDa4pzAE+XMzDv7J+CYO2qf53fnF9MvLy4iQ8=
+  listen_port: 21919
+  endpoint: 149.28.212.242:42024
+lla: fe80::1919
+bgp:
+  extended_next_hop: true

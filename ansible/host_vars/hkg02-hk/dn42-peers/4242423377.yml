@@ -1,0 +1,13 @@
+description: '@LeZi9916'
+asn: 4242423377
+wireguard:
+  public_key: XaX6/G7EQbcjsrtlxNmDc/s/VSdTxtkBxZKB2JpWIHo=
+  listen_port: 23377
+  fwmark: '4242'
+  private_key_ref: hkg02-hk/dn42_4242423377
+  address:
+  - fe80::2024/64
+  - fe80::2053:69a/64
+lla: fe80::3377
+bgp:
+  extended_next_hop: true

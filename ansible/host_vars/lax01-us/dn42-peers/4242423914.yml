@@ -1,0 +1,9 @@
+description: https://dn42.g-load.eu
+asn: 4242423914
+wireguard:
+  public_key: sLbzTRr2gfLFb24NPzDOpy8j09Y6zI+a7NkeVMdVSR8=
+  listen_port: 23914
+  endpoint: 45.67.219.231:22024
+lla: fe80::ade0
+bgp:
+  extended_next_hop: true

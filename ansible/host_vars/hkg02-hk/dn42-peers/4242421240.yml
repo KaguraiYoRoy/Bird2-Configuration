@@ -1,0 +1,10 @@
+description: '@pfxlabs https://prefixlabs.net/'
+asn: 4242421240
+wireguard:
+  public_key: FzWgCU4/y4pyGibDF5UYS13LvDCQ3569uNZJRUEIXiI=
+  listen_port: 21240
+  fwmark: '4242'
+  endpoint: 160.191.224.89:22024
+lla: fe80::1240:7
+bgp:
+  extended_next_hop: true

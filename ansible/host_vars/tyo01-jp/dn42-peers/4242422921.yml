@@ -1,0 +1,10 @@
+description: '@AndyYan123'
+asn: 4242422921
+wireguard:
+  public_key: nLyNhDOzsFUQ5LK5lrpHBlkKYkUzpzOm/p2iThlX3Dg=
+  listen_port: 22921
+  fwmark: '4242'
+  endpoint: 156.231.116.81:22024
+lla: fe80::2921
+bgp:
+  extended_next_hop: true

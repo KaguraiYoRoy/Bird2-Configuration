@@ -1,0 +1,11 @@
+asn: 4242421588
+description: https://www.chrismoos.com/dn42-peering/
+wireguard:
+  public_key: unTYSat5YjkY+BY31Q9xLSfFhTUBvn3CiDCSZxbINVM=
+  listen_port: 21588
+  fwmark: '4242'
+  endpoint: 202.182.101.118:58839
+  address:
+  - fe80::100/64
+dst: 172.20.16.145
+src: 172.20.234.227

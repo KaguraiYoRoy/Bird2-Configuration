@@ -1,0 +1,11 @@
+description: https://peer.dn42.6700.cc
+asn: 4242423088
+wireguard:
+  public_key: rBTH+JyZB0X/DkwHByrCjCojxBKr/kEOm1dTAFGHR1w=
+  listen_port: 23088
+  fwmark: '4242'
+  private_key_ref: hkg02-hk/dn42_4242423088
+  endpoint: hk1-hk.dn42.6700.cc:22024
+lla: fe80::3088:192
+bgp:
+  extended_next_hop: true

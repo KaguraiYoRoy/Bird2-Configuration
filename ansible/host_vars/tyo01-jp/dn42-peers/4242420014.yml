@@ -1,0 +1,10 @@
+description: '@fx_net01'
+asn: 4242420014
+wireguard:
+  public_key: RwS9qiSqkptO9QTje9stsxRD1CA/CR5HaDdNdPBydyU=
+  listen_port: 20014
+  fwmark: '4242'
+  endpoint: jp.dn42.fxnet.top:22024
+lla: fe80::14:1
+bgp:
+  extended_next_hop: true

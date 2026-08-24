@@ -1,0 +1,10 @@
+description: https://luotianyi.eu/dn42/
+asn: 4242421999
+wireguard:
+  public_key: vzCKl611U0MVeaIcNyb8gJgWk1p6HY6oHr1oE846Py8=
+  listen_port: 21999
+  fwmark: '4242'
+  endpoint: tyo1.dn42.luotianyi.sbs:22024
+lla: fe80::1999
+bgp:
+  extended_next_hop: true

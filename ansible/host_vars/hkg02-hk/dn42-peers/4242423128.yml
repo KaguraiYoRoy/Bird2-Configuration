@@ -1,0 +1,10 @@
+description: AS10099@foxmail.com @WOW55999 https://dn42.gtio.de/
+asn: 4242423128
+wireguard:
+  public_key: rJzBhEpXkPoEgb1SL13srNQPQOypb0GRCDudYAASAHc=
+  listen_port: 23128
+  fwmark: '4242'
+  endpoint: dn42.hk.peer.gtio.de:22024
+lla: fe80::2:3128
+bgp:
+  extended_next_hop: true

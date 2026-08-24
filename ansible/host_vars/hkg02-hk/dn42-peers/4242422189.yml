@@ -1,0 +1,11 @@
+description: https://iedon.net
+asn: 4242422189
+wireguard:
+  public_key: OlUDuWkUI9pKNsNo7Vjf/GKKVSBslh9kmqjbeYA4+34=
+  listen_port: 22189
+  fwmark: '4242'
+  private_key_ref: hkg02-hk/dn42_4242422189
+  endpoint: hk-hkg.dn42.iedon.net:60395
+lla: fe80::2189:120
+bgp:
+  extended_next_hop: true

@@ -1,0 +1,10 @@
+description: '@Auride'
+asn: 4242423310
+wireguard:
+  public_key: aC9pjzMWZhbA/sLPljUFGU1K28MSopHbKNj5yyv4uzg=
+  listen_port: 23310
+  fwmark: '4242'
+  endpoint: v4.hkg01.edge.r1.tmpfs.dev:22024
+lla: fe80::2024:3310
+bgp:
+  extended_next_hop: true

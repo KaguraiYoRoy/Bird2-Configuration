@@ -1,0 +1,10 @@
+description: 22024 https://hk42.kskb.eu.org/autopeer/action_page.php
+asn: 4242421817
+wireguard:
+  public_key: olXrGZKg3kKPdihHNfZ3zwwt+LPFQv9GMxLyA92fQl0=
+  listen_port: 21817
+  fwmark: '4242'
+  endpoint: hk.kskb.eu.org:22024
+lla: fe80::1817
+bgp:
+  extended_next_hop: true

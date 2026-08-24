@@ -13,6 +13,16 @@
       ansible.builtin.meta: end_host
       when: not (deploy.wireguard.enabled | default(wireguard_deploy.enabled | default(false)))
 
+    - name: Check DN42 peer definitions directory
+      delegate_to: localhost
+      become: false
+      ansible.builtin.stat:
+        path: "{{ inventory_dir }}/host_vars/{{ inventory_hostname }}/dn42-peers"
+      register: dn42_peer_files_dir
+
+    - name: Load DN42 peer definitions
+      ansible.builtin.include_tasks: ../tasks/load-dn42-peers.yml
+
     - name: Materialize domain intent variables
       ansible.builtin.include_tasks: ../tasks/materialize-domain-intent.yml
 

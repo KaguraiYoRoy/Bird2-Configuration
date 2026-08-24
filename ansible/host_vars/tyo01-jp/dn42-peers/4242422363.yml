@@ -1,0 +1,11 @@
+description: '@charliealexander73'
+asn: 4242422363
+wireguard:
+  public_key: rOKibWt5scg4L/0P4cx8ev3ikpK281srU/GVi8cIZgE=
+  listen_port: 22363
+  fwmark: '4242'
+  mtu: 1380
+  endpoint: oraclearm-jp.ca73.org:23672
+lla: fe80::ca73:2363:2024
+bgp:
+  extended_next_hop: true

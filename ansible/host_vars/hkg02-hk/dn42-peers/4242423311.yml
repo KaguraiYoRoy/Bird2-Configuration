@@ -1,0 +1,10 @@
+description: '@Ykino233'
+asn: 4242423311
+wireguard:
+  public_key: qleh0csj45iN7ZM75kf3fDh0erMBJGABdvzM9BD0Byw=
+  listen_port: 23311
+  fwmark: '4242'
+  endpoint: node01-bgp.hk.peakcomet.dpdns.org:22024
+lla: fe80::3311
+bgp:
+  extended_next_hop: true

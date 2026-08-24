@@ -7,6 +7,16 @@
   vars:
     node_output_dir: "{{ render_root }}/{{ inventory_hostname }}"
   tasks:
+    - name: Check DN42 peer definitions directory
+      delegate_to: localhost
+      become: false
+      ansible.builtin.stat:
+        path: "{{ inventory_dir }}/host_vars/{{ inventory_hostname }}/dn42-peers"
+      register: dn42_peer_files_dir
+
+    - name: Load DN42 peer definitions
+      ansible.builtin.include_tasks: ../tasks/load-dn42-peers.yml
+
     - name: Check optional BIRD secrets file
       delegate_to: localhost
       ansible.builtin.stat:

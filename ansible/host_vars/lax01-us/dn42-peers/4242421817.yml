@@ -1,0 +1,9 @@
+description: https://dn42.kskb.eu.org/
+asn: 4242421817
+wireguard:
+  public_key: dZzVdXbQPnWPpHk8QfW/p+MfGzAkMBuWpxEIXzQCggY=
+  listen_port: 21817
+  endpoint: us.kskb.eu.org:22024
+lla: fe80::1817
+bgp:
+  extended_next_hop: true

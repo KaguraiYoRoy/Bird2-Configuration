@@ -1,0 +1,9 @@
+description: '@WOW55999 https://dn42.gtio.de/'
+asn: 4242423128
+wireguard:
+  public_key: YwnQqLlObD7TrpGKz4qhHh5C6hatuxIU3zcdjXpYP00=
+  listen_port: 23128
+  endpoint: dn42.la.us.gtio.de:52024
+lla: fe80::1:3128
+bgp:
+  extended_next_hop: true

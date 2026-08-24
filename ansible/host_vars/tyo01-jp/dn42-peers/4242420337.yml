@@ -1,0 +1,10 @@
+description: '@zxxwdd'
+asn: 4242420337
+wireguard:
+  public_key: xZBEeAO1btrRvU7cpXTBqaw8CZsmxrfB0005OgljtmU=
+  listen_port: 20337
+  fwmark: '4242'
+  endpoint: 8.211.131.51:22024
+lla: fe80::337
+bgp:
+  extended_next_hop: true

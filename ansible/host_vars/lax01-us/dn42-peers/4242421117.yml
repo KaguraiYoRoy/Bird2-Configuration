@@ -1,0 +1,9 @@
+description: '@antenna000 https://blog.yuyuko.com/post/7'
+asn: 4242421117
+wireguard:
+  public_key: PW/+rv0B8e4tUJ9j1TWscx1sl36WwhPh9adEqoM7Jic=
+  listen_port: 21117
+  endpoint: us01.dn42.yuyuko.com:22024
+lla: fe80::1117
+bgp:
+  extended_next_hop: true

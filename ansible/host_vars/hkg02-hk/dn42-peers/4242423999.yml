@@ -1,0 +1,10 @@
+description: '@charliemoomoo'
+asn: 4242423999
+wireguard:
+  public_key: mGGBczSVKW+7UKRquI2GkbKrfxiATv9r4uF5WTP+vWI=
+  listen_port: 23999
+  fwmark: '4242'
+  endpoint: txg.node.cowgl.tech:32024
+lla: fe80::3999
+bgp:
+  extended_next_hop: true

@@ -1,0 +1,10 @@
+description: '@Sm1rkBot https://blog.bitrate.top/dn42'
+asn: 4242423997
+wireguard:
+  public_key: BwDwBx+r7zTrUZHdUeKsQFkEVEgx4iH13+0LQnCtpEE=
+  listen_port: 23997
+  fwmark: '4242'
+  endpoint: hk1.dn42.bitrate.studio:22024
+lla: fe80::3997
+bgp:
+  extended_next_hop: true

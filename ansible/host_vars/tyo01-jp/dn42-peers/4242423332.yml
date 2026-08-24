@@ -1,0 +1,10 @@
+description: https://suki.ink/dn42
+asn: 4242423332
+wireguard:
+  public_key: O75R09ATSL6ND0430jDIaBVKfGeAWoS0c6yXxeJyLUs=
+  listen_port: 23332
+  fwmark: '4242'
+  endpoint: jp.dn42.h23.moe:22024
+lla: fe80::2333
+bgp:
+  extended_next_hop: true

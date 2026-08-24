@@ -1,0 +1,10 @@
+description: http://dn42.lare.cc/
+asn: 4242423035
+wireguard:
+  public_key: oTPdRylNhX2O80e6rLejT9Fwzo7KWKZ7a3PUF4G9oEM=
+  listen_port: 23035
+  fwmark: '4242'
+  endpoint: 193.111.30.186:22024
+lla: fe80::3035:134
+bgp:
+  extended_next_hop: true

@@ -1,0 +1,10 @@
+description: '@messageleaf https://exploro.one/dn42'
+asn: 4242421771
+wireguard:
+  public_key: vKIhFMvKHDVEcRls1IH7si2MSia73H3lsXAWrrC+5zU=
+  listen_port: 21771
+  fwmark: '4242'
+  endpoint: 205.198.65.116:40004
+lla: fe80::5ec6:ff37:aec1:d0ab
+bgp:
+  extended_next_hop: true

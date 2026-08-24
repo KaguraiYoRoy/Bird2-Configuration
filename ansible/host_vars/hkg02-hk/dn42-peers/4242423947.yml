@@ -1,0 +1,10 @@
+description: https://blog.sherpherd.net/dn42.html
+asn: 4242423947
+wireguard:
+  public_key: Lz/SPcnKfbp4Z6LW7gysFxhyJXfyoett18r3kvlZcBY=
+  listen_port: 23947
+  fwmark: '4242'
+  endpoint: hk1.sherpherd.net:22024
+lla: fe80::3947:1
+bgp:
+  extended_next_hop: true

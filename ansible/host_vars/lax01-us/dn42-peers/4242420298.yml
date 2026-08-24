@@ -1,0 +1,9 @@
+description: '@Nuro_Atamashino'
+asn: 4242420298
+wireguard:
+  public_key: qp/KHe+/6jf3/Cvbkw5/0gtJih+HzhpxW0UnLXMEHiw=
+  listen_port: 20298
+  endpoint: node3.ox5.cc:22024
+lla: fe80::298
+bgp:
+  extended_next_hop: true

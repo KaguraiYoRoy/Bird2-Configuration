@@ -1,0 +1,10 @@
+description: '@Luochancy https://dn42.luocynet.com/'
+asn: 4242421857
+wireguard:
+  public_key: P7vHiRrE43ngXX5liQ5S8V01IHNTIqKVQzdG2lUpCh4=
+  listen_port: 21857
+  fwmark: '4242'
+  endpoint: hk2.dn42.luocynet.com:22024
+lla: fe80::1857:6
+bgp:
+  extended_next_hop: true

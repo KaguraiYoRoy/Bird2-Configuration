@@ -1,0 +1,10 @@
+description: '@Virtual0PTR https://blog.0xptr.top/en/about/dn42_peering'
+asn: 4242420555
+wireguard:
+  public_key: xin3e9mT1MVzPUVGG7pVIZ/FIkwOIGQNN2cVpCTLNS8=
+  listen_port: 20555
+  fwmark: '4242'
+  endpoint: 45.87.102.60:22024
+lla: fe80::d555
+bgp:
+  extended_next_hop: true

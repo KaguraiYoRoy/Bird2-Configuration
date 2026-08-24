@@ -1,0 +1,15 @@
+---
+- name: Load DN42 peer definitions
+  ansible.builtin.include_vars:
+    file: "{{ item }}"
+    name: _dn42_peer
+  loop: "{{ query('ansible.builtin.fileglob', inventory_dir ~ '/host_vars/' ~ inventory_hostname ~ '/dn42-peers/*.yml') }}"
+  loop_control:
+    label: "{{ item | basename }}"
+  register: _dn42_peer_file_results
+  when: dn42_peer_files_dir.stat.exists | default(false)
+
+- name: Build DN42 peer list from individual files
+  ansible.builtin.set_fact:
+    dn42: "{{ (dn42 | default({})) | combine({'peers': _dn42_peer_file_results.results | map(attribute='ansible_facts._dn42_peer') | list}, recursive=True) }}"
+  when: dn42_peer_files_dir.stat.exists | default(false)

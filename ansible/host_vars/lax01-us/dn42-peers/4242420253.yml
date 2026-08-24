@@ -1,0 +1,9 @@
+description: 22024 creamlike1024@outlook.com https://blog.moe233.net/dn42/
+asn: 4242420253
+wireguard:
+  public_key: C3SneO68SmagisYQ3wi5tYI2R9g5xedKkB56Y7rtPUo=
+  listen_port: 20253
+  endpoint: lv.dn42.moe233.net:22024
+lla: fe80::253
+bgp:
+  extended_next_hop: true

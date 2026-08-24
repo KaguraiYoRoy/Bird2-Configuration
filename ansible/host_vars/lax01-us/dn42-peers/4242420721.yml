@@ -1,0 +1,9 @@
+description: https://anemone.moe/posts/dn42-quickstart/ fermata@h2o.moe
+asn: 4242420721
+wireguard:
+  public_key: HBn/8dyDkC8z4kY5tGZsG3d7iyyc8SWwl5c93po580w=
+  listen_port: 20721
+  endpoint: 24.199.110.90:22024
+lla: fe80::721:1
+bgp:
+  extended_next_hop: true

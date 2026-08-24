@@ -1,0 +1,10 @@
+description: https://dn42.routedbits.io/
+asn: 4242420207
+wireguard:
+  public_key: Urnj0In2/ba5zBJ0+TvGN6/A3JFXZwWfJ3EVkc5A4Cs=
+  listen_port: 20207
+  fwmark: '4242'
+  endpoint: 172.104.99.40:52024
+lla: fe80::207
+bgp:
+  extended_next_hop: true

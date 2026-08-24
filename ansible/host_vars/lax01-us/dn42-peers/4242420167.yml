@@ -1,0 +1,9 @@
+description: '@lyc8503 http://blog.lyc8503.net/'
+asn: 4242420167
+wireguard:
+  public_key: IRpAYNTZg1YKumLqOstDOLh6iJKAwQEKC5YDFPb2Bm4=
+  listen_port: 20167
+  endpoint: sfo1.dn42.42420167.xyz:22024
+lla: fe80::167
+bgp:
+  extended_next_hop: true

@@ -1,0 +1,10 @@
+description: '@butlanys'
+asn: 4242422018
+wireguard:
+  public_key: J8LY0vaOzaxH1k3Qrhjv7/U3ATj5B29HwgmednA5rUI=
+  listen_port: 22018
+  fwmark: '4242'
+  endpoint: xiaobai.hkg.butlanys.de:22024
+lla: fe80::2018
+bgp:
+  extended_next_hop: true

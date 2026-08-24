@@ -1,0 +1,10 @@
+description: wyf@932686.xyz https://blog.wolfyang.fan/notes/dn42
+asn: 4242422034
+wireguard:
+  public_key: JMk8ABRFTEjyNFXMgT0ti3RwtH6ciaFn3lmXVmsShj0=
+  listen_port: 22034
+  fwmark: '4242'
+  endpoint: a1.932.moe:22024
+lla: fe80::2034
+bgp:
+  extended_next_hop: true

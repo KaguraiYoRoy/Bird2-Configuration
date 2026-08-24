@@ -1,0 +1,11 @@
+description: https://sdubs.vip
+asn: 4242420202
+wireguard:
+  public_key: 5YcwL93bhJqzhTxi9b1Z1ZRt2UfGVoP5jMA+UXma6HM=
+  listen_port: 20202
+  fwmark: '4242'
+  private_key_ref: hkg02-hk/dn42_4242420202
+  endpoint: dn02.hk.hk.sdubs.vip:22024
+lla: fe80::202:2
+bgp:
+  extended_next_hop: true

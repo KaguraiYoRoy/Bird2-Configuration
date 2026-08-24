@@ -1,0 +1,9 @@
+description: https://iedon.net
+asn: 4242422189
+wireguard:
+  public_key: DIw4TKAQelurK10Sh1qE6IiDKTqL1yciI5ItwBgcHFA=
+  listen_port: 22189
+  endpoint: us-lax.dn42.iedon.net:57115
+lla: fe80::2189:ef
+bgp:
+  extended_next_hop: true

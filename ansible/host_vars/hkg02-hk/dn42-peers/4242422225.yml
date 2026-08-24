@@ -1,0 +1,10 @@
+description: https://peering.maraun.de/
+asn: 4242422225
+wireguard:
+  public_key: rWTIK93+XJaP4sRvrk1gqXxAZgkz6y/axLC4mjuay1I=
+  listen_port: 22225
+  fwmark: '4242'
+  endpoint: dn42-sg.maraun.de:22024
+lla: fe80::2225
+bgp:
+  extended_next_hop: true

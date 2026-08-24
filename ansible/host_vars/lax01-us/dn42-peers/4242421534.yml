@@ -1,0 +1,9 @@
+description: factor2431@outlook.com @factor2431
+asn: 4242421534
+wireguard:
+  public_key: G2pN3V0dtE/fGltPoOPwEkvZ7wC7TLmpr9gR3x/QUTk=
+  listen_port: 21534
+  endpoint: 152.53.208.136:22024
+lla: fe80::1534
+bgp:
+  extended_next_hop: true

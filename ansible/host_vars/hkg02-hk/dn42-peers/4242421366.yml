@@ -1,0 +1,10 @@
+description: '@DictXiong https://beardic.cn/zh-cn/dn42/'
+asn: 4242421366
+wireguard:
+  public_key: EoPA+dH5xxHwUYCVpe/3afL0qQp5SQB7b2OHD8nrB30=
+  listen_port: 21366
+  fwmark: '4242'
+  endpoint: hk0.dxng.net:22024
+lla: fe80::1366
+bgp:
+  extended_next_hop: true

@@ -1,0 +1,10 @@
+description: '@opkgbot'
+lla: fe80::398
+bgp:
+  extended_next_hop: true
+asn: 4242420398
+wireguard:
+  public_key: XD66eoHp06VmDUNFUguJeOY8gFLiLZ7Lkyz/WsMQSWU=
+  listen_port: 20398
+  endpoint: hkl.dn42.boletus.icu:22024
+  fwmark: '4242'

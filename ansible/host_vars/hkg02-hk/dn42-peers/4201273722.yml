@@ -1,0 +1,10 @@
+description: '@iu_yang1 https://blog.begalaxy.top/index.php/38.html'
+asn: 4201273722
+wireguard:
+  public_key: S8BzQtSgHy+YFnnBjE0bmBYDIvCve5Tv43Y2dcVVBm4=
+  listen_port: 33722
+  fwmark: '4242'
+  endpoint: sg1.dn42.begalaxy.top:22024
+lla: fe80::1836
+bgp:
+  extended_next_hop: true

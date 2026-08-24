@@ -1,0 +1,10 @@
+description: https://launchpadx.top/dn42 @jackzeng6666
+asn: 4242423702
+wireguard:
+  public_key: G5v93xQO15JtNMKJehB2HFMB/ACX0ec6u6EUFbKblBY=
+  listen_port: 23702
+  fwmark: '4242'
+  endpoint: iij.s.launchpadx.top:52024
+lla: fe80::3702
+bgp:
+  extended_next_hop: true

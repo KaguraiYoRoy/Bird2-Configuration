@@ -1,0 +1,10 @@
+description: '@BIGGER_THAN_SHIT'
+asn: 4242421260
+wireguard:
+  public_key: 9zsuhOiSC8rKsdUNtX678wh3rTo4McJ9ueDqm1Ha8wI=
+  listen_port: 21260
+  fwmark: '4242'
+  endpoint: 405218.xyz:60113
+lla: fe80::9527
+bgp:
+  extended_next_hop: true

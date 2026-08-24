@@ -1,0 +1,11 @@
+description: https://peer.dn42.6700.cc
+asn: 4242423088
+wireguard:
+  public_key: b3gUz8an2+wSCvXAwuxGR7AnxKDUqqQMd1+LASo93R0=
+  listen_port: 23088
+  fwmark: '4242'
+  private_key_ref: tyo01-jp/dn42_4242423088
+  endpoint: 45.76.219.186:22024
+lla: fe80::3088:190
+bgp:
+  extended_next_hop: true

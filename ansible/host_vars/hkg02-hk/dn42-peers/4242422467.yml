@@ -1,0 +1,10 @@
+description: '@unstartdev https://unstartdev.eu.org/dn42'
+asn: 4242422467
+wireguard:
+  public_key: N6QLB7m3ZDmsTNoXIGm+LlrTqou4mfH9zTgRy83XMwU=
+  listen_port: 22467
+  fwmark: '4242'
+  endpoint: 45.149.92.55:22024
+lla: fe80::2467
+bgp:
+  extended_next_hop: true

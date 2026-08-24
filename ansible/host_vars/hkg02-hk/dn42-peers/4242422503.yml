@@ -1,0 +1,10 @@
+description: '@samandjyf1 https://blog.sam1314.com/DN42/'
+asn: 4242422503
+wireguard:
+  public_key: GyS7yHeu3kQykROMr6ZMix8FRUlLE/mxQWmn1zzdAUE=
+  listen_port: 22503
+  fwmark: '4242'
+  endpoint: 156.248.8.4:22024
+lla: fe80::2503
+bgp:
+  extended_next_hop: true

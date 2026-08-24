@@ -1,0 +1,10 @@
+description: '@cybercrushman'
+asn: 4242422289
+wireguard:
+  public_key: iKsbvtsdrNwM130XGWvf621+BRuuQUmz1H9hlLCPEn4=
+  listen_port: 22289
+  fwmark: '4242'
+  endpoint: jp-tyo02.pmman.tech:22024
+lla: fe80::2289
+bgp:
+  extended_next_hop: true

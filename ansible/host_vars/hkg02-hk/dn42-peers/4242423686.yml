@@ -1,0 +1,10 @@
+description: '@tsy_ink'
+asn: 4242423686
+wireguard:
+  public_key: EhU7kTcbAzWPtII68A3lfzPaYjgcjuHEkMNtQrneDlY=
+  listen_port: 23686
+  fwmark: '4242'
+  endpoint: vps-hk-hytorn.091014.xyz:22024
+lla: fe80::3686
+bgp:
+  extended_next_hop: true

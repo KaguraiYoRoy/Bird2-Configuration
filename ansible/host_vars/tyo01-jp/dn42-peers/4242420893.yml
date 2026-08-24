@@ -1,0 +1,10 @@
+description: dn42admin@maiyun.me https://maiyun.me/contact-me.html
+asn: 4242420893
+wireguard:
+  public_key: J5aq5AYRv/GHfr90mVEOPRCQeLInGS3mnSpckuyWt04=
+  listen_port: 20893
+  fwmark: '4242'
+  endpoint: jp02.dn42.maiyun.me:24224
+lla: fe80::893
+bgp:
+  extended_next_hop: true

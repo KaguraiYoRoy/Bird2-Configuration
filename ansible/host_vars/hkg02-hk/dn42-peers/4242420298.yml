@@ -1,0 +1,11 @@
+description: '@Nuro_Atamashino'
+asn: 4242420298
+wireguard:
+  public_key: v0tF03d5jK/t6hjRnOv5ddTkTxzja9HSc8SWbCQ+WzI=
+  listen_port: 20298
+  fwmark: '4242'
+  private_key_ref: hkg02-hk/dn42_4242420298
+  endpoint: node2.ox5.cc:22024
+lla: fe80::298
+bgp:
+  extended_next_hop: true

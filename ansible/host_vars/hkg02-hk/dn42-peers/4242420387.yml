@@ -1,0 +1,10 @@
+description: '@Alice_8585'
+asn: 4242420387
+wireguard:
+  public_key: krJb3l8hypXbDs8h6zNw5QQy5zdwVsRKRm1g30KnYBU=
+  listen_port: 20387
+  fwmark: '4242'
+  endpoint: 156.226.173.78:22024
+lla: fe80::387
+bgp:
+  extended_next_hop: true

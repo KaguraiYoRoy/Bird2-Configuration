@@ -1,0 +1,11 @@
+description: '@Depressed_LeslieAlexander'
+asn: 4242423264
+wireguard:
+  public_key: 3BbR49ma6Vk2xtYJ16TUhy0R/9V05N70BfHuZgUVfGE=
+  listen_port: 23264
+  fwmark: '4242'
+  endpoint: 140.238.228.228:51822
+dst: fd64:8964:8964::2
+src: fd18:3e15:61d0::3
+bgp:
+  extended_next_hop: true

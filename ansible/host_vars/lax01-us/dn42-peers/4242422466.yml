@@ -1,0 +1,9 @@
+description: '@SessX6cf https://dn42.xhustudio.eu.org/peering.html'
+asn: 4242422466
+wireguard:
+  public_key: tA6SZZYpCdr4zkkk2pCpuDDiyxcHIsksOhwWnzLIVw8=
+  listen_port: 22466
+  endpoint: 23.95.205.128:22024
+lla: fe80::2466
+bgp:
+  extended_next_hop: true

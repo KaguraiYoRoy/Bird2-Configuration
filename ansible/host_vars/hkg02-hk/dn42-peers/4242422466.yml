@@ -1,0 +1,11 @@
+description: '@SessX6cf https://dn42.xhustudio.eu.org/peering.html'
+asn: 4242422466
+wireguard:
+  public_key: 25F5Kt0fg7bTien58apDN2dLUyCN2DSe7W+Nvw7eCT4=
+  listen_port: 22466
+  fwmark: '4242'
+  mtu: 1492
+  endpoint: v4.hydrogen.xhustudio.eu.org:22024
+lla: fe80::2466
+bgp:
+  extended_next_hop: true

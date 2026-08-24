@@ -1,0 +1,10 @@
+description: '@af9af584e050'
+asn: 4242423380
+wireguard:
+  public_key: UH/8wh7yFbkvhob4vuHm0y5fqqR6mCxu0fzsggLFxw8=
+  listen_port: 23380
+  fwmark: '4242'
+  endpoint: 4.hk-akile.taroball.top:22024
+lla: fe80::4242:4233:800d
+bgp:
+  extended_next_hop: true

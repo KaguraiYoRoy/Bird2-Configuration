@@ -1,0 +1,10 @@
+description: 23746 https://jp42.whojk.com/autopeer/action_page.php
+asn: 4242422717
+wireguard:
+  public_key: Fw+pNtP7sPbrUMI2YTFcf5Fr1vtuuJoAmSTDd/ak5TU=
+  listen_port: 22717
+  fwmark: '4242'
+  endpoint: 140.238.36.33:23746
+lla: fe80::2717
+bgp:
+  extended_next_hop: true

@@ -1,0 +1,9 @@
+description: '@opkgbot'
+asn: 4242420398
+wireguard:
+  public_key: oAPy0U2qVuSR8PyPLmVLEgWLBKrOq4kcLNLAOVZL10M=
+  listen_port: 20398
+  endpoint: lax.dn42.boletus.icu:22024
+lla: fe80::398
+bgp:
+  extended_next_hop: true

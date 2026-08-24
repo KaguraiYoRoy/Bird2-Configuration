@@ -1,0 +1,10 @@
+description: '@imlonghao'
+asn: 4242421888
+wireguard:
+  public_key: RyP2/n///CanKOD1EFtiPawHfUZb14+Fg0v4pbpsrnY=
+  listen_port: 21888
+  fwmark: '4242'
+  endpoint: 154.3.37.101:22024
+lla: fe80::1888
+bgp:
+  extended_next_hop: true

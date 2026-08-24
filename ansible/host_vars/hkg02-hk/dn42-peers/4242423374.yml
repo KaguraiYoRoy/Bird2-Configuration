@@ -1,0 +1,10 @@
+description: https://dn42.baka.pub/
+asn: 4242423374
+wireguard:
+  public_key: zcxhWeI3SrJtqlHuqdeNaCeWSwJIYOTjAraXm655+VY=
+  listen_port: 23374
+  fwmark: '4242'
+  endpoint: hk01.dn42.baka.pub:22024
+lla: fe80::2999:225
+bgp:
+  extended_next_hop: true

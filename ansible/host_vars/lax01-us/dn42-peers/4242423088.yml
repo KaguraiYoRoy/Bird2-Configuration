@@ -1,0 +1,9 @@
+description: https://peer.dn42.6700.cc
+asn: 4242423088
+wireguard:
+  public_key: QSAeFPotqFpF6fFe3CMrMjrpS5AL54AxWY2w1+Ot2Bo=
+  listen_port: 23088
+  endpoint: lax1-us.dn42.6700.cc:22024
+lla: fe80::3088:193
+bgp:
+  extended_next_hop: true

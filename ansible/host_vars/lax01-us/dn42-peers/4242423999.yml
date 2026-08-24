@@ -1,0 +1,9 @@
+description: '@charliemoomoo https://hackmd.io/@cow/dn42-peering#Nodes'
+asn: 4242423999
+wireguard:
+  public_key: jhOukGNAKHI8Ivn8uI1TS25n5ho/rVlKFfenGmwCVlg=
+  listen_port: 23999
+  endpoint: lax.node.cowgl.tech:22024
+lla: fe80::2:3999
+bgp:
+  extended_next_hop: true

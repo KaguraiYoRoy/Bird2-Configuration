@@ -1,0 +1,11 @@
+description: https://lantian.pub
+asn: 4242422547
+wireguard:
+  public_key: xelzwt1j0aoKjsQnnq8jMjZNLbLucBPwPTvHgFH/czs=
+  listen_port: 22547
+  fwmark: '4242'
+  private_key_ref: hkg02-hk/dn42_4242422547
+  endpoint: v4.v-ps-hkg.lantian.pub:22024
+lla: fe80::2547
+bgp:
+  extended_next_hop: true

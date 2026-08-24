@@ -1,0 +1,10 @@
+description: '@linmontfurry'
+asn: 4242420088
+wireguard:
+  public_key: kAZ+q++A0oHAnZwI/CNEm2ODfahJbKeKJhjA7LbNNUw=
+  listen_port: 20088
+  fwmark: '4242'
+  endpoint: 82.152.165.169:22024
+lla: fe80::88
+bgp:
+  extended_next_hop: true

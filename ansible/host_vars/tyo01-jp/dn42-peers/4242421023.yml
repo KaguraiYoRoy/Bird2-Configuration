@@ -1,0 +1,10 @@
+description: '@Iridoideae'
+asn: 4242421023
+wireguard:
+  public_key: pv0bwaUm/ppI7Yaoi7w0qrXX5EW7Qo2njTSNG19AHgM=
+  listen_port: 21023
+  fwmark: '4242'
+  endpoint: 48.218.0.204:22024
+lla: fe80::1023:2
+bgp:
+  extended_next_hop: true
