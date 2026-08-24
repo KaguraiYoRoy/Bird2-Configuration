@@ -11,3 +11,9 @@ intra:
       bgp:
         file: fra01.conf
         protocol: intra_ibgp_fra01
+        ipv4:
+          import_policy: dn42_full
+          export_policy: dn42_full
+        ipv6:
+          import_policy: dn42_full
+          export_policy: dn42_full
