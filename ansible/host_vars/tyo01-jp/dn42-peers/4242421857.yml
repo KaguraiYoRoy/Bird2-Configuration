@@ -4,7 +4,8 @@ wireguard:
   public_key: 4mrkVld0RCE5Tkn0v0xkiyMiT+cDQSRfL6AoMb3rzQg=
   listen_port: 21857
   fwmark: '4242'
-  endpoint: jp1.dn42.luocynet.com:22024
+  # endpoint: jp1.dn42.luocynet.com:22024
+  endpoint: 156.231.115.239:22024
 lla: fe80::1857:239
 bgp:
   extended_next_hop: true
