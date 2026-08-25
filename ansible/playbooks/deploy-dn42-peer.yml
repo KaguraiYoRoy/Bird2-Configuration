@@ -1,0 +1,218 @@
+# Targeted deploy entrypoint for the autopeer backend.
+# Inputs:
+#   target_peer_asn: peer ASN whose dn42-peers/<asn>.yml changed
+#   target_peer_state: present or absent
+#   apply_wireguard/apply_bird: limit side effects to the changed subsystem
+- name: Deploy one DN42 peer artifact
+  hosts: bird_nodes
+  gather_facts: false
+  become: "{{ deploy.become | default(false) }}"
+  vars:
+    peer_interface: "dn42_{{ target_peer_asn }}"
+    peer_protocol: "dn42_peer_{{ target_peer_asn }}"
+    peer_bird_source: "{{ render_root }}/{{ inventory_hostname }}/dn42/peers/dn42_{{ target_peer_asn }}.conf"
+    peer_bird_target: "{{ bird_deploy.remote_dir }}/dn42/peers/dn42_{{ target_peer_asn }}.conf"
+    peer_wireguard_source: "{{ wireguard_deploy.render_root }}/{{ inventory_hostname }}/dn42_{{ target_peer_asn }}.conf"
+    peer_wireguard_target: "{{ wireguard_deploy.remote_dir }}/dn42_{{ target_peer_asn }}.conf"
+  tasks:
+    - name: Validate target peer variables
+      ansible.builtin.assert:
+        quiet: true
+        that:
+          - target_peer_asn is defined
+          - target_peer_asn | int | string == target_peer_asn | string
+          - target_peer_state | default('present') in ['present', 'absent']
+
+    - name: Apply WireGuard peer when present
+      when:
+        - apply_wireguard | default(true) | bool
+        - target_peer_state | default('present') == 'present'
+      block:
+        - name: Check rendered WireGuard peer config
+          delegate_to: localhost
+          become: false
+          ansible.builtin.stat:
+            path: "{{ peer_wireguard_source }}"
+          register: rendered_peer_wg
+
+        - name: Require rendered WireGuard peer config
+          ansible.builtin.assert:
+            quiet: true
+            that:
+              - rendered_peer_wg.stat.exists
+            fail_msg: "Render {{ inventory_hostname }} WireGuard before deploying {{ peer_interface }}."
+
+        - name: Install WireGuard peer config atomically
+          ansible.builtin.copy:
+            src: "{{ peer_wireguard_source }}"
+            dest: "{{ peer_wireguard_target }}.tmp"
+            owner: root
+            group: root
+            mode: "0600"
+          no_log: true
+
+        - name: Promote WireGuard peer config
+          ansible.builtin.command:
+            argv:
+              - mv
+              - -f
+              - "{{ peer_wireguard_target }}.tmp"
+              - "{{ peer_wireguard_target }}"
+          no_log: true
+
+        - name: Check if WireGuard interface is up
+          ansible.builtin.command: "ip link show dev {{ peer_interface }}"
+          register: peer_wg_link
+          failed_when: false
+          changed_when: false
+
+        - name: Enable and start WireGuard peer service with systemd
+          ansible.builtin.systemd:
+            name: "wg-quick@{{ peer_interface }}"
+            enabled: true
+            state: started
+          when:
+            - (deploy.service_manager | default('systemd')) == 'systemd'
+            - peer_wg_link.rc != 0
+
+        - name: Enable and start WireGuard peer service with OpenRC
+          block:
+            - ansible.builtin.file:
+                src: /etc/init.d/wg-quick
+                dest: "/etc/init.d/wg-quick.{{ peer_interface }}"
+                state: link
+            - ansible.builtin.command:
+                argv:
+                  - rc-update
+                  - add
+                  - "wg-quick.{{ peer_interface }}"
+                  - default
+            - ansible.builtin.command:
+                argv:
+                  - rc-service
+                  - "wg-quick.{{ peer_interface }}"
+                  - start
+          when:
+            - (deploy.service_manager | default('systemd')) == 'openrc'
+            - peer_wg_link.rc != 0
+
+        - name: Sync WireGuard peer config when interface already exists
+          ansible.builtin.shell: "wg syncconf {{ peer_interface | quote }} <(wg-quick strip {{ peer_wireguard_target | quote }})"
+          args:
+            executable: /bin/bash
+          when: peer_wg_link.rc == 0
+          no_log: true
+
+    - name: Remove BIRD peer before WireGuard absent
+      when:
+        - apply_bird | default(true) | bool
+        - target_peer_state | default('present') == 'absent'
+      block:
+        - name: Remove BIRD peer config
+          ansible.builtin.file:
+            path: "{{ peer_bird_target }}"
+            state: absent
+
+        - name: Parse-check live BIRD config
+          ansible.builtin.command: "{{ bird_deploy.check_command }}"
+          args:
+            chdir: "{{ bird_deploy.remote_dir }}"
+          changed_when: false
+
+        - name: Reload BIRD configuration
+          ansible.builtin.command: "{{ bird_deploy.reload_command }}"
+
+    - name: Apply BIRD peer when present
+      when:
+        - apply_bird | default(true) | bool
+        - target_peer_state | default('present') == 'present'
+      block:
+        - name: Check rendered BIRD peer config
+          delegate_to: localhost
+          become: false
+          ansible.builtin.stat:
+            path: "{{ peer_bird_source }}"
+          register: rendered_peer_bird
+
+        - name: Require rendered BIRD peer config
+          ansible.builtin.assert:
+            quiet: true
+            that:
+              - rendered_peer_bird.stat.exists
+            fail_msg: "Render {{ inventory_hostname }} BIRD before deploying {{ peer_protocol }}."
+
+        - name: Ensure remote BIRD peer directory exists
+          ansible.builtin.file:
+            path: "{{ bird_deploy.remote_dir }}/dn42/peers"
+            state: directory
+            owner: root
+            group: root
+            mode: "0755"
+
+        - name: Install BIRD peer config atomically
+          ansible.builtin.copy:
+            src: "{{ peer_bird_source }}"
+            dest: "{{ peer_bird_target }}.tmp"
+            owner: root
+            group: root
+            mode: "0644"
+
+        - name: Promote BIRD peer config
+          ansible.builtin.command:
+            argv:
+              - mv
+              - -f
+              - "{{ peer_bird_target }}.tmp"
+              - "{{ peer_bird_target }}"
+
+        - name: Parse-check live BIRD config
+          ansible.builtin.command: "{{ bird_deploy.check_command }}"
+          args:
+            chdir: "{{ bird_deploy.remote_dir }}"
+          changed_when: false
+
+        - name: Reload BIRD configuration
+          ansible.builtin.command: "{{ bird_deploy.reload_command }}"
+
+        - name: Show target BIRD protocol
+          ansible.builtin.command: "birdc show protocol {{ peer_protocol }}"
+          changed_when: false
+          failed_when: false
+
+    - name: Remove WireGuard peer when absent
+      when:
+        - apply_wireguard | default(true) | bool
+        - target_peer_state | default('present') == 'absent'
+      block:
+        - name: Stop and disable WireGuard peer service with systemd
+          ansible.builtin.systemd:
+            name: "wg-quick@{{ peer_interface }}"
+            enabled: false
+            state: stopped
+          failed_when: false
+          when: (deploy.service_manager | default('systemd')) == 'systemd'
+
+        - name: Stop and disable WireGuard peer service with OpenRC
+          block:
+            - ansible.builtin.command:
+                argv:
+                  - rc-service
+                  - "wg-quick.{{ peer_interface }}"
+                  - stop
+              failed_when: false
+            - ansible.builtin.command:
+                argv:
+                  - rc-update
+                  - del
+                  - "wg-quick.{{ peer_interface }}"
+                  - default
+              failed_when: false
+            - ansible.builtin.file:
+                path: "/etc/init.d/wg-quick.{{ peer_interface }}"
+                state: absent
+          when: (deploy.service_manager | default('systemd')) == 'openrc'
+
+        - name: Remove WireGuard peer config
+          ansible.builtin.file:
+            path: "{{ peer_wireguard_target }}"
+            state: absent
