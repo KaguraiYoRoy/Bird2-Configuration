@@ -4,6 +4,8 @@ node:
   region: 2
   node_id: 2
   node_token: "d131"
+  peering:
+    enabled: false
 deploy:
   service_manager: openrc
   bird:

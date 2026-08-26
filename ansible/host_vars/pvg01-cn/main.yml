@@ -4,6 +4,8 @@ node:
   region: 1
   node_id: 1
   node_token: "5fac"
+  peering:
+    enabled: false
 deploy:
   service_manager: systemd
   bird:

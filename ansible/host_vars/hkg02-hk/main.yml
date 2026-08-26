@@ -4,6 +4,8 @@ node:
   region: 1
   node_id: 3
   node_token: "7d89"
+  peering:
+    enabled: true
 deploy:
   service_manager: systemd
   bird:
