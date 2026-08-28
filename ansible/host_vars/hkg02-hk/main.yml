@@ -6,6 +6,9 @@ node:
   node_token: "7d89"
   peering:
     enabled: true
+    display_name:
+    subtitle:
+    protocol_stack: dual_stack
     endpoint:
     publickey:
     listen_port_policy:

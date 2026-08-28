@@ -6,13 +6,16 @@ node:
   node_token: "de75"
   peering:
     enabled: true
+    display_name:
+    subtitle:
+    protocol_stack: dual_stack
     endpoint:
     publickey:
     listen_port_policy:
-      mode: range
-      range:
-        min: 52000
-        max: 52999
+      mode: asn_suffix
+      # range:
+      #   min: 52000
+      #   max: 52999
     exporters:
       wireguard:
       bird:

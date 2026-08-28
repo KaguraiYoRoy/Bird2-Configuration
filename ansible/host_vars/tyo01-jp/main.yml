@@ -5,7 +5,21 @@ node:
   node_id: 6
   node_token: "63f4"
   peering:
-    enabled: false
+    enabled: true
+    display_name:
+    subtitle:
+    protocol_stack: dual_stack
+    endpoint:
+    publickey:
+    listen_port_policy:
+      mode: asn_suffix
+      # range:
+      #   min: 52000
+      #   max: 52999
+    exporters:
+      wireguard:
+      bird:
+      node:
 deploy:
   service_manager: systemd
   bird:
