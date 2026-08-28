@@ -6,6 +6,17 @@ node:
   node_token: "de75"
   peering:
     enabled: true
+    endpoint:
+    publickey:
+    listen_port_policy:
+      mode: range
+      range:
+        min: 52000
+        max: 52999
+    exporters:
+      wireguard:
+      bird:
+      node:
 deploy:
   service_manager: systemd
   bird:

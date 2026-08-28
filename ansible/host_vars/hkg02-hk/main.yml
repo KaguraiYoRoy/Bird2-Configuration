@@ -6,6 +6,14 @@ node:
   node_token: "7d89"
   peering:
     enabled: true
+    endpoint:
+    publickey:
+    listen_port_policy:
+      mode: asn_suffix
+    exporters:
+      wireguard:
+      bird:
+      node:
 deploy:
   service_manager: systemd
   bird:
