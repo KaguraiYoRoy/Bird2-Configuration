@@ -1,14 +1,36 @@
+{% set peer_bgp = peer.bgp | default({}) %}
+{% if peer_bgp.sessions is defined and peer_bgp.sessions | length > 0 %}
+{% for session in peer_bgp.sessions %}
+protocol bgp 'dn42_peer_{{ peer.asn }}{% if session.name != 'mp-bgp' %}_{{ session.name }}{% endif %}' from dnpeers {
+{% if peer.description is defined and peer.description is not none %}    description "{{ peer.description | replace('\\', '\\\\') | replace('"', '\\"') }}";
+{% endif %}{% if session.transport == 'ipv6_link_local' %}    neighbor {{ session.neighbor }}{% if session.interface is defined and session.interface %} % '{{ session.interface }}'{% endif %} as {{ peer.asn }};
+{% else %}    neighbor {{ session.neighbor }} as {{ peer.asn }};
+    source address {{ session.source }};
+{% endif %}{% if session.extended_next_hop | default(false) %}    ipv4 {
+        extended next hop;
+    };
+{% elif 'ipv4' not in session.address_families %}    ipv4 {
+        import none;
+        export none;
+    };
+{% endif %}{% if 'ipv6' not in session.address_families %}    ipv6 {
+        import none;
+        export none;
+    };
+{% endif %}};
+{% endfor %}
+{% else %}
 {% set peer_interface = peer.neighbor.interface | default(peer.wireguard.interface | default('dn42_' ~ peer.asn)) %}
 {% set peer_lla = peer.lla | default(peer.neighbor.address) %}
 {% set peer_dst_mode = peer.dst is defined and peer.src is defined %}
-{% set peer_bgp = peer.bgp | default({}) %}
 {% set peer_extended_next_hop = peer_bgp.extended_next_hop | default(peer.ipv4.extended_next_hop | default(false)) %}
 protocol bgp 'dn42_peer_{{ peer.asn }}' from dnpeers {
-{% if peer.description is defined and peer.description is not none %}    description "{{ peer.description | replace('\\', '\\\\') | replace('\"', '\\"') }}";
+{% if peer.description is defined and peer.description is not none %}    description "{{ peer.description | replace('\\', '\\\\') | replace('"', '\\"') }}";
 {% endif %}{% if peer_dst_mode %}    neighbor {{ peer.dst }} as {{ peer.asn }}{% if peer.neighbor.port is defined %} port {{ peer.neighbor.port }}{% endif %};
     source address {{ peer.src }};
 {% else %}    neighbor {{ peer_lla }}{% if peer_interface %} % '{{ peer_interface }}'{% endif %} as {{ peer.asn }}{% if peer.neighbor.port is defined %} port {{ peer.neighbor.port }}{% endif %};
-{% endif %}{% if peer_extended_next_hop %}    ipv4{
+{% endif %}{% if peer_extended_next_hop %}    ipv4 {
         extended next hop;
     };
 {% endif %}};
+{% endif %}
