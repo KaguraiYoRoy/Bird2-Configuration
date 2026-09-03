@@ -13,14 +13,16 @@ iana:
       asn: 197817
     as_set: "AS197817:AS-PARTNERS"
   peers: 
-  - protocol: iana_ix_tyix_v4
+  - protocol: iana_ix_402298_v4
+    description: "TYIX https://tyo.cxix.net/"
     local: 	23.154.164.153
     neighbor:
       address: 	23.154.164.129
       asn: 402298
     as_set: "none"
     enforce_first_as: false
-  - protocol: iana_ix_tyix_v6
+  - protocol: iana_ix_402298_v6
+    description: "TYIX https://tyo.cxix.net/"
     local: 2602:f429:31::1a
     neighbor:
       address: 2602:f429:31::1
