@@ -52,10 +52,10 @@ filter intra_ibgp_import_iana_full {
     if bgp_community ~ [(65535,65282)] then reject;
 
     # control: reject dn42
-    if bgp_large_community ~ [(4242422024,1,1)] then reject;
+    if bgp_large_community ~ [(4242422024,2,*)] then reject;
 
     # control: allow from iana
-    if bgp_large_community ~ [(205369,1,1)] then accept;
+    if bgp_large_community ~ [(205369,2,*)] then accept;
 
     # default: reject
     reject;
@@ -68,10 +68,10 @@ filter intra_ibgp_export_iana_full {
     if bgp_community ~ [(65535,65282)] then reject;
 
     # control: reject from dn42
-    if bgp_large_community ~ [(4242422024,1,1)] then reject;
+    if bgp_large_community ~ [(4242422024,2,*)] then reject;
 
     # control: allow from iana
-    if bgp_large_community ~ [(205369,1,1)] then accept;
+    if bgp_large_community ~ [(205369,2,*)] then accept;
 
     # default: reject
     reject;
@@ -85,10 +85,10 @@ filter intra_ibgp_import_dn42_full {
     if bgp_community ~ [(65535,65282)] then reject;
 
     # control: reject from iana
-    if bgp_large_community ~ [(205369,1,1)] then reject;
+    if bgp_large_community ~ [(205369,2,*)] then reject;
 
     # control: allow from dn42
-    if bgp_large_community ~ [(4242422024,1,1)] then accept;
+    if bgp_large_community ~ [(4242422024,2,*)] then accept;
 
     # default: reject
     reject;
@@ -101,10 +101,10 @@ filter intra_ibgp_export_dn42_full {
     if bgp_community ~ [(65535,65282)] then reject;
 
     # control: reject from iana
-    if bgp_large_community ~ [(205369,1,1)] then reject;
+    if bgp_large_community ~ [(205369,2,*)] then reject;
 
     # control: allow from dn42
-    if bgp_large_community ~ [(4242422024,1,1)] then accept;
+    if bgp_large_community ~ [(4242422024,2,*)] then accept;
 
     # default: reject
     reject;
@@ -118,7 +118,7 @@ filter intra_ibgp_import_full {
     if bgp_community ~ [(65535,65282)] then reject;
 
     # require known origin
-    if bgp_large_community ~ [(205369,1,1)] || bgp_large_community ~ [(4242422024,1,1)] then accept;
+    if bgp_large_community ~ [(205369,2,*)] || bgp_large_community ~ [(4242422024,2,*)] then accept;
 
     # default: reject
     reject;
@@ -131,7 +131,7 @@ filter intra_ibgp_export_full {
     if bgp_community ~ [(65535,65282)] then reject;
 
     # require known origin
-    if bgp_large_community ~ [(205369,1,1)] || bgp_large_community ~ [(4242422024,1,1)] then accept;
+    if bgp_large_community ~ [(205369,2,*)] || bgp_large_community ~ [(4242422024,2,*)] then accept;
 
     # default: reject
     reject;
