@@ -8,14 +8,14 @@ bird_nodes:
     fra02-de:
       ansible_host: ipv6.fra02-de.ecs.iyoroy-infra.top
     hkg01-hk:
-      ansible_host: ipv4.hkg01-cn.ecs.iyoroy-infra.top
-      ansible_ssh_common_args: '-o ProxyCommand="ssh -W %h:%p -q -i ~/keys/default/id_ed25519 root@pvg-cn.ecs.iyoroy-infra.top"'
+      ansible_host: ipv4.hkg01-hk.ecs.iyoroy-infra.top
+      ansible_ssh_common_args: '-o ProxyCommand="ssh -W %h:%p -q -i ~/keys/default/id_ed25519 root@pvg01-cn.ecs.iyoroy-infra.top"'
     hkg02-hk:
-      ansible_host: ipv4.hkg02-cn.ecs.iyoroy-infra.top
-      ansible_ssh_common_args: '-o ProxyJump=root@ipv4.pvg-cn.ecs.iyoroy-infra.top,root@ipv4.szx-cn.ecs.iyoroy-infra.top:13200'
+      ansible_host: ipv4.hkg02-hk.ecs.iyoroy-infra.top
+      ansible_ssh_common_args: '-o ProxyJump=root@ipv4.pvg01-cn.ecs.iyoroy-infra.top,root@ipv4.hkg04-hk.ecs.iyoroy-infra.top:13200'
     hkg03-hk:
-      ansible_host: ipv4.hkg03-cn.ecs.iyoroy-infra.top
-      ansible_ssh_common_args: '-o ProxyJump=root@ipv4.pvg-cn.ecs.iyoroy-infra.top,root@ipv4.szx-cn.ecs.iyoroy-infra.top:13200'
+      ansible_host: ipv4.hkg03-hk.ecs.iyoroy-infra.top
+      ansible_ssh_common_args: '-o ProxyJump=root@ipv4.pvg01-cn.ecs.iyoroy-infra.top,root@ipv4.hkg04-hk.ecs.iyoroy-infra.top:13200'
     lax01-us:
       ansible_host: ipv4.lax-us.ecs.iyoroy-infra.top
     tyo01-jp:
@@ -25,13 +25,13 @@ bird_nodes:
     tyo03-jp:
       ansible_host: 114.111.176.35
       ansible_port: 6400
-      ansible_ssh_common_args: '-o ProxyJump=root@pvg-cn.ecs.iyoroy-infra.top'
+      ansible_ssh_common_args: '-o ProxyJump=root@pvg01-cn.ecs.iyoroy-infra.top'
     pvg01-cn:
-      ansible_host: ipv4.pvg-cn.ecs.iyoroy-infra.top
+      ansible_host: ipv4.pvg01-cn.ecs.iyoroy-infra.top
     hkg04-hk:
-      ansible_host: ipv4.szx-cn.ecs.iyoroy-infra.top
+      ansible_host: ipv4.hkg04-hk.ecs.iyoroy-infra.top
       ansible_port: 13200
-      ansible_ssh_common_args: '-o ProxyCommand="ssh -W %h:%p -q -i ~/keys/default/id_ed25519 root@pvg-cn.ecs.iyoroy-infra.top"'
+      ansible_ssh_common_args: '-o ProxyCommand="ssh -W %h:%p -q -i ~/keys/default/id_ed25519 root@pvg01-cn.ecs.iyoroy-infra.top"'
     cdg01-fr:
       ansible_host: ipv4.cdg01-fr.ecs.iyoroy-infra.top
       ansible_port: 50224
