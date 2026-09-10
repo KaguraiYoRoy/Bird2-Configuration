@@ -8,6 +8,9 @@ wireguard:
   address:
   - fe80::2024/64
   - fe80::2053:69a/64
+  allowed_ips:
+  - 0.0.0.0/0
+  - ::/0
 lla: fe80::3377
 bgp:
   extended_next_hop: true

@@ -97,8 +97,8 @@ intra:
         address: fe80::2053:69b
         interface: dn42_4242423377
       ipv4:
-        import_policy: iana_full
-        export_policy: iana_full
+        import_policy: 3377confed_iana
+        export_policy: 3377confed_iana
       ipv6:
-        import_policy: iana_full
-        export_policy: iana_full
+        import_policy: 3377confed_iana
+        export_policy: 3377confed_iana

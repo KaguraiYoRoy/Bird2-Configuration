@@ -138,6 +138,45 @@ filter intra_ibgp_export_full {
 }
 {% endif %}
 
+{% if '3377confed_iana' in ns.import_policies %}
+filter intra_ibgp_import_3377confed_iana {
+    # no-advertise
+    if bgp_large_community ~ [(205369,65535,65282)] || bgp_large_community ~ [(4242422024,65535,65282)] then reject;
+    if bgp_community ~ [(65535,65282)] then reject;
+
+    # control: allow from iana
+    if bgp_large_community ~ [(205369,2,*)] then accept;
+
+    # allow from 3377 igp
+    if bgp_large_community ~ [(4242423377, 0, 36)] then {
+        bgp_large_community.add((205369,2,100));
+        accept;
+    }
+
+    # default: reject
+    reject;
+}
+{% endif %}
+{% if '3377confed_iana' in ns.export_policies %}
+filter intra_ibgp_export_3377confed_iana {
+    # no-advertise
+    if bgp_large_community ~ [(205369,65535,65282)] || bgp_large_community ~ [(4242422024,65535,65282)] then reject;
+    if bgp_community ~ [(65535,65282)] then reject;
+
+    # control: allow from iana
+    if bgp_large_community ~ [(205369,2,*)] then accept;
+
+    # allow from 3377 igp
+    if bgp_large_community ~ [(4242423377, 0, 36)] then {
+        bgp_large_community.delete((205369,2,100));
+        accept;
+    }
+
+    # default: reject
+    reject;
+}
+{% endif %}
+
 template bgp intra_ibgpeers {
     router   id INTRA_ROUTERID;
     local    as INTRA_OWNAS;
